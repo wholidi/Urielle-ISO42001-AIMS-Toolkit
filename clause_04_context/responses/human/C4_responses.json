@@ -1,0 +1,23 @@
+[
+  {
+    "question_id": "C4-Q01",
+    "response": "The organization has identified internal and external AI governance issues in the Context Register. Evidence is stored in Clause4_Context_Register.xlsx. Owner: AI Governance Lead. Date: 2026-07-04.",
+    "auditor_note": "Initial evidence appears available."
+  },
+  {
+    "question_id": "C4-Q02",
+    "response": "Interested parties have been identified in the Stakeholder Register. The register includes internal management, AI system owner, users, auditors, customers, regulators, legal/compliance, IT/security, and affected stakeholders. Relevant AI-related requirements include transparency, accountability, risk management, human oversight, data protection, auditability, incident handling, and regulatory compliance. Evidence is stored in Clause4_Stakeholder_Register.xlsx. Owner: AI Governance Lead. Date: 2026-07-04.",
+    "auditor_note": "Stakeholder register and AI-related requirements have been documented for initial Clause 4.2 review."
+  },
+  {
+
+  "question_id": "C4-Q03",
+  "response": "The AIMS scope has been defined in the AIMS Scope Statement. The scope includes the Urielle AI audit assistant, Clause 4 evidence collection, human review workflow, and audit report generation. Exclusions include production deployment, automated certification decisions, and third-party model training. The AI system boundary and organizational boundary are documented. Evidence is stored in Clause4_AIMS_Scope_Statement.xlsx. Owner: AI Governance Lead. Date: 2026-07-04.",
+  "auditor_note": "Initial scope evidence provided for review."
+  },
+  {
+  "question_id": "C4-Q04",
+  "response": "The organization has established an initial AI Management System process map. The AIMS process includes context review, stakeholder requirement review, scope definition, AI risk identification, evidence collection, human review, gap detection, reporting, and continual improvement. Process interactions are documented through the Clause 4 evidence workflow and readiness report generation. Evidence is stored in Clause4_AIMS_Process_Map.xlsx. Owner: AI Governance Lead. Date: 2026-07-04.",
+  "auditor_note": "Initial AIMS process map and interaction evidence provided for Clause 4.4 review."
+  }
+]

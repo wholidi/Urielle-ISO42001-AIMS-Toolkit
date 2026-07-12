@@ -1,0 +1,36 @@
+[
+  {
+    "question_id": "C4-Q01",
+    "clause": "4.1",
+    "title": "Context of the organization",
+    "question": "Has the organization identified internal and external issues relevant to its AI Management System?",
+    "expected_evidence": [
+      "context register",
+      "internal and external issue list",
+      "business, legal, technical, and stakeholder context"
+    ]
+  },
+  {
+    "question_id": "C4-Q02",
+    "clause": "4.2",
+    "title": "Interested parties",
+    "question": "Has the organization identified interested parties and their relevant AI-related requirements?",
+    "expected_evidence": [
+      "stakeholder register",
+      "regulatory expectations",
+      "customer, user, management, and authority requirements"
+    ]
+  },
+  {
+    "question_id": "C4-Q03",
+    "clause": "4.3",
+    "title": "AIMS scope",
+    "question": "Has the organization defined the scope and boundaries of the AI Management System?",
+    "expected_evidence": [
+      "AIMS scope statement",
+      "AI system boundary",
+      "included and excluded AI systems",
+      "organizational boundary"
+    ]
+    }
+  ]

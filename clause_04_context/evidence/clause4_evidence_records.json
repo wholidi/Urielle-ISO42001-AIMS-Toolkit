@@ -1,0 +1,109 @@
+[
+  {
+    "session_id": "CLAUSE4-DEMO-001",
+    "question_id": "C4-Q01",
+    "clause": "4.1",
+    "title": "Context of the organization",
+    "question": "Has the organization identified internal and external issues relevant to its AI Management System?",
+    "expected_evidence": [
+      "context register",
+      "internal and external issue list",
+      "business, legal, technical, and stakeholder context"
+    ],
+    "response": "The organization has identified internal and external AI governance issues in the Context Register. Evidence is stored in Clause4_Context_Register.xlsx. Owner: AI Governance Lead. Date: 2026-07-04.",
+    "response_source_type": "human_file",
+    "actual_evidence_references": [
+      {
+        "reference_type": "file_reference",
+        "reference_name": "Clause4_Context_Register.xlsx",
+        "extracted_from": "human_response"
+      }
+    ],
+    "confidence_score": 1.0,
+    "confidence_type": "rule_based_response_quality",
+    "auditor_note": "Initial evidence appears available.",
+    "auditor_flag": false,
+    "timestamp": "2026-07-12T14:47:40.469093+00:00"
+  },
+  {
+    "session_id": "CLAUSE4-DEMO-001",
+    "question_id": "C4-Q02",
+    "clause": "4.2",
+    "title": "Interested parties",
+    "question": "Has the organization identified interested parties and their relevant AI-related requirements?",
+    "expected_evidence": [
+      "stakeholder register",
+      "regulatory expectations",
+      "customer, user, management, and authority requirements"
+    ],
+    "response": "Interested parties have been identified in the Stakeholder Register. The register includes internal management, AI system owner, users, auditors, customers, regulators, legal/compliance, IT/security, and affected stakeholders. Relevant AI-related requirements include transparency, accountability, risk management, human oversight, data protection, auditability, incident handling, and regulatory compliance. Evidence is stored in Clause4_Stakeholder_Register.xlsx. Owner: AI Governance Lead. Date: 2026-07-04.",
+    "response_source_type": "human_file",
+    "actual_evidence_references": [
+      {
+        "reference_type": "file_reference",
+        "reference_name": "Clause4_Stakeholder_Register.xlsx",
+        "extracted_from": "human_response"
+      }
+    ],
+    "confidence_score": 1.0,
+    "confidence_type": "rule_based_response_quality",
+    "auditor_note": "Stakeholder register and AI-related requirements have been documented for initial Clause 4.2 review.",
+    "auditor_flag": false,
+    "timestamp": "2026-07-12T14:47:40.469093+00:00"
+  },
+  {
+    "session_id": "CLAUSE4-DEMO-001",
+    "question_id": "C4-Q03",
+    "clause": "4.3",
+    "title": "AIMS scope",
+    "question": "Has the organization defined the scope and boundaries of the AI Management System?",
+    "expected_evidence": [
+      "AIMS scope statement",
+      "AI system boundary",
+      "included and excluded AI systems",
+      "organizational boundary"
+    ],
+    "response": "The AIMS scope has been defined in the AIMS Scope Statement. The scope includes the Urielle AI audit assistant, Clause 4 evidence collection, human review workflow, and audit report generation. Exclusions include production deployment, automated certification decisions, and third-party model training. The AI system boundary and organizational boundary are documented. Evidence is stored in Clause4_AIMS_Scope_Statement.xlsx. Owner: AI Governance Lead. Date: 2026-07-04.",
+    "response_source_type": "human_file",
+    "actual_evidence_references": [
+      {
+        "reference_type": "file_reference",
+        "reference_name": "Clause4_AIMS_Scope_Statement.xlsx",
+        "extracted_from": "human_response"
+      }
+    ],
+    "confidence_score": 1.0,
+    "confidence_type": "rule_based_response_quality",
+    "auditor_note": "Initial scope evidence provided for review.",
+    "auditor_flag": false,
+    "timestamp": "2026-07-12T14:47:40.469093+00:00"
+  },
+  {
+    "session_id": "CLAUSE4-DEMO-001",
+    "question_id": "C4-Q04",
+    "clause": "4.4",
+    "title": "AI Management System",
+    "question": "Has the organization established, implemented, maintained, and continually improved an AI Management System, including the processes needed and their interactions?",
+    "expected_evidence": [
+      "AIMS process map",
+      "AI management system process description",
+      "process interaction diagram",
+      "governance workflow",
+      "continual improvement mechanism"
+    ],
+    "response": "The organization has established an initial AI Management System process map. The AIMS process includes context review, stakeholder requirement review, scope definition, AI risk identification, evidence collection, human review, gap detection, reporting, and continual improvement. Process interactions are documented through the Clause 4 evidence workflow and readiness report generation. Evidence is stored in Clause4_AIMS_Process_Map.xlsx. Owner: AI Governance Lead. Date: 2026-07-04.",
+    "response_source_type": "human_file",
+    "actual_evidence_references": [
+      {
+        "reference_type": "file_reference",
+        "reference_name": "Clause4_AIMS_Process_Map.xlsx",
+        "extracted_from": "human_response"
+      }
+    ],
+    "confidence_score": 1.0,
+    "confidence_type": "rule_based_response_quality",
+    "auditor_note": "Initial AIMS process map and interaction evidence provided for Clause 4.4 review.",
+    "auditor_flag": false,
+    "timestamp": "2026-07-12T14:47:40.469093+00:00"
+  }
+]
