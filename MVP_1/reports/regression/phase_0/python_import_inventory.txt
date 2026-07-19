@@ -1,0 +1,12 @@
+MVP_1\clause_04_context\run_clause04_demo.py:1: import json
+MVP_1\clause_04_context\run_clause04_demo.py:2: from pathlib import Path
+MVP_1\clause_04_context\run_clause04_demo.py:3: from datetime import datetime, UTC
+MVP_1\clause_04_context\run_clause04_demo.py:5: from clause_04_context.validator.validator import score_response, requires_auditor_review
+MVP_1\clause_04_context\run_clause04_demo.py:6: from clause_04_context.schema.evidence import create_evidence_record
+MVP_1\clause_04_context\run_clause04_demo.py:7: from clause_04_context.fabric.gap_detector import detect_gaps, calculate_readiness
+MVP_1\clause_04_context\run_clause04_demo.py:8: from clause_04_context.validator.input_validator import raise_if_invalid_inputs
+MVP_1\clause_04_context\schema\evidence.py:1: from dataclasses import dataclass, asdict
+MVP_1\clause_04_context\schema\evidence.py:2: from datetime import datetime, UTC
+MVP_1\clause_04_context\schema\evidence.py:3: from typing import Dict, Any, List
+MVP_1\clause_04_context\schema\evidence.py:4: import re
+MVP_1\clause_04_context\validator\validator.py:1: import re

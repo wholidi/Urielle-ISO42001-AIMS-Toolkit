@@ -1,0 +1,324 @@
+
+===== def run =====
+
+===== def main =====
+MVP_1\clause_04_context\run_clause04_demo.py:143: def main():
+
+===== __main__ =====
+MVP_1\clause_04_context\run_clause04_demo.py:188: if __name__ == "__main__":
+
+===== validator =====
+MVP_1\clause_04_context\run_clause04_demo.py:5: from clause_04_context.validator.validator import score_response, requires_auditor_review
+MVP_1\clause_04_context\run_clause04_demo.py:8: from clause_04_context.validator.input_validator import raise_if_invalid_inputs
+
+===== gap_detector =====
+MVP_1\clause_04_context\run_clause04_demo.py:7: from clause_04_context.fabric.gap_detector import detect_gaps, calculate_readiness
+
+===== report =====
+MVP_1\clause_04_context\run_clause04_demo.py:15: REPORT_FILE = PROJECT_ROOT / "reports" / "clause4_readiness_report.md"
+MVP_1\clause_04_context\run_clause04_demo.py:63: def generate_markdown_report(session_id, evidence_records, gaps, readiness):
+MVP_1\clause_04_context\run_clause04_demo.py:66: lines.append("# ISO/IEC 42001 Clause 4 Rule-based Readiness Report")
+MVP_1\clause_04_context\run_clause04_demo.py:134: REPORT_FILE.parent.mkdir(parents=True, exist_ok=True)
+MVP_1\clause_04_context\run_clause04_demo.py:136: temp_file = REPORT_FILE.with_suffix(".tmp")
+MVP_1\clause_04_context\run_clause04_demo.py:141: temp_file.replace(REPORT_FILE)
+MVP_1\clause_04_context\run_clause04_demo.py:171: generate_markdown_report(session_id, evidence_records, gaps, readiness)
+MVP_1\clause_04_context\run_clause04_demo.py:176: print(f"Report generated: {REPORT_FILE}")
+
+===== score =====
+MVP_1\clause_04_context\run_clause04_demo.py:5: from clause_04_context.validator.validator import score_response, requires_auditor_review
+MVP_1\clause_04_context\run_clause04_demo.py:71: lines.append("## Clause 4 Rule-based Readiness Score")
+MVP_1\clause_04_context\run_clause04_demo.py:76: "_This score is based on the loaded Clause 4 question set, "
+MVP_1\clause_04_context\run_clause04_demo.py:88: lines.append(f"- Rule-based Response Quality Score: {record['confidence_score']}")
+MVP_1\clause_04_context\run_clause04_demo.py:155: score = score_response(response.get("response", ""), question["clause"])
+MVP_1\clause_04_context\run_clause04_demo.py:156: auditor_flag = requires_auditor_review(score)
+MVP_1\clause_04_context\run_clause04_demo.py:162: confidence_score=score,
+MVP_1\clause_04_context\run_clause04_demo.py:175: print(f"Rule-based readiness score: {readiness}%")
+MVP_1\clause_04_context\fabric\gap_detector.py:78: score = record["confidence_score"]
+MVP_1\clause_04_context\fabric\gap_detector.py:80: if score == 0.0:
+MVP_1\clause_04_context\fabric\gap_detector.py:88: elif score < 0.75:
+MVP_1\clause_04_context\fabric\gap_detector.py:121: total_score = sum(record["confidence_score"] for record in evidence_records)
+MVP_1\clause_04_context\fabric\gap_detector.py:122: readiness = total_score / len(evidence_records)
+MVP_1\clause_04_context\schema\evidence.py:28: confidence_score: float
+MVP_1\clause_04_context\schema\evidence.py:77: confidence_score: float,
+MVP_1\clause_04_context\schema\evidence.py:92: confidence_score=confidence_score,
+MVP_1\clause_04_context\validator\validator.py:93: def score_response(response_text: str, clause: str = "") -> float:
+MVP_1\clause_04_context\validator\validator.py:102: score = 0.0
+MVP_1\clause_04_context\validator\validator.py:106: score += 0.2
+MVP_1\clause_04_context\validator\validator.py:110: score += 0.25
+MVP_1\clause_04_context\validator\validator.py:114: score += 0.2
+MVP_1\clause_04_context\validator\validator.py:118: score += 0.15
+MVP_1\clause_04_context\validator\validator.py:124: score += 0.2
+MVP_1\clause_04_context\validator\validator.py:126: score += 0.1
+MVP_1\clause_04_context\validator\validator.py:128: return min(round(score, 2), 1.0)
+MVP_1\clause_04_context\validator\validator.py:131: def requires_auditor_review(score: float) -> bool:
+MVP_1\clause_04_context\validator\validator.py:132: return score < 0.75
+
+===== question =====
+MVP_1\clause_04_context\run_clause04_demo.py:13: QUESTIONS_FILE = BASE_DIR / "questions" / "C4.json"
+MVP_1\clause_04_context\run_clause04_demo.py:45: def match_response(question_id, responses):
+MVP_1\clause_04_context\run_clause04_demo.py:48: if response.get("question_id") == question_id
+MVP_1\clause_04_context\run_clause04_demo.py:52: raise ValueError(f"Duplicate responses found for question_id: {question_id}")
+MVP_1\clause_04_context\run_clause04_demo.py:56: "question_id": question_id,
+MVP_1\clause_04_context\run_clause04_demo.py:76: "_This score is based on the loaded Clause 4 question set, "
+MVP_1\clause_04_context\run_clause04_demo.py:85: lines.append(f"### {record['question_id']} — {record['title']}")
+MVP_1\clause_04_context\run_clause04_demo.py:131: f"- **{gap['question_id']} / Clause {gap['clause']}**: {gap['description']}"
+MVP_1\clause_04_context\run_clause04_demo.py:146: questions = load_json(QUESTIONS_FILE)
+MVP_1\clause_04_context\run_clause04_demo.py:149: raise_if_invalid_inputs(questions, responses)
+MVP_1\clause_04_context\run_clause04_demo.py:153: for question in questions:
+MVP_1\clause_04_context\run_clause04_demo.py:154: response = match_response(question["question_id"], responses)
+MVP_1\clause_04_context\run_clause04_demo.py:155: score = score_response(response.get("response", ""), question["clause"])
+MVP_1\clause_04_context\run_clause04_demo.py:160: question=question,
+MVP_1\clause_04_context\run_clause04_demo.py:168: gaps = detect_gaps(questions, responses, evidence_records)
+MVP_1\clause_04_context\run_clause04_demo.py:183: print(f"- {gap['gap_type']} | {gap['question_id']} | Clause {gap['clause']}: {gap['description']}")
+MVP_1\clause_04_context\fabric\gap_detector.py:16: def detect_coverage_gaps(questions, responses):
+MVP_1\clause_04_context\fabric\gap_detector.py:19: question_ids = [question.get("question_id") for question in questions]
+MVP_1\clause_04_context\fabric\gap_detector.py:20: response_ids = [response.get("question_id") for response in responses]
+MVP_1\clause_04_context\fabric\gap_detector.py:21: question_clauses = [question.get("clause") for question in questions]
+MVP_1\clause_04_context\fabric\gap_detector.py:24: if required_clause not in question_clauses:
+MVP_1\clause_04_context\fabric\gap_detector.py:26: "question_id": "QUESTION_BANK",
+MVP_1\clause_04_context\fabric\gap_detector.py:29: "description": f"Required Clause {required_clause} is missing from the question bank."
+MVP_1\clause_04_context\fabric\gap_detector.py:32: duplicate_question_ids = find_duplicates(question_ids)
+MVP_1\clause_04_context\fabric\gap_detector.py:33: for question_id in duplicate_question_ids:
+MVP_1\clause_04_context\fabric\gap_detector.py:35: "question_id": question_id,
+MVP_1\clause_04_context\fabric\gap_detector.py:37: "gap_type": "duplicate_question_id",
+MVP_1\clause_04_context\fabric\gap_detector.py:38: "description": f"Duplicate question ID found in question bank: {question_id}."
+MVP_1\clause_04_context\fabric\gap_detector.py:44: "question_id": response_id,
+MVP_1\clause_04_context\fabric\gap_detector.py:51: if response_id not in question_ids:
+MVP_1\clause_04_context\fabric\gap_detector.py:53: "question_id": response_id,
+MVP_1\clause_04_context\fabric\gap_detector.py:56: "description": f"Response ID {response_id} does not match any question in the question bank."
+MVP_1\clause_04_context\fabric\gap_detector.py:59: for question in questions:
+MVP_1\clause_04_context\fabric\gap_detector.py:60: question_id = question.get("question_id")
+MVP_1\clause_04_context\fabric\gap_detector.py:61: clause = question.get("clause")
+MVP_1\clause_04_context\fabric\gap_detector.py:63: if question_id not in response_ids:
+MVP_1\clause_04_context\fabric\gap_detector.py:65: "question_id": question_id,
+MVP_1\clause_04_context\fabric\gap_detector.py:68: "description": f"No human response found for {question_id} / Clause {clause}."
+MVP_1\clause_04_context\fabric\gap_detector.py:82: "question_id": record["question_id"],
+MVP_1\clause_04_context\fabric\gap_detector.py:90: "question_id": record["question_id"],
+MVP_1\clause_04_context\fabric\gap_detector.py:98: "question_id": record["question_id"],
+MVP_1\clause_04_context\fabric\gap_detector.py:110: def detect_gaps(questions, responses, evidence_records):
+MVP_1\clause_04_context\fabric\gap_detector.py:111: coverage_gaps = detect_coverage_gaps(questions, responses)
+MVP_1\clause_04_context\fabric\gap_detector.py:127: "duplicate_question_id",
+MVP_1\clause_04_context\schema\evidence.py:20: question_id: str
+MVP_1\clause_04_context\schema\evidence.py:23: question: str
+MVP_1\clause_04_context\schema\evidence.py:75: question: Dict[str, Any],
+MVP_1\clause_04_context\schema\evidence.py:84: question_id=question["question_id"],
+MVP_1\clause_04_context\schema\evidence.py:85: clause=question["clause"],
+MVP_1\clause_04_context\schema\evidence.py:86: title=question["title"],
+MVP_1\clause_04_context\schema\evidence.py:87: question=question["question"],
+MVP_1\clause_04_context\schema\evidence.py:88: expected_evidence=question.get("expected_evidence", []),
+MVP_1\clause_04_context\validator\input_validator.py:1: REQUIRED_QUESTION_FIELDS = [
+MVP_1\clause_04_context\validator\input_validator.py:2: "question_id",
+MVP_1\clause_04_context\validator\input_validator.py:5: "question",
+MVP_1\clause_04_context\validator\input_validator.py:10: "question_id",
+MVP_1\clause_04_context\validator\input_validator.py:28: def validate_questions(questions):
+MVP_1\clause_04_context\validator\input_validator.py:31: if not isinstance(questions, list):
+MVP_1\clause_04_context\validator\input_validator.py:32: return ["Questions file must contain a JSON array."]
+MVP_1\clause_04_context\validator\input_validator.py:34: question_ids = []
+MVP_1\clause_04_context\validator\input_validator.py:36: for index, question in enumerate(questions):
+MVP_1\clause_04_context\validator\input_validator.py:37: if not isinstance(question, dict):
+MVP_1\clause_04_context\validator\input_validator.py:38: errors.append(f"Question at index {index} must be a JSON object.")
+MVP_1\clause_04_context\validator\input_validator.py:41: for field in REQUIRED_QUESTION_FIELDS:
+MVP_1\clause_04_context\validator\input_validator.py:42: if field not in question:
+MVP_1\clause_04_context\validator\input_validator.py:44: f"Question at index {index} is missing required field: {field}."
+MVP_1\clause_04_context\validator\input_validator.py:47: question_id = question.get("question_id")
+MVP_1\clause_04_context\validator\input_validator.py:49: if question_id:
+MVP_1\clause_04_context\validator\input_validator.py:50: question_ids.append(question_id)
+MVP_1\clause_04_context\validator\input_validator.py:52: expected_evidence = question.get("expected_evidence")
+MVP_1\clause_04_context\validator\input_validator.py:54: if "expected_evidence" in question and not isinstance(expected_evidence, list):
+MVP_1\clause_04_context\validator\input_validator.py:56: f"Question {question_id or index} field expected_evidence must be a list."
+MVP_1\clause_04_context\validator\input_validator.py:59: duplicate_question_ids = find_duplicates(question_ids)
+MVP_1\clause_04_context\validator\input_validator.py:61: for question_id in duplicate_question_ids:
+MVP_1\clause_04_context\validator\input_validator.py:62: errors.append(f"Duplicate question_id found in questions: {question_id}.")
+MVP_1\clause_04_context\validator\input_validator.py:86: question_id = response.get("question_id")
+MVP_1\clause_04_context\validator\input_validator.py:88: if question_id:
+MVP_1\clause_04_context\validator\input_validator.py:89: response_ids.append(question_id)
+MVP_1\clause_04_context\validator\input_validator.py:93: f"Response {question_id or index} field response must be a string."
+MVP_1\clause_04_context\validator\input_validator.py:98: f"Response {question_id or index} field auditor_note must be a string."
+MVP_1\clause_04_context\validator\input_validator.py:104: errors.append(f"Duplicate question_id found in responses: {response_id}.")
+MVP_1\clause_04_context\validator\input_validator.py:109: def validate_question_response_alignment(questions, responses):
+MVP_1\clause_04_context\validator\input_validator.py:112: question_ids = {
+MVP_1\clause_04_context\validator\input_validator.py:113: question.get("question_id")
+MVP_1\clause_04_context\validator\input_validator.py:114: for question in questions
+MVP_1\clause_04_context\validator\input_validator.py:115: if isinstance(question, dict) and question.get("question_id")
+MVP_1\clause_04_context\validator\input_validator.py:119: response.get("question_id")
+MVP_1\clause_04_context\validator\input_validator.py:121: if isinstance(response, dict) and response.get("question_id")
+MVP_1\clause_04_context\validator\input_validator.py:124: for response_id in sorted(response_ids - question_ids):
+MVP_1\clause_04_context\validator\input_validator.py:126: f"Unexpected response ID found: {response_id}. No matching question exists."
+MVP_1\clause_04_context\validator\input_validator.py:129: for question_id in sorted(question_ids - response_ids):
+MVP_1\clause_04_context\validator\input_validator.py:131: f"Missing response for question ID: {question_id}."
+MVP_1\clause_04_context\validator\input_validator.py:137: def validate_inputs(questions, responses):
+MVP_1\clause_04_context\validator\input_validator.py:140: errors.extend(validate_questions(questions))
+MVP_1\clause_04_context\validator\input_validator.py:144: errors.extend(validate_question_response_alignment(questions, responses))
+MVP_1\clause_04_context\validator\input_validator.py:149: def raise_if_invalid_inputs(questions, responses):
+MVP_1\clause_04_context\validator\input_validator.py:150: errors = validate_inputs(questions, responses)
+MVP_1\clause_04_context\validator\input_validator.py:155: "Input validation failed. Please fix the question/response JSON files:\n"
+
+===== response =====
+MVP_1\clause_04_context\run_clause04_demo.py:5: from clause_04_context.validator.validator import score_response, requires_auditor_review
+MVP_1\clause_04_context\run_clause04_demo.py:14: RESPONSES_FILE = BASE_DIR / "responses" / "human" / "C4_responses.json"
+MVP_1\clause_04_context\run_clause04_demo.py:45: def match_response(question_id, responses):
+MVP_1\clause_04_context\run_clause04_demo.py:46: matching_responses = [
+MVP_1\clause_04_context\run_clause04_demo.py:47: response for response in responses
+MVP_1\clause_04_context\run_clause04_demo.py:48: if response.get("question_id") == question_id
+MVP_1\clause_04_context\run_clause04_demo.py:51: if len(matching_responses) > 1:
+MVP_1\clause_04_context\run_clause04_demo.py:52: raise ValueError(f"Duplicate responses found for question_id: {question_id}")
+MVP_1\clause_04_context\run_clause04_demo.py:54: if not matching_responses:
+MVP_1\clause_04_context\run_clause04_demo.py:57: "response": "",
+MVP_1\clause_04_context\run_clause04_demo.py:58: "auditor_note": "No response found."
+MVP_1\clause_04_context\run_clause04_demo.py:61: return matching_responses[0]
+MVP_1\clause_04_context\run_clause04_demo.py:77: "rule-based response quality checks, and structural coverage checks. "
+MVP_1\clause_04_context\run_clause04_demo.py:88: lines.append(f"- Rule-based Response Quality Score: {record['confidence_score']}")
+MVP_1\clause_04_context\run_clause04_demo.py:110: lines.append("Response:")
+MVP_1\clause_04_context\run_clause04_demo.py:112: response_text = record.get("response", "")
+MVP_1\clause_04_context\run_clause04_demo.py:113: lines.append(f"> {response_text if response_text else 'No response provided.'}")
+MVP_1\clause_04_context\run_clause04_demo.py:119: "_Actual Evidence References are extracted from human responses. "
+MVP_1\clause_04_context\run_clause04_demo.py:126: "No structural, response-quality, or evidence-reference gaps detected in the loaded Clause 04 pilot scope."
+MVP_1\clause_04_context\run_clause04_demo.py:147: responses = load_json(RESPONSES_FILE)
+MVP_1\clause_04_context\run_clause04_demo.py:149: raise_if_invalid_inputs(questions, responses)
+MVP_1\clause_04_context\run_clause04_demo.py:154: response = match_response(question["question_id"], responses)
+MVP_1\clause_04_context\run_clause04_demo.py:155: score = score_response(response.get("response", ""), question["clause"])
+MVP_1\clause_04_context\run_clause04_demo.py:161: response=response,
+MVP_1\clause_04_context\run_clause04_demo.py:168: gaps = detect_gaps(questions, responses, evidence_records)
+MVP_1\clause_04_context\run_clause04_demo.py:186: print("No structural, response-quality, or evidence-reference gaps detected in the loaded Clause 04 pilot scope.")
+MVP_1\clause_04_context\fabric\gap_detector.py:16: def detect_coverage_gaps(questions, responses):
+MVP_1\clause_04_context\fabric\gap_detector.py:20: response_ids = [response.get("question_id") for response in responses]
+MVP_1\clause_04_context\fabric\gap_detector.py:41: duplicate_response_ids = find_duplicates(response_ids)
+MVP_1\clause_04_context\fabric\gap_detector.py:42: for response_id in duplicate_response_ids:
+MVP_1\clause_04_context\fabric\gap_detector.py:44: "question_id": response_id,
+MVP_1\clause_04_context\fabric\gap_detector.py:46: "gap_type": "duplicate_response_id",
+MVP_1\clause_04_context\fabric\gap_detector.py:47: "description": f"Duplicate response ID found in human responses: {response_id}."
+MVP_1\clause_04_context\fabric\gap_detector.py:50: for response_id in response_ids:
+MVP_1\clause_04_context\fabric\gap_detector.py:51: if response_id not in question_ids:
+MVP_1\clause_04_context\fabric\gap_detector.py:53: "question_id": response_id,
+MVP_1\clause_04_context\fabric\gap_detector.py:55: "gap_type": "unexpected_response_id",
+MVP_1\clause_04_context\fabric\gap_detector.py:56: "description": f"Response ID {response_id} does not match any question in the question bank."
+MVP_1\clause_04_context\fabric\gap_detector.py:63: if question_id not in response_ids:
+MVP_1\clause_04_context\fabric\gap_detector.py:67: "gap_type": "missing_response",
+MVP_1\clause_04_context\fabric\gap_detector.py:68: "description": f"No human response found for {question_id} / Clause {clause}."
+MVP_1\clause_04_context\fabric\gap_detector.py:85: "description": f"No response or evidence provided for {record['title']}."
+MVP_1\clause_04_context\fabric\gap_detector.py:103: "reference was extracted from the response."
+MVP_1\clause_04_context\fabric\gap_detector.py:110: def detect_gaps(questions, responses, evidence_records):
+MVP_1\clause_04_context\fabric\gap_detector.py:111: coverage_gaps = detect_coverage_gaps(questions, responses)
+MVP_1\clause_04_context\fabric\gap_detector.py:128: "duplicate_response_id",
+MVP_1\clause_04_context\fabric\gap_detector.py:129: "unexpected_response_id",
+MVP_1\clause_04_context\fabric\gap_detector.py:130: "missing_response",
+MVP_1\clause_04_context\schema\evidence.py:25: response: str
+MVP_1\clause_04_context\schema\evidence.py:26: response_source_type: str
+MVP_1\clause_04_context\schema\evidence.py:38: def extract_evidence_references(response_text: str) -> List[Dict[str, Any]]:
+MVP_1\clause_04_context\schema\evidence.py:40: Extract simple evidence references from the human response.
+MVP_1\clause_04_context\schema\evidence.py:59: matches = re.findall(pattern, response_text, flags=re.IGNORECASE)
+MVP_1\clause_04_context\schema\evidence.py:66: extracted_from="human_response",
+MVP_1\clause_04_context\schema\evidence.py:76: response: Dict[str, Any],
+MVP_1\clause_04_context\schema\evidence.py:80: response_text = response.get("response", "")
+MVP_1\clause_04_context\schema\evidence.py:89: response=response_text,
+MVP_1\clause_04_context\schema\evidence.py:90: response_source_type="human_file",
+MVP_1\clause_04_context\schema\evidence.py:91: actual_evidence_references=extract_evidence_references(response_text),
+MVP_1\clause_04_context\schema\evidence.py:93: confidence_type="rule_based_response_quality",
+MVP_1\clause_04_context\schema\evidence.py:94: auditor_note=response.get("auditor_note", ""),
+MVP_1\clause_04_context\validator\input_validator.py:9: REQUIRED_RESPONSE_FIELDS = [
+MVP_1\clause_04_context\validator\input_validator.py:11: "response",
+MVP_1\clause_04_context\validator\input_validator.py:67: def validate_responses(responses):
+MVP_1\clause_04_context\validator\input_validator.py:70: if not isinstance(responses, list):
+MVP_1\clause_04_context\validator\input_validator.py:71: return ["Responses file must contain a JSON array."]
+MVP_1\clause_04_context\validator\input_validator.py:73: response_ids = []
+MVP_1\clause_04_context\validator\input_validator.py:75: for index, response in enumerate(responses):
+MVP_1\clause_04_context\validator\input_validator.py:76: if not isinstance(response, dict):
+MVP_1\clause_04_context\validator\input_validator.py:77: errors.append(f"Response at index {index} must be a JSON object.")
+MVP_1\clause_04_context\validator\input_validator.py:80: for field in REQUIRED_RESPONSE_FIELDS:
+MVP_1\clause_04_context\validator\input_validator.py:81: if field not in response:
+MVP_1\clause_04_context\validator\input_validator.py:83: f"Response at index {index} is missing required field: {field}."
+MVP_1\clause_04_context\validator\input_validator.py:86: question_id = response.get("question_id")
+MVP_1\clause_04_context\validator\input_validator.py:89: response_ids.append(question_id)
+MVP_1\clause_04_context\validator\input_validator.py:91: if "response" in response and not isinstance(response.get("response"), str):
+MVP_1\clause_04_context\validator\input_validator.py:93: f"Response {question_id or index} field response must be a string."
+MVP_1\clause_04_context\validator\input_validator.py:96: if "auditor_note" in response and not isinstance(response.get("auditor_note"), str):
+MVP_1\clause_04_context\validator\input_validator.py:98: f"Response {question_id or index} field auditor_note must be a string."
+MVP_1\clause_04_context\validator\input_validator.py:101: duplicate_response_ids = find_duplicates(response_ids)
+MVP_1\clause_04_context\validator\input_validator.py:103: for response_id in duplicate_response_ids:
+MVP_1\clause_04_context\validator\input_validator.py:104: errors.append(f"Duplicate question_id found in responses: {response_id}.")
+MVP_1\clause_04_context\validator\input_validator.py:109: def validate_question_response_alignment(questions, responses):
+MVP_1\clause_04_context\validator\input_validator.py:118: response_ids = {
+MVP_1\clause_04_context\validator\input_validator.py:119: response.get("question_id")
+MVP_1\clause_04_context\validator\input_validator.py:120: for response in responses
+MVP_1\clause_04_context\validator\input_validator.py:121: if isinstance(response, dict) and response.get("question_id")
+MVP_1\clause_04_context\validator\input_validator.py:124: for response_id in sorted(response_ids - question_ids):
+MVP_1\clause_04_context\validator\input_validator.py:126: f"Unexpected response ID found: {response_id}. No matching question exists."
+MVP_1\clause_04_context\validator\input_validator.py:129: for question_id in sorted(question_ids - response_ids):
+MVP_1\clause_04_context\validator\input_validator.py:131: f"Missing response for question ID: {question_id}."
+MVP_1\clause_04_context\validator\input_validator.py:137: def validate_inputs(questions, responses):
+MVP_1\clause_04_context\validator\input_validator.py:141: errors.extend(validate_responses(responses))
+MVP_1\clause_04_context\validator\input_validator.py:144: errors.extend(validate_question_response_alignment(questions, responses))
+MVP_1\clause_04_context\validator\input_validator.py:149: def raise_if_invalid_inputs(questions, responses):
+MVP_1\clause_04_context\validator\input_validator.py:150: errors = validate_inputs(questions, responses)
+MVP_1\clause_04_context\validator\input_validator.py:155: "Input validation failed. Please fix the question/response JSON files:\n"
+MVP_1\clause_04_context\validator\validator.py:14: r"\bno response\b",
+MVP_1\clause_04_context\validator\validator.py:93: def score_response(response_text: str, clause: str = "") -> float:
+MVP_1\clause_04_context\validator\validator.py:94: text = response_text.strip().lower()
+MVP_1\clause_04_context\validator\validator.py:104: # Basic substance: response must be more than a vague sentence
+
+===== evidence =====
+MVP_1\clause_04_context\run_clause04_demo.py:6: from clause_04_context.schema.evidence import create_evidence_record
+MVP_1\clause_04_context\run_clause04_demo.py:16: EVIDENCE_FILE = BASE_DIR / "evidence" / "clause4_evidence_records.json"
+MVP_1\clause_04_context\run_clause04_demo.py:18: def save_evidence_records(evidence_records):
+MVP_1\clause_04_context\run_clause04_demo.py:19: EVIDENCE_FILE.parent.mkdir(parents=True, exist_ok=True)
+MVP_1\clause_04_context\run_clause04_demo.py:21: temp_file = EVIDENCE_FILE.with_suffix(".tmp")
+MVP_1\clause_04_context\run_clause04_demo.py:24: json.dump(evidence_records, file, indent=2, ensure_ascii=False)
+MVP_1\clause_04_context\run_clause04_demo.py:26: temp_file.replace(EVIDENCE_FILE)
+MVP_1\clause_04_context\run_clause04_demo.py:63: def generate_markdown_report(session_id, evidence_records, gaps, readiness):
+MVP_1\clause_04_context\run_clause04_demo.py:81: lines.append("## Evidence Summary")
+MVP_1\clause_04_context\run_clause04_demo.py:84: for record in evidence_records:
+MVP_1\clause_04_context\run_clause04_demo.py:93: lines.append("Expected Evidence:")
+MVP_1\clause_04_context\run_clause04_demo.py:94: for item in record.get("expected_evidence", []):
+MVP_1\clause_04_context\run_clause04_demo.py:98: lines.append("Actual Evidence References (extracted, not independently verified):")
+MVP_1\clause_04_context\run_clause04_demo.py:99: actual_refs = record.get("actual_evidence_references", [])
+MVP_1\clause_04_context\run_clause04_demo.py:107: lines.append("- No structured evidence reference extracted.")
+MVP_1\clause_04_context\run_clause04_demo.py:119: "_Actual Evidence References are extracted from human responses. "
+MVP_1\clause_04_context\run_clause04_demo.py:126: "No structural, response-quality, or evidence-reference gaps detected in the loaded Clause 04 pilot scope."
+MVP_1\clause_04_context\run_clause04_demo.py:151: evidence_records = []
+MVP_1\clause_04_context\run_clause04_demo.py:158: evidence_record = create_evidence_record(
+MVP_1\clause_04_context\run_clause04_demo.py:166: evidence_records.append(evidence_record.to_dict())
+MVP_1\clause_04_context\run_clause04_demo.py:168: gaps = detect_gaps(questions, responses, evidence_records)
+MVP_1\clause_04_context\run_clause04_demo.py:169: readiness = calculate_readiness(evidence_records, gaps)
+MVP_1\clause_04_context\run_clause04_demo.py:171: generate_markdown_report(session_id, evidence_records, gaps, readiness)
+MVP_1\clause_04_context\run_clause04_demo.py:172: save_evidence_records(evidence_records)
+MVP_1\clause_04_context\run_clause04_demo.py:177: print(f"Evidence records generated: {EVIDENCE_FILE}")
+MVP_1\clause_04_context\run_clause04_demo.py:186: print("No structural, response-quality, or evidence-reference gaps detected in the loaded Clause 04 pilot scope.")
+MVP_1\clause_04_context\fabric\gap_detector.py:74: def detect_evidence_gaps(evidence_records):
+MVP_1\clause_04_context\fabric\gap_detector.py:77: for record in evidence_records:
+MVP_1\clause_04_context\fabric\gap_detector.py:84: "gap_type": "missing_evidence",
+MVP_1\clause_04_context\fabric\gap_detector.py:85: "description": f"No response or evidence provided for {record['title']}."
+MVP_1\clause_04_context\fabric\gap_detector.py:92: "gap_type": "weak_evidence",
+MVP_1\clause_04_context\fabric\gap_detector.py:93: "description": f"Evidence for {record['title']} is incomplete or requires auditor review."
+MVP_1\clause_04_context\fabric\gap_detector.py:96: if record.get("expected_evidence") and not record.get("actual_evidence_references"):
+MVP_1\clause_04_context\fabric\gap_detector.py:100: "gap_type": "missing_structured_evidence_reference",
+MVP_1\clause_04_context\fabric\gap_detector.py:102: f"{record['title']} has expected evidence, but no structured evidence "
+MVP_1\clause_04_context\fabric\gap_detector.py:110: def detect_gaps(questions, responses, evidence_records):
+MVP_1\clause_04_context\fabric\gap_detector.py:112: evidence_gaps = detect_evidence_gaps(evidence_records)
+MVP_1\clause_04_context\fabric\gap_detector.py:114: return coverage_gaps + evidence_gaps
+MVP_1\clause_04_context\fabric\gap_detector.py:117: def calculate_readiness(evidence_records, gaps=None):
+MVP_1\clause_04_context\fabric\gap_detector.py:118: if not evidence_records:
+MVP_1\clause_04_context\fabric\gap_detector.py:121: total_score = sum(record["confidence_score"] for record in evidence_records)
+MVP_1\clause_04_context\fabric\gap_detector.py:122: readiness = total_score / len(evidence_records)
+MVP_1\clause_04_context\schema\evidence.py:8: class EvidenceReference:
+MVP_1\clause_04_context\schema\evidence.py:18: class EvidenceRecord:
+MVP_1\clause_04_context\schema\evidence.py:24: expected_evidence: List[str]
+MVP_1\clause_04_context\schema\evidence.py:27: actual_evidence_references: List[Dict[str, Any]]
+MVP_1\clause_04_context\schema\evidence.py:38: def extract_evidence_references(response_text: str) -> List[Dict[str, Any]]:
+MVP_1\clause_04_context\schema\evidence.py:40: Extract simple evidence references from the human response.
+MVP_1\clause_04_context\schema\evidence.py:43: It only preserves cited evidence references for audit traceability.
+MVP_1\clause_04_context\schema\evidence.py:63: EvidenceReference(
+MVP_1\clause_04_context\schema\evidence.py:73: def create_evidence_record(
+MVP_1\clause_04_context\schema\evidence.py:79: ) -> EvidenceRecord:
+MVP_1\clause_04_context\schema\evidence.py:82: return EvidenceRecord(
+MVP_1\clause_04_context\schema\evidence.py:88: expected_evidence=question.get("expected_evidence", []),
+MVP_1\clause_04_context\schema\evidence.py:91: actual_evidence_references=extract_evidence_references(response_text),
+MVP_1\clause_04_context\validator\input_validator.py:6: "expected_evidence"
+MVP_1\clause_04_context\validator\input_validator.py:52: expected_evidence = question.get("expected_evidence")
+MVP_1\clause_04_context\validator\input_validator.py:54: if "expected_evidence" in question and not isinstance(expected_evidence, list):
+MVP_1\clause_04_context\validator\input_validator.py:56: f"Question {question_id or index} field expected_evidence must be a list."
+MVP_1\clause_04_context\validator\validator.py:13: r"\bno evidence\b",
+MVP_1\clause_04_context\validator\validator.py:21: EVIDENCE_PATTERNS = [
+MVP_1\clause_04_context\validator\validator.py:22: r"\bevidence is stored in\b",
+MVP_1\clause_04_context\validator\validator.py:23: r"\bevidence is available in\b",
+MVP_1\clause_04_context\validator\validator.py:108: # Evidence reference
+MVP_1\clause_04_context\validator\validator.py:109: if contains_pattern(text, EVIDENCE_PATTERNS):
