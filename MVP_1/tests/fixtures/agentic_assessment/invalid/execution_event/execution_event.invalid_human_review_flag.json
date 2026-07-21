@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "event_id": "EVT-C4-INVALID-0001",
+  "timestamp": "2026-07-21T08:35:00Z",
+  "assessment_id": "URIELLE-C4-001",
+  "correlation_id": "RUN-C4-001",
+  "component_id": "URIELLE-HUMAN-REVIEW-GATE-001",
+  "component_version": "0.1.0",
+  "workflow_state": "REVIEW_PENDING",
+  "event_status": "AWAITING_HUMAN_REVIEW",
+  "step": "REQUEST_HUMAN_REVIEW",
+  "action": "open_review_gate",
+  "input_refs": [
+    "FND-C4-Q02-001"
+  ],
+  "output_refs": [],
+  "result": "Negative fixture: event awaits human review while the review-required flag is false.",
+  "policy_decision": "ALLOWED",
+  "human_review_required": false,
+  "duration_ms": 3,
+  "error": null,
+  "provenance": {
+    "created_at": "2026-07-21T08:35:00Z",
+    "created_by": "Urielle-AI negative fixture",
+    "generator": "DETERMINISTIC_RULES",
+    "generator_version": "0.1.0",
+    "source_refs": [
+      "negative-test",
+      "FND-C4-Q02-001"
+    ]
+  }
+}

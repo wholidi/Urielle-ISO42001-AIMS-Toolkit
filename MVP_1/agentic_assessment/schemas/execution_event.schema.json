@@ -1,0 +1,263 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://urielle-ai.com/schemas/agentic_assessment/execution_event.schema.json",
+  "title": "Urielle-AI Clause 04 Execution Event",
+  "description": "Append-only execution event contract for the governed Clause 04 assessment workflow.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "event_id",
+    "timestamp",
+    "assessment_id",
+    "correlation_id",
+    "component_id",
+    "component_version",
+    "workflow_state",
+    "event_status",
+    "step",
+    "action",
+    "input_refs",
+    "output_refs",
+    "policy_decision",
+    "human_review_required",
+    "duration_ms",
+    "error",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "event_id": {
+      "type": "string",
+      "pattern": "^EVT-[A-Z0-9][A-Z0-9._-]{2,99}$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "assessment_id": {
+      "type": "string",
+      "pattern": "^[A-Z0-9][A-Z0-9._-]{2,99}$"
+    },
+    "correlation_id": {
+      "type": "string",
+      "pattern": "^RUN-[A-Z0-9][A-Z0-9._-]{2,99}$"
+    },
+    "component_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "component_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "workflow_state": {
+      "$ref": "#/$defs/workflowState"
+    },
+    "event_status": {
+      "$ref": "#/$defs/eventStatus"
+    },
+    "step": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "action": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "input_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 500
+      }
+    },
+    "output_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 500
+      }
+    },
+    "result": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 2000
+    },
+    "policy_decision": {
+      "$ref": "#/$defs/policyDecision"
+    },
+    "human_review_required": {
+      "type": "boolean"
+    },
+    "duration_ms": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "error": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/errorRecord"
+        }
+      ]
+    },
+    "provenance": {
+      "$ref": "#/$defs/provenance"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "event_status": {
+            "const": "FAILED"
+          }
+        },
+        "required": [
+          "event_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "error": {
+            "$ref": "#/$defs/errorRecord"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_status": {
+            "const": "AWAITING_HUMAN_REVIEW"
+          }
+        },
+        "required": [
+          "event_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "human_review_required": {
+            "const": true
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "workflowState": {
+      "type": "string",
+      "enum": [
+        "INITIALISED",
+        "SCOPE_PENDING",
+        "VALIDATING",
+        "ASSESSING_EVIDENCE",
+        "GENERATING_FINDINGS",
+        "REPORT_DRAFTED",
+        "REVIEW_PENDING",
+        "COMPLETED",
+        "FAILED"
+      ]
+    },
+    "eventStatus": {
+      "type": "string",
+      "enum": [
+        "STARTED",
+        "SUCCEEDED",
+        "FAILED",
+        "BLOCKED",
+        "AWAITING_HUMAN_REVIEW"
+      ]
+    },
+    "policyDecision": {
+      "type": "string",
+      "enum": [
+        "ALLOWED",
+        "DENIED",
+        "NOT_APPLICABLE"
+      ]
+    },
+    "errorRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "error_type",
+        "message"
+      ],
+      "properties": {
+        "error_type": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "retryable": {
+          "type": "boolean"
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "created_at",
+        "created_by",
+        "generator",
+        "generator_version",
+        "source_refs"
+      ],
+      "properties": {
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "created_by": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "generator": {
+          "type": "string",
+          "enum": [
+            "HUMAN",
+            "DETERMINISTIC_RULES"
+          ]
+        },
+        "generator_version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "finding_id": "FND-C4-Q02-INVALID-001",
+  "assessment_id": "URIELLE-C4-001",
+  "requirement_ref": "4.2",
+  "question_id": "C4-Q02",
+  "condition": "The stakeholder register requires revision.",
+  "criteria": "The organisation shall determine relevant interested parties and their requirements.",
+  "evidence_refs": [
+    {
+      "reference_type": "EVIDENCE",
+      "reference_id": "EV-C4-002"
+    }
+  ],
+  "risk_statement": "Outdated stakeholder information may lead to incomplete AIMS scope decisions.",
+  "severity_preliminary": "MEDIUM",
+  "recommendation": "Review and update the stakeholder register.",
+  "human_disposition": "REJECTED",
+  "review_record": null,
+  "provenance": {
+    "created_at": "2026-07-21T08:30:00Z",
+    "created_by": "Urielle-AI negative fixture",
+    "generator": "DETERMINISTIC_RULES",
+    "generator_version": "0.1.0",
+    "source_refs": [
+      "negative-test",
+      "EV-C4-002"
+    ]
+  }
+}

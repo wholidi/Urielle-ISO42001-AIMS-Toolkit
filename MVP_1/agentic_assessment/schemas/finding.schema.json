@@ -1,0 +1,280 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://urielle-ai.com/schemas/agentic_assessment/finding.schema.json",
+  "title": "Urielle-AI Clause 04 Finding",
+  "description": "Data contract for a traceable draft finding derived only from validated gaps and evidence decisions.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "finding_id",
+    "assessment_id",
+    "requirement_ref",
+    "question_id",
+    "condition",
+    "criteria",
+    "evidence_refs",
+    "risk_statement",
+    "severity_preliminary",
+    "recommendation",
+    "human_disposition",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "finding_id": {
+      "type": "string",
+      "pattern": "^FND-[A-Z0-9][A-Z0-9._-]{2,99}$"
+    },
+    "assessment_id": {
+      "type": "string",
+      "pattern": "^[A-Z0-9][A-Z0-9._-]{2,99}$"
+    },
+    "requirement_ref": {
+      "type": "string",
+      "pattern": "^4(?:\\.[1-4])?(?:/[A-Z0-9._-]+)?$"
+    },
+    "question_id": {
+      "type": "string",
+      "pattern": "^C4-Q[0-9]{2,3}$"
+    },
+    "condition": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000
+    },
+    "criteria": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000
+    },
+    "evidence_refs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/evidenceReference"
+      }
+    },
+    "risk_statement": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000
+    },
+    "severity_preliminary": {
+      "$ref": "#/$defs/findingSeverity"
+    },
+    "recommendation": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000
+    },
+    "human_disposition": {
+      "$ref": "#/$defs/reviewDisposition"
+    },
+    "review_record": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/reviewRecord"
+        }
+      ]
+    },
+    "provenance": {
+      "$ref": "#/$defs/provenance"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "human_disposition": {
+            "const": "PENDING"
+          }
+        },
+        "required": [
+          "human_disposition"
+        ]
+      },
+      "then": {
+        "properties": {
+          "review_record": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "human_disposition": {
+            "enum": [
+              "ACCEPTED",
+              "MODIFIED",
+              "REJECTED"
+            ]
+          }
+        },
+        "required": [
+          "human_disposition"
+        ]
+      },
+      "then": {
+        "required": [
+          "review_record"
+        ],
+        "properties": {
+          "review_record": {
+            "$ref": "#/$defs/reviewRecord"
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "findingSeverity": {
+      "type": "string",
+      "enum": [
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "REVIEW_REQUIRED"
+      ]
+    },
+    "reviewDisposition": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "ACCEPTED",
+        "MODIFIED",
+        "REJECTED"
+      ]
+    },
+    "evidenceReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reference_type",
+        "reference_id"
+      ],
+      "properties": {
+        "reference_type": {
+          "type": "string",
+          "enum": [
+            "EVIDENCE",
+            "EVIDENCE_DECISION",
+            "GAP_RECORD"
+          ]
+        },
+        "reference_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        }
+      }
+    },
+    "reviewRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reviewer_id",
+        "reviewed_at",
+        "disposition"
+      ],
+      "properties": {
+        "reviewer_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "reviewed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "disposition": {
+          "$ref": "#/$defs/reviewDisposition"
+        },
+        "comments": {
+          "type": "string",
+          "maxLength": 4000
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "disposition": {
+                "enum": [
+                  "MODIFIED",
+                  "REJECTED"
+                ]
+              }
+            },
+            "required": [
+              "disposition"
+            ]
+          },
+          "then": {
+            "required": [
+              "comments"
+            ],
+            "properties": {
+              "comments": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "created_at",
+        "created_by",
+        "generator",
+        "generator_version",
+        "source_refs"
+      ],
+      "properties": {
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "created_by": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "generator": {
+          "type": "string",
+          "enum": [
+            "HUMAN",
+            "DETERMINISTIC_RULES"
+          ]
+        },
+        "generator_version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        }
+      }
+    }
+  }
+}

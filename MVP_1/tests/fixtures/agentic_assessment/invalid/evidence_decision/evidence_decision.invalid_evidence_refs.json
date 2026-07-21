@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "decision_id": "ED-C4-Q02-INVALID-001",
+  "assessment_id": "URIELLE-C4-001",
+  "question_id": "C4-Q02",
+  "evidence_ids": [
+    "EV-C4-002"
+  ],
+  "deterministic_checks": [
+    {
+      "check_id": "CHK-C4Q02-INVALID-01",
+      "check_type": "FILE_PRESENT",
+      "status": "FAILED",
+      "observation": "Negative fixture: decision claims no evidence while retaining an evidence reference."
+    }
+  ],
+  "semantic_observations": [],
+  "decision": "NOT_EVIDENCED",
+  "confidence": 0.0,
+  "human_review_required": false,
+  "provenance": {
+    "created_at": "2026-07-21T08:25:00Z",
+    "created_by": "Urielle-AI negative fixture",
+    "generator": "DETERMINISTIC_RULES",
+    "generator_version": "0.1.0",
+    "source_refs": [
+      "negative-test",
+      "EV-C4-002"
+    ]
+  }
+}
