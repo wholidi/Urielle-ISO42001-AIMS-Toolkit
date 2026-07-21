@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "assessment_id": "URIELLE-C4-001",
+  "scope": {
+    "organisation": "Urielle-AI",
+    "system_boundary": "ISO/IEC 42001 Clause 04 agentic assessment pilot",
+    "assessment_period": {
+      "start_date": "2026-07-01",
+      "end_date": "2026-07-31"
+    },
+    "clauses": [
+      "4.1",
+      "4.2",
+      "4.3",
+      "4.4"
+    ]
+  },
+  "questions": [
+    {
+      "question_id": "C4-Q01",
+      "clause_ref": "4.1",
+      "question_text": "Has the organisation identified internal and external issues relevant to the AIMS?",
+      "expected_evidence": [
+        "Context register",
+        "Internal and external issues analysis"
+      ],
+      "applicability_status": "APPLICABLE",
+      "rationale": "Clause 4.1 is included in the pilot scope.",
+      "human_confirmation_required": false
+    },
+    {
+      "question_id": "C4-Q02",
+      "clause_ref": "4.2",
+      "question_text": "Has the organisation identified relevant interested parties and their requirements?",
+      "expected_evidence": [
+        "Stakeholder register",
+        "Interested-party requirements mapping"
+      ],
+      "applicability_status": "APPLICABLE",
+      "rationale": "Clause 4.2 is included in the pilot scope.",
+      "human_confirmation_required": false
+    }
+  ],
+  "review_disposition": "PENDING",
+  "provenance": {
+    "created_at": "2026-07-21T08:00:00Z",
+    "created_by": "Urielle-AI deterministic fixture",
+    "generator": "DETERMINISTIC_RULES",
+    "generator_version": "0.1.0",
+    "source_refs": [
+      "MVP_1/clause_04_context/questions",
+      "MVP_1/docs/architecture/ADR-0001-sequential-supervisor.md"
+    ]
+  }
+}

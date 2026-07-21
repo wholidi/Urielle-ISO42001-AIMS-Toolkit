@@ -1,0 +1,245 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://urielle-ai.com/schemas/agentic_assessment/assessment_plan.schema.json",
+  "title": "Urielle-AI Clause 04 Assessment Plan",
+  "description": "Data contract for a governed Clause 04 assessment plan generated without modifying source questions, evidence, or human responses.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "assessment_id",
+    "scope",
+    "questions",
+    "review_disposition",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "assessment_id": {
+      "type": "string",
+      "pattern": "^[A-Z0-9][A-Z0-9._-]{2,99}$"
+    },
+    "scope": {
+      "$ref": "#/$defs/scope"
+    },
+    "questions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/question"
+      }
+    },
+    "review_disposition": {
+      "$ref": "#/$defs/reviewDisposition"
+    },
+    "provenance": {
+      "$ref": "#/$defs/provenance"
+    }
+  },
+  "$defs": {
+    "applicabilityStatus": {
+      "type": "string",
+      "enum": [
+        "APPLICABLE",
+        "NOT_APPLICABLE",
+        "REVIEW_REQUIRED"
+      ]
+    },
+    "reviewDisposition": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "ACCEPTED",
+        "MODIFIED",
+        "REJECTED"
+      ]
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "organisation",
+        "system_boundary",
+        "assessment_period",
+        "clauses"
+      ],
+      "properties": {
+        "organisation": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "system_boundary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "assessment_period": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "start_date",
+            "end_date"
+          ],
+          "properties": {
+            "start_date": {
+              "type": "string",
+              "format": "date"
+            },
+            "end_date": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        },
+        "clauses": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^4(?:\\.[1-4])?$"
+          }
+        }
+      }
+    },
+    "question": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "question_id",
+        "clause_ref",
+        "question_text",
+        "expected_evidence",
+        "applicability_status",
+        "rationale",
+        "human_confirmation_required"
+      ],
+      "properties": {
+        "question_id": {
+          "type": "string",
+          "pattern": "^C4-Q[0-9]{2,3}$"
+        },
+        "clause_ref": {
+          "type": "string",
+          "pattern": "^4(?:\\.[1-4])?$"
+        },
+        "question_text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "expected_evidence": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "applicability_status": {
+          "$ref": "#/$defs/applicabilityStatus"
+        },
+        "rationale": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "human_confirmation_required": {
+          "type": "boolean"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "applicability_status": {
+                "const": "NOT_APPLICABLE"
+              }
+            },
+            "required": [
+              "applicability_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rationale": {
+                "type": "string",
+                "minLength": 1
+              },
+              "human_confirmation_required": {
+                "const": true
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "applicability_status": {
+                "const": "REVIEW_REQUIRED"
+              }
+            },
+            "required": [
+              "applicability_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "human_confirmation_required": {
+                "const": true
+              }
+            }
+          }
+        }
+      ]
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "created_at",
+        "created_by",
+        "generator",
+        "generator_version",
+        "source_refs"
+      ],
+      "properties": {
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "created_by": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "generator": {
+          "type": "string",
+          "enum": [
+            "HUMAN",
+            "DETERMINISTIC_RULES"
+          ]
+        },
+        "generator_version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        }
+      }
+    }
+  }
+}

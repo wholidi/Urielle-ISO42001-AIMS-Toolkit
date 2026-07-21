@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "finding_id": "FND-C4-Q02-001",
+  "assessment_id": "URIELLE-C4-001",
+  "requirement_ref": "4.2",
+  "question_id": "C4-Q02",
+  "condition": "The stakeholder register is present, mapped to C4-Q02, and contains identified interested parties and requirements.",
+  "criteria": "The organisation shall determine interested parties relevant to the AIMS and the relevant requirements of those interested parties.",
+  "evidence_refs": [
+    {
+      "reference_type": "EVIDENCE",
+      "reference_id": "EV-C4-002"
+    },
+    {
+      "reference_type": "EVIDENCE_DECISION",
+      "reference_id": "ED-C4-Q02-001"
+    }
+  ],
+  "risk_statement": "If stakeholder requirements are not maintained, the AIMS scope and governance controls may not reflect relevant obligations and expectations.",
+  "severity_preliminary": "LOW",
+  "recommendation": "Maintain the stakeholder register under document control and review it when material organisational or regulatory changes occur.",
+  "human_disposition": "PENDING",
+  "review_record": null,
+  "provenance": {
+    "created_at": "2026-07-21T08:10:00Z",
+    "created_by": "Urielle-AI deterministic fixture",
+    "generator": "DETERMINISTIC_RULES",
+    "generator_version": "0.1.0",
+    "source_refs": [
+      "C4-Q02",
+      "EV-C4-002",
+      "ED-C4-Q02-001"
+    ]
+  }
+}

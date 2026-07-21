@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "assessment_id": "URIELLE-C4-INVALID-001",
+  "scope": {
+    "organisation": "Urielle-AI",
+    "system_boundary": "ISO/IEC 42001 Clause 04 agentic assessment pilot",
+    "assessment_period": {
+      "start_date": "2026-07-01",
+      "end_date": "2026-07-31"
+    },
+    "clauses": [
+      "4.1",
+      "4.2"
+    ]
+  },
+  "questions": [
+    {
+      "question_id": "C4-Q01",
+      "clause_ref": "4.1",
+      "question_text": "Has the organisation identified internal and external issues relevant to the AIMS?",
+      "expected_evidence": [
+        "Context register"
+      ],
+      "applicability_status": "EXCLUDED",
+      "rationale": "",
+      "human_confirmation_required": false
+    }
+  ],
+  "review_disposition": "PENDING",
+  "provenance": {
+    "created_at": "2026-07-21T08:20:00Z",
+    "created_by": "Urielle-AI negative fixture",
+    "generator": "DETERMINISTIC_RULES",
+    "generator_version": "0.1.0",
+    "source_refs": [
+      "negative-test"
+    ]
+  }
+}
