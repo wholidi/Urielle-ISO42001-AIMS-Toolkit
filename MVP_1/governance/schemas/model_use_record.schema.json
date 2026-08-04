@@ -1,0 +1,128 @@
+﻿{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://urielle-ai.com/schemas/governance/model_use_record.schema.json",
+  "title": "Urielle-AI Model Use Record",
+  "description": "Governance record declaring whether AI or external models are permitted in the Clause 04 pilot. Phase 2 requires deterministic-only execution and prohibits model invocation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record_version",
+    "execution_mode",
+    "model_use_status",
+    "external_model_calls_allowed",
+    "generative_model_calls_allowed",
+    "deterministic_controls",
+    "prohibited_capabilities",
+    "review"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "record_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "execution_mode": {
+      "type": "string",
+      "const": "DETERMINISTIC_ONLY"
+    },
+    "model_use_status": {
+      "type": "string",
+      "const": "NOT_IN_USE"
+    },
+    "external_model_calls_allowed": {
+      "type": "boolean",
+      "const": false
+    },
+    "generative_model_calls_allowed": {
+      "type": "boolean",
+      "const": false
+    },
+    "deterministic_controls": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "JSON_SCHEMA_VALIDATION",
+          "YAML_SAFE_LOAD",
+          "REGISTERED_COMPONENT_CHECK",
+          "EXPLICIT_PERMISSION_CHECK",
+          "DENY_PRECEDENCE",
+          "HUMAN_APPROVAL_GATE",
+          "STARTUP_CONFIGURATION_VALIDATION"
+        ]
+      }
+    },
+    "prohibited_capabilities": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "EXTERNAL_MODEL_INVOCATION",
+          "GENERATIVE_TEXT_CREATION",
+          "AUTONOMOUS_FINDING_GENERATION",
+          "AUTONOMOUS_HUMAN_APPROVAL",
+          "SUPERVISOR_ORCHESTRATION",
+          "REPORT_GENERATION"
+        ]
+      }
+    },
+    "review": {
+      "$ref": "#/$defs/review"
+    }
+  },
+  "$defs": {
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "review_status",
+        "reviewed_by_role",
+        "review_date",
+        "next_review_trigger",
+        "notes"
+      ],
+      "properties": {
+        "review_status": {
+          "type": "string",
+          "enum": [
+            "APPROVED_FOR_DETERMINISTIC_ONLY",
+            "REVIEW_REQUIRED"
+          ]
+        },
+        "reviewed_by_role": {
+          "type": "string",
+          "enum": [
+            "AI_GOVERNANCE_LEAD",
+            "AIMS_OWNER",
+            "INDEPENDENT_REVIEWER"
+          ]
+        },
+        "review_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "next_review_trigger": {
+          "type": "string",
+          "enum": [
+            "BEFORE_ANY_MODEL_INTEGRATION",
+            "BEFORE_PHASE_3",
+            "GOVERNANCE_POLICY_CHANGE"
+          ]
+        },
+        "notes": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        }
+      }
+    }
+  }
+}

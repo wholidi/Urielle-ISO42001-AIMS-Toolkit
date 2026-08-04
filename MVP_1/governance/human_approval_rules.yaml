@@ -1,0 +1,73 @@
+﻿schema_version: "1.0.0"
+rules_version: "0.2.0"
+default_decision: REQUIRE_HUMAN_APPROVAL
+self_approval_prohibited: true
+approval_bypass_prohibited: true
+
+rules:
+  - rule_id: HAR-001
+    action: ACCEPT_ASSESSMENT_FINDING
+    approval_required: true
+    minimum_approvals: 1
+    allowed_approval_roles:
+      - AI_GOVERNANCE_LEAD
+      - INDEPENDENT_REVIEWER
+    reason_required: true
+    evidence_reference_required: true
+    automated_approval_allowed: false
+
+  - rule_id: HAR-002
+    action: MODIFY_ASSESSMENT_FINDING
+    approval_required: true
+    minimum_approvals: 1
+    allowed_approval_roles:
+      - AI_GOVERNANCE_LEAD
+      - INDEPENDENT_REVIEWER
+    reason_required: true
+    evidence_reference_required: true
+    automated_approval_allowed: false
+
+  - rule_id: HAR-003
+    action: REJECT_ASSESSMENT_FINDING
+    approval_required: true
+    minimum_approvals: 1
+    allowed_approval_roles:
+      - AI_GOVERNANCE_LEAD
+      - INDEPENDENT_REVIEWER
+    reason_required: true
+    evidence_reference_required: true
+    automated_approval_allowed: false
+
+  - rule_id: HAR-004
+    action: CONFIRM_NOT_APPLICABLE
+    approval_required: true
+    minimum_approvals: 1
+    allowed_approval_roles:
+      - AIMS_OWNER
+      - AI_GOVERNANCE_LEAD
+    reason_required: true
+    evidence_reference_required: true
+    automated_approval_allowed: false
+
+  - rule_id: HAR-005
+    action: APPROVE_EVIDENCE_DECISION
+    approval_required: true
+    minimum_approvals: 1
+    allowed_approval_roles:
+      - EVIDENCE_OWNER
+      - AI_GOVERNANCE_LEAD
+    reason_required: true
+    evidence_reference_required: true
+    automated_approval_allowed: false
+
+  - rule_id: HAR-006
+    action: OVERRIDE_POLICY_DECISION
+    approval_required: true
+    minimum_approvals: 2
+    allowed_approval_roles:
+      - AI_GOVERNANCE_LEAD
+      - AIMS_OWNER
+      - INDEPENDENT_REVIEWER
+    reason_required: true
+    evidence_reference_required: true
+    automated_approval_allowed: false

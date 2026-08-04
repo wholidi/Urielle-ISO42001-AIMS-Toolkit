@@ -1,0 +1,16 @@
+﻿schema_version: "1.0.0"
+registry_version: "0.2.0"
+default_execution_mode: DETERMINISTIC_ONLY
+
+components:
+  - component_id: governance.llm_agent
+    component_type: LLM_AGENT
+    version: "0.2.0"
+    enabled: true
+    execution_mode: DETERMINISTIC_ONLY
+    implementation: governance.llm_agent.LLMAgent
+    allowed_actions:
+      - GENERATE_ASSESSMENT_FINDING
+    prohibited_actions:
+      - MODIFY_PROTECTED_PATH
+    human_approval_required: false
