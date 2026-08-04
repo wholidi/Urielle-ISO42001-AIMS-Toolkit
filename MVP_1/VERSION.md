@@ -14,6 +14,24 @@ Release Scope:
 
 ---
 
+## Agentic and governance layer versions
+
+The frozen Clause 04 pilot above (`MVP1-Clause04-Pilot-v1.0`) is versioned and tracked separately from the agentic assessment layer being built on top of it. As of this record:
+
+| Package | Version | Phase | Status |
+|---|---|---|---|
+| `clause_04_context` | Frozen at v1.0 | Phase 0 | Deterministic baseline, unchanged |
+| `agentic_assessment` | 0.1.0 | Phase 1 | Assessment data contracts only; no runtime behavior |
+| `governance` | 0.2.0 | Phase 2 | Deterministic, fail-closed governance configuration and enforcement |
+
+No supervisor, specialist agent, report generator, or LLM/external model integration exists in any package as of Phase 2. `governance/model_use_record.yaml` records `model_use_status: NOT_IN_USE`.
+
+Combined regression, all packages, at Phase 2 completion: 132 passed.
+
+See `docs/architecture/ADR-0001-sequential-supervisor.md`, `docs/architecture/ADR-0002-deterministic-governance-layer.md`, and `docs/implementation/` for detail.
+
+---
+
 ## v1.0 Release Summary
 
 MVP1-Clause04-Pilot-v1.0 is the frozen baseline for the Clause 04 pilot.
@@ -318,3 +336,49 @@ Validation:
 - Rule-based readiness score: 100.0%
 - Final runner result: No structural, response-quality, or evidence-reference gaps detected in the loaded Clause 04 pilot scope.
 - Full pytest suite passed: 73 tests
+
+---
+
+### MVP1-Agentic-Phase1-v0.1.0
+
+Status: Assessment data contracts merged; contract-only baseline
+
+Completed:
+- Added `agentic_assessment` package skeleton (package version 0.1.0)
+- Defined controlled vocabulary ahead of schema implementation
+- Added four JSON Schema contracts: assessment plan, evidence decision, finding, execution event (schema version 1.0.0, JSON Schema draft 2020-12)
+- Added valid and invalid contract fixtures
+- Added contract validation test suite
+
+Validation:
+- New contract tests: 12 passed
+- Complete regression suite: 85 passed
+- Clause 04 rule-based readiness unchanged: 100.0%
+- Frozen Clause 04 tree unchanged: `d8531b048382779c9c1a2d93620756d449630c9f`
+
+Limitation:
+- Contract-only. No supervisor, specialist component, report generator, or LLM integration introduced.
+
+---
+
+### MVP1-Governance-Phase2-v0.2.0
+
+Status: Deterministic governance enforcement layer merged to main
+
+Completed:
+- Added component registry, permission matrix, human approval rules, and model-use record (`governance/*.yaml`)
+- Added fail-closed policy enforcer and fail-closed startup validator
+- Added governance configuration loader and JSON Schemas for all four configuration documents
+- Added valid and invalid governance fixtures and a Phase 2 acceptance test suite
+
+Validation:
+- Full pytest suite: 132 passed
+- Phase 2 implementation commit: `5f096955`
+- Main merge commit: `91a3763`
+- Frozen Clause 04 tree unchanged: `d8531b048382779c9c1a2d93620756d449630c9f`
+- Protected paths unchanged
+
+Limitation:
+- No supervisor, specialist agent, report generator, or LLM/external model integration exists yet; `model_use_status` remains `NOT_IN_USE`.
+- `governance.audit_logger.AuditLogger` and `governance.schema_validator.SchemaValidator` are registered as enabled components with no corresponding implementation module; not yet exercised by any test.
+- File-system-level enforcement of the ADR-0001 read-only/write boundaries is not yet implemented in the governance layer.
