@@ -239,3 +239,13 @@ MVP_2 may extend the pattern with:
 - multi-clause reporting.
 
 That evolution must be documented through a separate architecture decision.
+
+---
+
+## Implementation status addendum (2026-08-04)
+
+This addendum records implementation status only. It does not alter the decision, rationale, or boundaries accepted above.
+
+As of Phase 2 (merge commit 91a3763), the Sequential Supervisor described in this ADR has **not** been implemented. Phase 1 delivered only the assessment data contracts (`assessment_plan`, `evidence_decision`, `finding`, `execution_event`). Phase 2 delivered a deterministic governance enforcement layer -- a component registry, permission matrix, human-approval rules, model-use record, and fail-closed policy enforcer and startup validator -- documented in [ADR-0002](./ADR-0002-deterministic-governance-layer.md) and in `docs/implementation/phase_2_progress.md`.
+
+`MVP_1/governance/model_use_record.yaml` explicitly records `SUPERVISOR_ORCHESTRATION` and `REPORT_GENERATION` as prohibited capabilities pending a future review. Any future implementation of the sequential supervisor described above must be registered in, and evaluated through, the governance layer defined in ADR-0002 before it may act -- including for the human-review routing described in the "Human oversight" section above, which ADR-0002's human-approval rules now make enforceable rather than descriptive.
