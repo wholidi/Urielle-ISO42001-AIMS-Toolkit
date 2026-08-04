@@ -1,5 +1,74 @@
 # Changelog
 
+## MVP1-Governance-Phase2-v0.2.0
+
+Date: 2026-08-03
+
+Status: Deterministic governance enforcement layer merged to main
+
+### Added
+- Component registry: `governance/agent_registry.yaml`.
+- Permission matrix with default-deny and deny-precedence: `governance/permission_matrix.yaml`.
+- Human approval rules requiring non-automated, non-self approval: `governance/human_approval_rules.yaml`.
+- Model-use record confirming `NOT_IN_USE` status: `governance/model_use_record.yaml`.
+- Fail-closed policy enforcer: `governance/policy_enforcer.py`.
+- Fail-closed startup validator: `governance/startup_validator.py`.
+- Governance configuration loader: `governance/config_loader.py`.
+- JSON Schemas for all four governance configuration documents.
+- Valid and invalid governance configuration fixtures.
+- Phase 2 acceptance test suite: `tests/test_governance_phase2_acceptance.py`.
+
+### Validation
+- Full pytest suite: 132 passed.
+- Phase 2 implementation commit: `5f096955` (`5f0969555b0beb590419caceb3a51f32e4be5eb8`).
+- Main merge commit: `91a3763`.
+- Frozen Clause 04 tree unchanged: `d8531b048382779c9c1a2d93620756d449630c9f`.
+- Protected paths unchanged: `04_Context/`, `05_Leadership/`, `Evidence_Repository/`, `MVP_1/clause_04_context/`.
+
+### Documentation
+- Added `docs/architecture/ADR-0002-deterministic-governance-layer.md`.
+- Added implementation status addendum to `docs/architecture/ADR-0001-sequential-supervisor.md`.
+- Added `docs/implementation/phase_2_progress.md`.
+
+### Accepted Phase 2 Limitations
+- No supervisor, specialist agent, or orchestration layer exists yet.
+- No report or finding generator exists yet.
+- No LLM or external model integration exists yet; `model_use_status` remains `NOT_IN_USE`.
+- `governance.audit_logger.AuditLogger` and `governance.schema_validator.SchemaValidator` are registered as enabled components but have no corresponding implementation module. No test currently exercises either.
+- File-system-level enforcement of the ADR-0001 read-only and write boundaries is not yet implemented in the governance layer; those boundaries remain enforced by convention and manual review.
+
+---
+
+## MVP1-Agentic-Phase1-v0.1.0
+
+Date: Not recorded in source documents; predates the Phase 2 merge (commit `91a3763`). See `docs/implementation/phase_1_progress.md` for checkpoint-level detail.
+
+Status: Assessment data contracts merged; contract-only, no runtime behavior added
+
+### Added
+- `agentic_assessment` package skeleton: `agentic_assessment/__init__.py` (package version 0.1.0).
+- Controlled vocabulary definition: `docs/implementation/phase_1_controlled_vocabulary.md` (schema version 1.0.0).
+- Four JSON Schema contracts, JSON Schema draft 2020-12, schema version 1.0.0:
+  - `agentic_assessment/schemas/assessment_plan.schema.json`
+  - `agentic_assessment/schemas/evidence_decision.schema.json`
+  - `agentic_assessment/schemas/finding.schema.json`
+  - `agentic_assessment/schemas/execution_event.schema.json`
+- Valid and invalid fixtures for all four contracts.
+- Contract validation test suite: `tests/test_agentic_assessment_schemas.py`.
+
+### Validation
+- New contract tests: 12 passed.
+- Complete regression suite at Phase 1 completion: 85 passed.
+- Clause 04 rule-based readiness unchanged: 100.0%.
+- Frozen Clause 04 tree unchanged: `d8531b048382779c9c1a2d93620756d449630c9f`.
+- Protected paths unchanged.
+
+### Accepted Phase 1 Limitations
+- Contract-only; no supervisor, specialist component, report generator, or LLM integration was introduced.
+- No governance enforcement of these contracts existed until Phase 2.
+
+---
+
 ## MVP1-Clause04-Pilot-v1.0
 
 Date: 2026-07-12
