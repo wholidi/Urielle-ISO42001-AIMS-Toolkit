@@ -1,0 +1,30 @@
+﻿schema_version: "1.0.0"
+record_version: "0.2.0"
+execution_mode: DETERMINISTIC_ONLY
+model_use_status: NOT_IN_USE
+external_model_calls_allowed: false
+generative_model_calls_allowed: false
+
+deterministic_controls:
+  - JSON_SCHEMA_VALIDATION
+  - YAML_SAFE_LOAD
+  - REGISTERED_COMPONENT_CHECK
+  - EXPLICIT_PERMISSION_CHECK
+  - DENY_PRECEDENCE
+  - HUMAN_APPROVAL_GATE
+  - STARTUP_CONFIGURATION_VALIDATION
+
+prohibited_capabilities:
+  - EXTERNAL_MODEL_INVOCATION
+  - GENERATIVE_TEXT_CREATION
+  - AUTONOMOUS_FINDING_GENERATION
+  - AUTONOMOUS_HUMAN_APPROVAL
+  - SUPERVISOR_ORCHESTRATION
+  - REPORT_GENERATION
+
+review:
+  review_status: APPROVED_FOR_DETERMINISTIC_ONLY
+  reviewed_by_role: AI_GOVERNANCE_LEAD
+  review_date: "2026-08-03"
+  next_review_trigger: BEFORE_ANY_MODEL_INTEGRATION
+  notes: "Phase 2 permits deterministic governance configuration and validation only. No supervisor, report generator, agent runtime, or model integration is approved."

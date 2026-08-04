@@ -1,0 +1,102 @@
+﻿{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://urielle-ai.com/schemas/governance/permission_matrix.schema.json",
+  "title": "Urielle-AI Governance Permission Matrix",
+  "description": "Deterministic authorization contract for registered Clause 04 governance components. Explicit deny takes precedence over allow, and unregistered components are denied by default.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "matrix_version",
+    "default_decision",
+    "deny_precedence",
+    "unregistered_component_decision",
+    "permissions"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "matrix_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "default_decision": {
+      "type": "string",
+      "const": "DENY"
+    },
+    "deny_precedence": {
+      "type": "boolean",
+      "const": true
+    },
+    "unregistered_component_decision": {
+      "type": "string",
+      "const": "DENY"
+    },
+    "permissions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/permission"
+      }
+    }
+  },
+  "$defs": {
+    "componentId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+      "minLength": 3,
+      "maxLength": 100
+    },
+    "action": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_]{2,99}$"
+    },
+    "resource": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_]{2,99}$"
+    },
+    "permission": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "component_id",
+        "resource",
+        "allowed_actions",
+        "denied_actions",
+        "human_approval_actions"
+      ],
+      "properties": {
+        "component_id": {
+          "$ref": "#/$defs/componentId"
+        },
+        "resource": {
+          "$ref": "#/$defs/resource"
+        },
+        "allowed_actions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/action"
+          }
+        },
+        "denied_actions": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/action"
+          }
+        },
+        "human_approval_actions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/action"
+          }
+        }
+      }
+    }
+  }
+}

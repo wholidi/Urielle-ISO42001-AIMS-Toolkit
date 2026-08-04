@@ -1,0 +1,16 @@
+﻿schema_version: "1.0.0"
+rules_version: "0.2.0"
+default_decision: REQUIRE_HUMAN_APPROVAL
+self_approval_prohibited: true
+approval_bypass_prohibited: true
+
+rules:
+  - rule_id: HAR-001
+    action: ACCEPT_ASSESSMENT_FINDING
+    approval_required: true
+    minimum_approvals: 1
+    allowed_approval_roles:
+      - AI_GOVERNANCE_LEAD
+    reason_required: true
+    evidence_reference_required: true
+    automated_approval_allowed: true

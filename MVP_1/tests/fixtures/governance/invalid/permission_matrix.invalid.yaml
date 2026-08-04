@@ -1,0 +1,14 @@
+﻿schema_version: "1.0.0"
+matrix_version: "0.2.0"
+default_decision: ALLOW
+deny_precedence: true
+unregistered_component_decision: DENY
+
+permissions:
+  - component_id: governance.policy_enforcer
+    resource: GOVERNANCE_POLICY
+    allowed_actions:
+      - CHECK_ACTION_PERMISSION
+    denied_actions:
+      - MODIFY_PROTECTED_PATH
+    human_approval_actions: []

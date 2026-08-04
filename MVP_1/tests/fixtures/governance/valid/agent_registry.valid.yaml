@@ -1,0 +1,74 @@
+﻿schema_version: "1.0.0"
+registry_version: "0.2.0"
+default_execution_mode: DETERMINISTIC_ONLY
+
+components:
+  - component_id: governance.configuration_loader
+    component_type: CONFIGURATION_LOADER
+    version: "0.2.0"
+    enabled: true
+    execution_mode: DETERMINISTIC_ONLY
+    implementation: governance.config_loader.ConfigurationLoader
+    allowed_actions:
+      - LOAD_GOVERNANCE_CONFIGURATION
+      - PARSE_YAML_CONFIGURATION
+      - VALIDATE_CONFIGURATION_SCHEMA
+    prohibited_actions:
+      - CALL_EXTERNAL_MODEL
+      - MODIFY_PROTECTED_PATH
+      - GENERATE_ASSESSMENT_FINDING
+      - APPROVE_HUMAN_DECISION
+    human_approval_required: false
+
+  - component_id: governance.policy_enforcer
+    component_type: POLICY_ENFORCER
+    version: "0.2.0"
+    enabled: true
+    execution_mode: DETERMINISTIC_ONLY
+    implementation: governance.policy_enforcer.PolicyEnforcer
+    allowed_actions:
+      - CHECK_COMPONENT_REGISTRATION
+      - CHECK_ACTION_PERMISSION
+      - DENY_PROHIBITED_ACTION
+      - REQUIRE_HUMAN_APPROVAL
+    prohibited_actions:
+      - CALL_EXTERNAL_MODEL
+      - MODIFY_PROTECTED_PATH
+      - GENERATE_ASSESSMENT_FINDING
+      - APPROVE_HUMAN_DECISION
+    human_approval_required: false
+
+  - component_id: governance.audit_logger
+    component_type: AUDIT_LOGGER
+    version: "0.2.0"
+    enabled: true
+    execution_mode: DETERMINISTIC_ONLY
+    implementation: governance.audit_logger.AuditLogger
+    allowed_actions:
+      - RECORD_POLICY_DECISION
+      - RECORD_CONFIGURATION_VALIDATION
+      - RECORD_COMPONENT_BLOCK
+    prohibited_actions:
+      - CALL_EXTERNAL_MODEL
+      - MODIFY_PROTECTED_PATH
+      - ALTER_AUDIT_EVENT
+      - APPROVE_HUMAN_DECISION
+    human_approval_required: false
+
+  - component_id: governance.schema_validator
+    component_type: DETERMINISTIC_VALIDATOR
+    version: "0.2.0"
+    enabled: true
+    execution_mode: DETERMINISTIC_ONLY
+    implementation: governance.schema_validator.SchemaValidator
+    allowed_actions:
+      - VALIDATE_AGENT_REGISTRY
+      - VALIDATE_PERMISSION_MATRIX
+      - VALIDATE_HUMAN_APPROVAL_RULES
+      - VALIDATE_MODEL_USE_RECORD
+    prohibited_actions:
+      - CALL_EXTERNAL_MODEL
+      - MODIFY_PROTECTED_PATH
+      - GENERATE_ASSESSMENT_FINDING
+      - APPROVE_HUMAN_DECISION
+    human_approval_required: false

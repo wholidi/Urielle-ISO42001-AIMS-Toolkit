@@ -1,0 +1,19 @@
+﻿schema_version: "1.0.0"
+record_version: "0.2.0"
+execution_mode: DETERMINISTIC_ONLY
+model_use_status: NOT_IN_USE
+external_model_calls_allowed: true
+generative_model_calls_allowed: false
+
+deterministic_controls:
+  - JSON_SCHEMA_VALIDATION
+
+prohibited_capabilities:
+  - EXTERNAL_MODEL_INVOCATION
+
+review:
+  review_status: APPROVED_FOR_DETERMINISTIC_ONLY
+  reviewed_by_role: AI_GOVERNANCE_LEAD
+  review_date: "2026-08-03"
+  next_review_trigger: BEFORE_ANY_MODEL_INTEGRATION
+  notes: "This fixture is intentionally invalid."
