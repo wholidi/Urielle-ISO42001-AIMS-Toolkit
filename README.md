@@ -110,7 +110,35 @@ Annex_C/
 Annex_D/
 
 Reference/
+
+MVP_1/
 ```
+
+`04_Context/` through `Reference/` are the manual, template-based AIMS framework described above. `MVP_1/` is a separate, executable agentic assessment pilot — see the next section.
+
+---
+
+## MVP_1 — Agentic Assessment Pilot
+
+Alongside the template-based AIMS framework above, `MVP_1/` is a separate, executable pilot exploring how an agentic assessment workflow can be layered on top of a deterministic ISO 42001 implementation without replacing it.
+
+Scope: ISO/IEC 42001 Clause 4 only.
+
+| Phase | Status | Delivers |
+|---|---|---|
+| Phase 0 | Complete | Frozen deterministic Clause 4 baseline (`clause_04_context/`): rule-based scoring, gap detection, readiness calculation, and report generation. |
+| Phase 1 | Complete | Governed data contracts for a future agentic layer (`agentic_assessment/`): assessment plan, evidence decision, finding, and execution event, each schema-validated. No runtime agentic behavior. |
+| Phase 2 | Complete | A deterministic, fail-closed governance enforcement layer (`governance/`): a component registry, a default-deny permission matrix, mandatory non-automated human-approval rules, and a model-use record confirming no model is in use. |
+| Phase 3 | Scoped, not started | Closing known implementation gaps, file-system boundary enforcement, and a deterministic Clause 4 adapter. No supervisor, findings, or model integration. |
+
+As of Phase 2, no supervisor, specialist agent, report or finding generator, or LLM/external model integration exists anywhere in `MVP_1/`. Any future component of that kind must be registered in, and evaluated through, the governance layer before it may act.
+
+Architecture decisions and phase-by-phase implementation records are documented under `MVP_1/docs/`:
+
+- `docs/architecture/ADR-0001-sequential-supervisor.md`
+- `docs/architecture/ADR-0002-deterministic-governance-layer.md`
+- `docs/implementation/`
+- `MVP_1/CHANGELOG.md` and `MVP_1/VERSION.md`
 
 ---
 
