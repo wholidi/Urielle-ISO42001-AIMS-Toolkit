@@ -63,7 +63,8 @@
             "DETERMINISTIC_VALIDATOR",
             "CONFIGURATION_LOADER",
             "POLICY_ENFORCER",
-            "AUDIT_LOGGER"
+            "AUDIT_LOGGER",
+            "SEQUENTIAL_SUPERVISOR"
           ]
         },
         "version": {

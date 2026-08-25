@@ -58,3 +58,23 @@ permissions:
       - GENERATE_ASSESSMENT_FINDING
       - APPROVE_HUMAN_DECISION
     human_approval_actions: []
+
+  - component_id: agentic.supervisor
+    resource: AGENTIC_ASSESSMENT_WORKFLOW
+
+    allowed_actions:
+      - START_ASSESSMENT_RUN
+      - VALIDATE_ASSESSMENT_PLAN
+      - EXECUTE_WORKFLOW_STEP
+      - RECORD_EXECUTION_EVENT
+      - COMPLETE_ASSESSMENT_RUN
+
+    denied_actions:
+      - CALL_EXTERNAL_MODEL
+      - MODIFY_PROTECTED_PATH
+      - GENERATE_ASSESSMENT_FINDING
+      - APPROVE_HUMAN_DECISION
+      - ALTER_SOURCE_EVIDENCE
+
+    human_approval_actions:
+      - ROUTE_HUMAN_REVIEW
