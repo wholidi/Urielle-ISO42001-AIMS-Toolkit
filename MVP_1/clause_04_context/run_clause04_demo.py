@@ -140,50 +140,286 @@ def generate_markdown_report(session_id, evidence_records, gaps, readiness):
 
     temp_file.replace(REPORT_FILE)
 
-def main():
-    session_id = "CLAUSE4-DEMO-001"
+def run_clause04_assessment(
+    *,
+    session_id,
+    questions,
+    responses,
+):
+    """Run the existing deterministic Clause 04 assessment logic.
 
-    questions = load_json(QUESTIONS_FILE)
-    responses = load_json(RESPONSES_FILE)
+    This function performs calculation only.
 
-    raise_if_invalid_inputs(questions, responses)
+    It does not:
+    - write reports;
+    - write evidence files;
+    - print output;
+    - invoke an LLM;
+    - perform human approval.
+    """
+
+    raise_if_invalid_inputs(
+        questions,
+        responses,
+    )
 
     evidence_records = []
 
     for question in questions:
-        response = match_response(question["question_id"], responses)
-        score = score_response(response.get("response", ""), question["clause"])
-        auditor_flag = requires_auditor_review(score)
+        response = match_response(
+            question["question_id"],
+            responses,
+        )
+
+        score = score_response(
+            response.get("response", ""),
+            question["clause"],
+        )
+
+        auditor_flag = requires_auditor_review(
+            score
+        )
 
         evidence_record = create_evidence_record(
             session_id=session_id,
             question=question,
             response=response,
             confidence_score=score,
-            auditor_flag=auditor_flag
+            auditor_flag=auditor_flag,
         )
 
-        evidence_records.append(evidence_record.to_dict())
+        evidence_records.append(
+            evidence_record.to_dict()
+        )
 
-    gaps = detect_gaps(questions, responses, evidence_records)
-    readiness = calculate_readiness(evidence_records, gaps)
+    gaps = detect_gaps(
+        questions,
+        responses,
+        evidence_records,
+    )
 
-    generate_markdown_report(session_id, evidence_records, gaps, readiness)
-    save_evidence_records(evidence_records)
+    readiness = calculate_readiness(
+        evidence_records,
+        gaps,
+    )
+
+    return {
+        "session_id": session_id,
+        "status": "COMPLETED",
+        "score": readiness,
+        "evidence_records": evidence_records,
+        "gaps": gaps,
+    }
+
+def run_clause04_assessment(
+    *,
+    session_id,
+    questions,
+    responses,
+):
+    """Run the existing deterministic Clause 04 assessment logic.
+
+    This function performs calculation only.
+
+    It does not:
+    - write reports;
+    - write evidence files;
+    - print output;
+    - invoke an LLM;
+    - perform human approval.
+    """
+
+    raise_if_invalid_inputs(
+        questions,
+        responses,
+    )
+
+    evidence_records = []
+
+    for question in questions:
+        response = match_response(
+            question["question_id"],
+            responses,
+        )
+
+        score = score_response(
+            response.get("response", ""),
+            question["clause"],
+        )
+
+        auditor_flag = requires_auditor_review(
+            score
+        )
+
+        evidence_record = create_evidence_record(
+            session_id=session_id,
+            question=question,
+            response=response,
+            confidence_score=score,
+            auditor_flag=auditor_flag,
+        )
+
+        evidence_records.append(
+            evidence_record.to_dict()
+        )
+
+    gaps = detect_gaps(
+        questions,
+        responses,
+        evidence_records,
+    )
+
+    readiness = calculate_readiness(
+        evidence_records,
+        gaps,
+    )
+
+    return {
+        "session_id": session_id,
+        "status": "COMPLETED",
+        "score": readiness,
+        "evidence_records": evidence_records,
+        "gaps": gaps,
+    }
+
+def run_clause04_assessment(
+    *,
+    session_id,
+    questions,
+    responses,
+):
+    """Run the existing deterministic Clause 04 assessment logic.
+
+    This function performs calculation only.
+
+    It does not:
+    - write reports;
+    - write evidence files;
+    - print output;
+    - invoke an LLM;
+    - perform human approval.
+    """
+
+    raise_if_invalid_inputs(
+        questions,
+        responses,
+    )
+
+    evidence_records = []
+
+    for question in questions:
+        response = match_response(
+            question["question_id"],
+            responses,
+        )
+
+        score = score_response(
+            response.get("response", ""),
+            question["clause"],
+        )
+
+        auditor_flag = requires_auditor_review(
+            score
+        )
+
+        evidence_record = create_evidence_record(
+            session_id=session_id,
+            question=question,
+            response=response,
+            confidence_score=score,
+            auditor_flag=auditor_flag,
+        )
+
+        evidence_records.append(
+            evidence_record.to_dict()
+        )
+
+    gaps = detect_gaps(
+        questions,
+        responses,
+        evidence_records,
+    )
+
+    readiness = calculate_readiness(
+        evidence_records,
+        gaps,
+    )
+
+    return {
+        "session_id": session_id,
+        "status": "COMPLETED",
+        "score": readiness,
+        "evidence_records": evidence_records,
+        "gaps": gaps,
+    }
+
+def main():
+    session_id = "CLAUSE4-DEMO-001"
+
+    questions = load_json(
+        QUESTIONS_FILE
+    )
+
+    responses = load_json(
+        RESPONSES_FILE
+    )
+
+    result = run_clause04_assessment(
+        session_id=session_id,
+        questions=questions,
+        responses=responses,
+    )
+
+    evidence_records = result[
+        "evidence_records"
+    ]
+
+    gaps = result["gaps"]
+    readiness = result["score"]
+
+    generate_markdown_report(
+        session_id,
+        evidence_records,
+        gaps,
+        readiness,
+    )
+
+    save_evidence_records(
+        evidence_records
+    )
 
     print("Clause 4 demo completed.")
-    print(f"Rule-based readiness score: {readiness}%")
-    print(f"Report generated: {REPORT_FILE}")
-    print(f"Evidence records generated: {EVIDENCE_FILE}")
+    print(
+        f"Rule-based readiness score: "
+        f"{readiness}%"
+    )
+    print(
+        f"Report generated: {REPORT_FILE}"
+    )
+    print(
+        "Evidence records generated: "
+        f"{EVIDENCE_FILE}"
+    )
 
     if gaps:
         print("")
         print("Gaps detected:")
+
         for gap in gaps:
-            print(f"- {gap['gap_type']} | {gap['question_id']} | Clause {gap['clause']}: {gap['description']}")
+            print(
+                f"- {gap['gap_type']} | "
+                f"{gap['question_id']} | "
+                f"Clause {gap['clause']}: "
+                f"{gap['description']}"
+            )
+
     else:
         print("")
-        print("No structural, response-quality, or evidence-reference gaps detected in the loaded Clause 04 pilot scope.")
+        print(
+            "No structural, response-quality, "
+            "or evidence-reference gaps detected "
+            "in the loaded Clause 04 pilot scope."
+        )
 
 if __name__ == "__main__":
     main()
