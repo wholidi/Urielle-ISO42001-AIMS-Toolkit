@@ -12,10 +12,16 @@ from governance.policy_enforcer import (
     PolicyEnforcer,
 )
 
+from datetime import datetime, timezone
+
+from agentic_assessment.contract_validator import (
+    AssessmentContractError,
+    AssessmentContractValidator,
+)
 
 SUPERVISOR_COMPONENT_ID = "agentic.supervisor"
 WORKFLOW_RESOURCE = "AGENTIC_ASSESSMENT_WORKFLOW"
-
+SUPERVISOR_VERSION = "0.3.0"
 
 class SupervisorError(RuntimeError):
     """Raised when the supervisor cannot continue safely."""
@@ -53,19 +59,58 @@ WORKFLOW_SEQUENCE: tuple[WorkflowStep, ...] = (
     WorkflowStep.REPORT_GENERATION,
 )
 
-
 @dataclass(frozen=True)
 class ExecutionEvent:
-    """One immutable supervisor execution event."""
+    """Schema-bound immutable Agentic Clause 04 execution event."""
 
-    run_id: str
-    sequence: int
+    schema_version: str
+    event_id: str
+    timestamp: str
+    assessment_id: str
+    correlation_id: str
     component_id: str
-    event_type: str
-    workflow_step: str | None
-    decision: str
-    reason: str
+    component_version: str
+    workflow_state: str
+    event_status: str
+    step: str
+    action: str
+    input_refs: tuple[str, ...]
+    output_refs: tuple[str, ...]
+    result: str | None
+    policy_decision: str
+    human_review_required: bool
+    duration_ms: int
+    error: Mapping[str, Any] | None
+    provenance: Mapping[str, Any]
 
+    def to_contract(self) -> dict[str, Any]:
+        """Serialize exactly to the Phase-1 execution-event contract."""
+
+        return {
+            "schema_version": self.schema_version,
+            "event_id": self.event_id,
+            "timestamp": self.timestamp,
+            "assessment_id": self.assessment_id,
+            "correlation_id": self.correlation_id,
+            "component_id": self.component_id,
+            "component_version": self.component_version,
+            "workflow_state": self.workflow_state,
+            "event_status": self.event_status,
+            "step": self.step,
+            "action": self.action,
+            "input_refs": list(self.input_refs),
+            "output_refs": list(self.output_refs),
+            "result": self.result,
+            "policy_decision": self.policy_decision,
+            "human_review_required": self.human_review_required,
+            "duration_ms": self.duration_ms,
+            "error": (
+                dict(self.error)
+                if self.error is not None
+                else None
+            ),
+            "provenance": dict(self.provenance),
+        }
 
 @dataclass(frozen=True)
 class SupervisorResult:
@@ -96,24 +141,35 @@ class SequentialSupervisor:
     """
 
     def __init__(
-        self,
-        *,
-        policy_enforcer: PolicyEnforcer,
-        handlers: Mapping[WorkflowStep, StepHandler] | None = None,
-    ) -> None:
+    self,
+    *,
+    policy_enforcer: PolicyEnforcer,
+    handlers: Mapping[WorkflowStep, StepHandler] | None = None,
+    contract_validator: AssessmentContractValidator | None = None,
+) -> None:
         self.policy_enforcer = policy_enforcer
         self.handlers = dict(handlers or {})
+        self.contract_validator = (
+            contract_validator
+            if contract_validator is not None
+            else AssessmentContractValidator()
+    )
 
     def run(
         self,
         *,
         run_id: str,
+        assessment_id: str,
         assessment_context: Mapping[str, Any],
         steps: Sequence[WorkflowStep] = WORKFLOW_SEQUENCE,
     ) -> SupervisorResult:
         """Execute approved workflow steps sequentially."""
 
         self._require_identifier(run_id, "run_id")
+        self._require_identifier(
+            assessment_id,
+            "assessment_id",
+    )
 
         events: list[ExecutionEvent] = []
         completed: list[WorkflowStep] = []
@@ -130,6 +186,7 @@ class SequentialSupervisor:
                 workflow_step=None,
                 decision="ALLOW",
                 reason="Governance permitted assessment run start.",
+                assessment_id=assessment_id,
             )
         )
 
@@ -147,6 +204,7 @@ class SequentialSupervisor:
                     self._event(
                         run_id=run_id,
                         sequence=len(events) + 1,
+                        assessment_id=assessment_id,
                         event_type="WORKFLOW_BLOCKED",
                         workflow_step=step,
                         decision="DENY",
@@ -170,6 +228,7 @@ class SequentialSupervisor:
                         workflow_step=step,
                         decision="REQUIRE_HUMAN_APPROVAL",
                         reason=decision.reason,
+                        assessment_id=assessment_id,
                     )
                 )
 
@@ -188,6 +247,7 @@ class SequentialSupervisor:
                     workflow_step=step,
                     decision="ALLOW",
                     reason="Governance permitted workflow step.",
+                    assessment_id=assessment_id,
                 )
             )
 
@@ -196,15 +256,27 @@ class SequentialSupervisor:
             if handler is not None:
                 try:
                     next_context = handler(context)
+
                 except Exception as exc:
                     events.append(
                         self._event(
                             run_id=run_id,
+                            assessment_id=assessment_id,
                             sequence=len(events) + 1,
                             event_type="WORKFLOW_STEP_FAILED",
                             workflow_step=step,
                             decision="STOP",
-                            reason=f"Workflow handler failed: {type(exc).__name__}",
+                            reason=(
+                                f"Workflow handler failed: "
+                                f"{type(exc).__name__}"
+                            ),
+                            error={
+                                "error_type": type(exc).__name__,
+                                "message": (
+                                    "Workflow handler execution failed."
+                                ),
+                                "retryable": False,
+                            },
                         )
                     )
 
@@ -232,6 +304,7 @@ class SequentialSupervisor:
                     workflow_step=step,
                     decision="ALLOW",
                     reason="Workflow step completed.",
+                    assessment_id=assessment_id,
                 )
             )
 
@@ -247,6 +320,7 @@ class SequentialSupervisor:
                 workflow_step=None,
                 decision="ALLOW",
                 reason="All approved workflow steps completed.",
+                assessment_id=assessment_id,
             )
         )
 
@@ -287,29 +361,80 @@ class SequentialSupervisor:
                 f"{decision.decision.value}: {decision.reason}"
             )
 
-    @staticmethod
     def _event(
+        self,
         *,
         run_id: str,
+        assessment_id: str,
         sequence: int,
         event_type: str,
         workflow_step: WorkflowStep | None,
         decision: str,
         reason: str,
+        error: Mapping[str, Any] | None = None,
     ) -> ExecutionEvent:
-        return ExecutionEvent(
-            run_id=run_id,
-            sequence=sequence,
-            component_id=SUPERVISOR_COMPONENT_ID,
+        """Create and validate one execution event before emission."""
+
+        timestamp = datetime.now(timezone.utc).isoformat()
+
+        event_status = self._event_status(event_type)
+
+        workflow_state = self._workflow_state(
             event_type=event_type,
-            workflow_step=(
+            workflow_step=workflow_step,
+        )
+
+        policy_decision = self._policy_decision(decision)
+
+        event = ExecutionEvent(
+            schema_version="1.0.0",
+            event_id=f"EVT-{run_id}-{sequence:04d}",
+            timestamp=timestamp,
+            assessment_id=assessment_id,
+            correlation_id=run_id,
+            component_id=SUPERVISOR_COMPONENT_ID,
+            component_version=SUPERVISOR_VERSION,
+            workflow_state=workflow_state,
+            event_status=event_status,
+            step=(
                 workflow_step.value
                 if workflow_step is not None
-                else None
+                else "SUPERVISOR"
             ),
-            decision=decision,
-            reason=reason,
+            action=event_type,
+            input_refs=(f"assessment:{assessment_id}",),
+            output_refs=(),
+            result=reason,
+            policy_decision=policy_decision,
+            human_review_required=(
+                event_status == "AWAITING_HUMAN_REVIEW"
+            ),
+            duration_ms=0,
+            error=error,
+            provenance={
+                "created_at": timestamp,
+                "created_by": SUPERVISOR_COMPONENT_ID,
+                "generator": "DETERMINISTIC_RULES",
+                "generator_version": SUPERVISOR_VERSION,
+                "source_refs": [
+                    f"assessment:{assessment_id}",
+                    f"run:{run_id}",
+                ],
+            },
         )
+
+        try:
+            self.contract_validator.require_valid(
+                contract_name="execution_event",
+                instance=event.to_contract(),
+            )
+
+        except AssessmentContractError as exc:
+            raise SupervisorError(
+                "Execution event failed contract validation."
+            ) from exc
+
+        return event
 
     @staticmethod
     def _require_identifier(value: Any, field_name: str) -> None:
@@ -317,3 +442,91 @@ class SequentialSupervisor:
             raise SupervisorError(
                 f"{field_name} is missing or invalid."
             )
+
+    @staticmethod
+    def _event_status(event_type: str) -> str:
+        mapping = {
+            "ASSESSMENT_RUN_STARTED": "STARTED",
+            "WORKFLOW_STEP_STARTED": "STARTED",
+            "WORKFLOW_STEP_COMPLETED": "SUCCEEDED",
+            "WORKFLOW_STEP_FAILED": "FAILED",
+            "WORKFLOW_BLOCKED": "BLOCKED",
+            "HUMAN_REVIEW_REQUIRED": "AWAITING_HUMAN_REVIEW",
+            "ASSESSMENT_RUN_COMPLETED": "SUCCEEDED",
+    }
+
+        try:
+            return mapping[event_type]
+        except KeyError as exc:
+            raise SupervisorError(
+                f"Unknown execution event type: {event_type}"
+            ) from exc
+
+
+    @staticmethod
+    def _policy_decision(decision: str) -> str:
+        mapping = {
+            "ALLOW": "ALLOWED",
+            "DENY": "DENIED",
+            "REQUIRE_HUMAN_APPROVAL": "NOT_APPLICABLE",
+            "STOP": "NOT_APPLICABLE",
+        }
+
+        try:
+            return mapping[decision]
+        except KeyError as exc:
+            raise SupervisorError(
+                f"Unknown policy decision: {decision}"
+            ) from exc
+
+
+    @staticmethod
+    def _workflow_state(
+        *,
+        event_type: str,
+        workflow_step: WorkflowStep | None,
+    ) -> str:
+        if event_type == "ASSESSMENT_RUN_STARTED":
+            return "INITIALISED"
+
+        if event_type == "ASSESSMENT_RUN_COMPLETED":
+            return "COMPLETED"
+
+        if event_type == "WORKFLOW_STEP_FAILED":
+            return "FAILED"
+
+        if event_type == "WORKFLOW_BLOCKED":
+            return "FAILED"
+
+        if event_type == "HUMAN_REVIEW_REQUIRED":
+            return "REVIEW_PENDING"
+
+        mapping = {
+            WorkflowStep.ASSESSMENT_PLANNING:
+                "SCOPE_PENDING",
+
+            WorkflowStep.QUESTION_SELECTION:
+                "VALIDATING",
+
+            WorkflowStep.CLAUSE_04_EXECUTION:
+                "VALIDATING",
+
+            WorkflowStep.EVIDENCE_ASSESSMENT:
+                "ASSESSING_EVIDENCE",
+
+            WorkflowStep.FINDING_GENERATION:
+                "GENERATING_FINDINGS",
+
+            WorkflowStep.HUMAN_REVIEW_DECISION:
+                "REVIEW_PENDING",
+
+            WorkflowStep.REPORT_GENERATION:
+                "REPORT_DRAFTED",
+        }
+
+        if workflow_step not in mapping:
+            raise SupervisorError(
+                "Unable to derive workflow state."
+            )
+
+        return mapping[workflow_step]
