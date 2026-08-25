@@ -72,3 +72,24 @@ components:
       - GENERATE_ASSESSMENT_FINDING
       - APPROVE_HUMAN_DECISION
     human_approval_required: false
+
+  - component_id: agentic.supervisor
+    component_type: SEQUENTIAL_SUPERVISOR
+    version: "0.3.0"
+    enabled: true
+    execution_mode: DETERMINISTIC_ONLY
+    implementation: agentic_assessment.supervisor.SequentialSupervisor
+    allowed_actions:
+      - START_ASSESSMENT_RUN
+      - VALIDATE_ASSESSMENT_PLAN
+      - EXECUTE_WORKFLOW_STEP
+      - RECORD_EXECUTION_EVENT
+      - ROUTE_HUMAN_REVIEW
+      - COMPLETE_ASSESSMENT_RUN
+    prohibited_actions:
+      - CALL_EXTERNAL_MODEL
+      - MODIFY_PROTECTED_PATH
+      - GENERATE_ASSESSMENT_FINDING
+      - APPROVE_HUMAN_DECISION
+      - ALTER_SOURCE_EVIDENCE
+    human_approval_required: false
