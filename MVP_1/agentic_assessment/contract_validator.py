@@ -20,6 +20,7 @@ class AssessmentContractValidator:
     SCHEMA_FILES = {
         "execution_event": "execution_event.schema.json",
         "evidence_decision": "evidence_decision.schema.json",
+        "finding": "finding.schema.json",
     }
 
     def __init__(self, schema_root: Path | str | None = None) -> None:
