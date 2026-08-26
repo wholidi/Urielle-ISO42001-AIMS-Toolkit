@@ -1,0 +1,514 @@
+[
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-CLAUSE04-DEMO-001-0001",
+    "timestamp": "2026-08-26T09:50:39.822493+00:00",
+    "assessment_id": "CLAUSE04-DEMO-001",
+    "correlation_id": "RUN-CLAUSE04-DEMO-001",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "INITIALISED",
+    "event_status": "STARTED",
+    "step": "SUPERVISOR",
+    "action": "ASSESSMENT_RUN_STARTED",
+    "input_refs": [
+      "assessment:CLAUSE04-DEMO-001"
+    ],
+    "output_refs": [],
+    "result": "Governance permitted assessment run start.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-08-26T09:50:39.822493+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:CLAUSE04-DEMO-001",
+        "run:RUN-CLAUSE04-DEMO-001"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-CLAUSE04-DEMO-001-0002",
+    "timestamp": "2026-08-26T09:50:39.838750+00:00",
+    "assessment_id": "CLAUSE04-DEMO-001",
+    "correlation_id": "RUN-CLAUSE04-DEMO-001",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "SCOPE_PENDING",
+    "event_status": "STARTED",
+    "step": "ASSESSMENT_PLANNING",
+    "action": "WORKFLOW_STEP_STARTED",
+    "input_refs": [
+      "assessment:CLAUSE04-DEMO-001"
+    ],
+    "output_refs": [],
+    "result": "Governance permitted workflow step.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-08-26T09:50:39.838750+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:CLAUSE04-DEMO-001",
+        "run:RUN-CLAUSE04-DEMO-001"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-CLAUSE04-DEMO-001-0003",
+    "timestamp": "2026-08-26T09:50:39.855833+00:00",
+    "assessment_id": "CLAUSE04-DEMO-001",
+    "correlation_id": "RUN-CLAUSE04-DEMO-001",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "SCOPE_PENDING",
+    "event_status": "SUCCEEDED",
+    "step": "ASSESSMENT_PLANNING",
+    "action": "WORKFLOW_STEP_COMPLETED",
+    "input_refs": [
+      "assessment:CLAUSE04-DEMO-001"
+    ],
+    "output_refs": [],
+    "result": "Workflow step completed.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-08-26T09:50:39.855833+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:CLAUSE04-DEMO-001",
+        "run:RUN-CLAUSE04-DEMO-001"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-CLAUSE04-DEMO-001-0004",
+    "timestamp": "2026-08-26T09:50:39.873833+00:00",
+    "assessment_id": "CLAUSE04-DEMO-001",
+    "correlation_id": "RUN-CLAUSE04-DEMO-001",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "VALIDATING",
+    "event_status": "STARTED",
+    "step": "QUESTION_SELECTION",
+    "action": "WORKFLOW_STEP_STARTED",
+    "input_refs": [
+      "assessment:CLAUSE04-DEMO-001"
+    ],
+    "output_refs": [],
+    "result": "Governance permitted workflow step.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-08-26T09:50:39.873833+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:CLAUSE04-DEMO-001",
+        "run:RUN-CLAUSE04-DEMO-001"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-CLAUSE04-DEMO-001-0005",
+    "timestamp": "2026-08-26T09:50:39.890955+00:00",
+    "assessment_id": "CLAUSE04-DEMO-001",
+    "correlation_id": "RUN-CLAUSE04-DEMO-001",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "VALIDATING",
+    "event_status": "SUCCEEDED",
+    "step": "QUESTION_SELECTION",
+    "action": "WORKFLOW_STEP_COMPLETED",
+    "input_refs": [
+      "assessment:CLAUSE04-DEMO-001"
+    ],
+    "output_refs": [],
+    "result": "Workflow step completed.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-08-26T09:50:39.890955+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:CLAUSE04-DEMO-001",
+        "run:RUN-CLAUSE04-DEMO-001"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-CLAUSE04-DEMO-001-0006",
+    "timestamp": "2026-08-26T09:50:39.906085+00:00",
+    "assessment_id": "CLAUSE04-DEMO-001",
+    "correlation_id": "RUN-CLAUSE04-DEMO-001",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "VALIDATING",
+    "event_status": "STARTED",
+    "step": "CLAUSE_04_EXECUTION",
+    "action": "WORKFLOW_STEP_STARTED",
+    "input_refs": [
+      "assessment:CLAUSE04-DEMO-001"
+    ],
+    "output_refs": [],
+    "result": "Governance permitted workflow step.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-08-26T09:50:39.906085+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:CLAUSE04-DEMO-001",
+        "run:RUN-CLAUSE04-DEMO-001"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-CLAUSE04-DEMO-001-0007",
+    "timestamp": "2026-08-26T09:50:39.930449+00:00",
+    "assessment_id": "CLAUSE04-DEMO-001",
+    "correlation_id": "RUN-CLAUSE04-DEMO-001",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "VALIDATING",
+    "event_status": "SUCCEEDED",
+    "step": "CLAUSE_04_EXECUTION",
+    "action": "WORKFLOW_STEP_COMPLETED",
+    "input_refs": [
+      "assessment:CLAUSE04-DEMO-001"
+    ],
+    "output_refs": [],
+    "result": "Workflow step completed.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-08-26T09:50:39.930449+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:CLAUSE04-DEMO-001",
+        "run:RUN-CLAUSE04-DEMO-001"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-CLAUSE04-DEMO-001-0008",
+    "timestamp": "2026-08-26T09:50:39.945529+00:00",
+    "assessment_id": "CLAUSE04-DEMO-001",
+    "correlation_id": "RUN-CLAUSE04-DEMO-001",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "ASSESSING_EVIDENCE",
+    "event_status": "STARTED",
+    "step": "EVIDENCE_ASSESSMENT",
+    "action": "WORKFLOW_STEP_STARTED",
+    "input_refs": [
+      "assessment:CLAUSE04-DEMO-001"
+    ],
+    "output_refs": [],
+    "result": "Governance permitted workflow step.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-08-26T09:50:39.945529+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:CLAUSE04-DEMO-001",
+        "run:RUN-CLAUSE04-DEMO-001"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-CLAUSE04-DEMO-001-0009",
+    "timestamp": "2026-08-26T09:50:40.021373+00:00",
+    "assessment_id": "CLAUSE04-DEMO-001",
+    "correlation_id": "RUN-CLAUSE04-DEMO-001",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "ASSESSING_EVIDENCE",
+    "event_status": "SUCCEEDED",
+    "step": "EVIDENCE_ASSESSMENT",
+    "action": "WORKFLOW_STEP_COMPLETED",
+    "input_refs": [
+      "assessment:CLAUSE04-DEMO-001"
+    ],
+    "output_refs": [],
+    "result": "Workflow step completed.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-08-26T09:50:40.021373+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:CLAUSE04-DEMO-001",
+        "run:RUN-CLAUSE04-DEMO-001"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-CLAUSE04-DEMO-001-0010",
+    "timestamp": "2026-08-26T09:50:40.059269+00:00",
+    "assessment_id": "CLAUSE04-DEMO-001",
+    "correlation_id": "RUN-CLAUSE04-DEMO-001",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "GENERATING_FINDINGS",
+    "event_status": "STARTED",
+    "step": "FINDING_GENERATION",
+    "action": "WORKFLOW_STEP_STARTED",
+    "input_refs": [
+      "assessment:CLAUSE04-DEMO-001"
+    ],
+    "output_refs": [],
+    "result": "Governance permitted workflow step.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-08-26T09:50:40.059269+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:CLAUSE04-DEMO-001",
+        "run:RUN-CLAUSE04-DEMO-001"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-CLAUSE04-DEMO-001-0011",
+    "timestamp": "2026-08-26T09:50:40.152198+00:00",
+    "assessment_id": "CLAUSE04-DEMO-001",
+    "correlation_id": "RUN-CLAUSE04-DEMO-001",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "GENERATING_FINDINGS",
+    "event_status": "SUCCEEDED",
+    "step": "FINDING_GENERATION",
+    "action": "WORKFLOW_STEP_COMPLETED",
+    "input_refs": [
+      "assessment:CLAUSE04-DEMO-001"
+    ],
+    "output_refs": [],
+    "result": "Workflow step completed.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-08-26T09:50:40.152198+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:CLAUSE04-DEMO-001",
+        "run:RUN-CLAUSE04-DEMO-001"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-CLAUSE04-DEMO-001-0012",
+    "timestamp": "2026-08-26T09:50:40.171788+00:00",
+    "assessment_id": "CLAUSE04-DEMO-001",
+    "correlation_id": "RUN-CLAUSE04-DEMO-001",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "REVIEW_PENDING",
+    "event_status": "STARTED",
+    "step": "HUMAN_REVIEW_DECISION",
+    "action": "WORKFLOW_STEP_STARTED",
+    "input_refs": [
+      "assessment:CLAUSE04-DEMO-001"
+    ],
+    "output_refs": [],
+    "result": "Governance permitted workflow step.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-08-26T09:50:40.171788+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:CLAUSE04-DEMO-001",
+        "run:RUN-CLAUSE04-DEMO-001"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-CLAUSE04-DEMO-001-0013",
+    "timestamp": "2026-08-26T09:50:40.191581+00:00",
+    "assessment_id": "CLAUSE04-DEMO-001",
+    "correlation_id": "RUN-CLAUSE04-DEMO-001",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "REVIEW_PENDING",
+    "event_status": "SUCCEEDED",
+    "step": "HUMAN_REVIEW_DECISION",
+    "action": "WORKFLOW_STEP_COMPLETED",
+    "input_refs": [
+      "assessment:CLAUSE04-DEMO-001"
+    ],
+    "output_refs": [],
+    "result": "Workflow step completed.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-08-26T09:50:40.191581+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:CLAUSE04-DEMO-001",
+        "run:RUN-CLAUSE04-DEMO-001"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-CLAUSE04-DEMO-001-0014",
+    "timestamp": "2026-08-26T09:50:40.207476+00:00",
+    "assessment_id": "CLAUSE04-DEMO-001",
+    "correlation_id": "RUN-CLAUSE04-DEMO-001",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "REPORT_DRAFTED",
+    "event_status": "STARTED",
+    "step": "REPORT_GENERATION",
+    "action": "WORKFLOW_STEP_STARTED",
+    "input_refs": [
+      "assessment:CLAUSE04-DEMO-001"
+    ],
+    "output_refs": [],
+    "result": "Governance permitted workflow step.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-08-26T09:50:40.207476+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:CLAUSE04-DEMO-001",
+        "run:RUN-CLAUSE04-DEMO-001"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-CLAUSE04-DEMO-001-0015",
+    "timestamp": "2026-08-26T09:50:40.227777+00:00",
+    "assessment_id": "CLAUSE04-DEMO-001",
+    "correlation_id": "RUN-CLAUSE04-DEMO-001",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "REPORT_DRAFTED",
+    "event_status": "SUCCEEDED",
+    "step": "REPORT_GENERATION",
+    "action": "WORKFLOW_STEP_COMPLETED",
+    "input_refs": [
+      "assessment:CLAUSE04-DEMO-001"
+    ],
+    "output_refs": [],
+    "result": "Workflow step completed.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-08-26T09:50:40.227777+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:CLAUSE04-DEMO-001",
+        "run:RUN-CLAUSE04-DEMO-001"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-CLAUSE04-DEMO-001-0016",
+    "timestamp": "2026-08-26T09:50:40.247585+00:00",
+    "assessment_id": "CLAUSE04-DEMO-001",
+    "correlation_id": "RUN-CLAUSE04-DEMO-001",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "COMPLETED",
+    "event_status": "SUCCEEDED",
+    "step": "SUPERVISOR",
+    "action": "ASSESSMENT_RUN_COMPLETED",
+    "input_refs": [
+      "assessment:CLAUSE04-DEMO-001"
+    ],
+    "output_refs": [],
+    "result": "All approved workflow steps completed.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-08-26T09:50:40.247585+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:CLAUSE04-DEMO-001",
+        "run:RUN-CLAUSE04-DEMO-001"
+      ]
+    }
+  }
+]
