@@ -1,7 +1,10 @@
 # MVP1 Clause 04 Pilot
 
-Current Version: MVP1-Clause04-Pilot-v1.0  
-Status: Frozen / Released Clause 04 rule-based pilot baseline
+Current Deterministic Baseline: MVP1-Clause04-Pilot-v1.0
+Baseline Status: Frozen / Released Clause 04 rule-based pilot baseline
+
+Current Agentic Milestone: Phase 3 Complete
+Agentic Status: Governed end-to-end Clause 04 MVP validated on 2026-08-26
 
 Release Artifact:
 - MVP1-Clause04-Pilot-v1.0.zip
@@ -18,15 +21,16 @@ Release Scope:
 
 The frozen Clause 04 pilot above (`MVP1-Clause04-Pilot-v1.0`) is versioned and tracked separately from the agentic assessment layer being built on top of it. As of this record:
 
-| Package | Version | Phase | Status |
+| Package / Layer | Milestone | Phase | Status |
 |---|---|---|---|
-| `clause_04_context` | Frozen at v1.0 | Phase 0 | Deterministic baseline, unchanged |
-| `agentic_assessment` | 0.1.0 | Phase 1 | Assessment data contracts only; no runtime behavior |
-| `governance` | 0.2.0 | Phase 2 | Deterministic, fail-closed governance configuration and enforcement |
+| `clause_04_context` | Frozen at v1.0 | Phase 0 | Deterministic baseline, unchanged; remains the readiness-scoring authority |
+| `agentic_assessment` | Phase 3 runtime complete | Phase 1–3 | Contracts, supervisor, Clause 04 adapter, evidence assessor, finding generator, human-review service, report generator, and end-to-end workflow integrated |
+| `governance` | Governance baseline 0.2.0 | Phase 2+ | Deterministic, fail-closed governance configuration and enforcement used by the runtime workflow |
 
-No supervisor, specialist agent, report generator, or LLM/external model integration exists in any package as of Phase 2. `governance/model_use_record.yaml` records `model_use_status: NOT_IN_USE`.
+Phase 3 introduces governed runtime orchestration but does **not** introduce LLM-controlled enforcement. The acceptance path uses no LLM or external model. Human review remains an explicit external accountability boundary.
 
-Combined regression, all packages, at Phase 2 completion: 132 passed.
+Combined regression, all packages, at Phase 3 completion: **232 passed**.
+Focused Agentic Clause 04 end-to-end suite: **9 passed**.
 
 See `docs/architecture/ADR-0001-sequential-supervisor.md`, `docs/architecture/ADR-0002-deterministic-governance-layer.md`, and `docs/implementation/` for detail.
 
@@ -95,6 +99,54 @@ Generated outputs:
 ---
 
 ## Version History
+
+### MVP1-Agentic-Phase3
+
+Date: 2026-08-26
+
+Status: **Complete — governed end-to-end Agentic Clause 04 MVP**
+
+Completed:
+- Added schema-bound runtime validation for governed agentic contracts.
+- Added deterministic `SequentialSupervisor` orchestration.
+- Bound supervisor execution events to the execution-event contract.
+- Added `Clause04Adapter` to reuse the frozen deterministic Clause 04 engine without duplicating scoring logic.
+- Added `EvidenceAssessor` and governed `EvidenceDecision` generation.
+- Added deterministic `FindingGenerator`.
+- Added explicit `HumanReviewService` integration; human disposition is supplied externally and is never invented by the workflow.
+- Added `ReportGenerator` with DRAFT / FINAL lifecycle behavior.
+- Added `Clause04Workflow` to integrate all declared workflow stages.
+- Added end-to-end Clause 04 workflow tests.
+- Added `scripts/run_agentic_clause04_demo.py` for acceptance testing against the real Clause 04 inputs.
+- Added persistent acceptance evidence: final Markdown report, execution-event JSON, and acceptance summary JSON.
+
+Acceptance validation:
+- Full regression suite: **232 passed**.
+- Focused end-to-end suite: **9 passed**.
+- Acceptance workflow state: **COMPLETED**.
+- Declared workflow stages completed: **7/7**.
+- Execution events recorded: **16**.
+- Deterministic readiness score preserved: **100.0%**.
+- Evidence decisions generated: **4**.
+- Findings: **0**.
+- Pending findings: **0**.
+- Final report status: **FINAL**.
+
+Governance properties:
+- Deterministic Clause 04 engine remains the readiness-scoring authority.
+- Agentic orchestration does not recalculate readiness.
+- Invalid workflow and review inputs fail closed.
+- Human approval is not automated or invented.
+- No LLM or external model is used in the governed acceptance path.
+- Generated reports are not certification decisions or independent audit assurance.
+
+Accepted limitations:
+- Evidence references may originate from human responses and are not independently verified by the agentic reporting layer.
+- Referenced evidence content is not independently validated by the Phase 3 workflow.
+- Reviewer identity/authentication is external to `HumanReviewService`.
+- The MVP scope remains ISO/IEC 42001 Clause 04 only.
+
+---
 
 ### MVP1-Clause04-Pilot-v0.1
 

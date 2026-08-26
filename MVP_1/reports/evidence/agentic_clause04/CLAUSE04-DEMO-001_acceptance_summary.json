@@ -1,0 +1,19 @@
+{
+  "assessment_id": "CLAUSE04-DEMO-001",
+  "run_id": "RUN-CLAUSE04-DEMO-001",
+  "workflow_state": "COMPLETED",
+  "report_status": "FINAL",
+  "readiness_score": 100.0,
+  "finding_count": 0,
+  "pending_finding_count": 0,
+  "human_review_required": false,
+  "completed_steps": [
+    "ASSESSMENT_PLANNING",
+    "QUESTION_SELECTION",
+    "CLAUSE_04_EXECUTION",
+    "EVIDENCE_ASSESSMENT",
+    "FINDING_GENERATION",
+    "HUMAN_REVIEW_DECISION",
+    "REPORT_GENERATION"
+  ]
+}

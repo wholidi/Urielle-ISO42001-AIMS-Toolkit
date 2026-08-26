@@ -1,5 +1,64 @@
 # Changelog
 
+## MVP1-Agentic-Phase3
+
+Date: 2026-08-26
+
+Status: **Complete — governed end-to-end Agentic Clause 04 MVP**
+
+### Added
+- Schema-bound runtime validation for governed agentic contracts.
+- Deterministic `SequentialSupervisor` orchestration under `PolicyEnforcer`.
+- Execution-event contract binding across supervisor lifecycle events.
+- `Clause04Adapter` to invoke and normalize the frozen deterministic Clause 04 assessment engine without duplicating scoring logic.
+- `EvidenceAssessor` and governed `EvidenceDecision` generation.
+- Deterministic `FindingGenerator`.
+- Explicit `HumanReviewService` integration for externally supplied ACCEPTED / MODIFIED / REJECTED human dispositions.
+- `ReportGenerator` supporting auditable DRAFT / FINAL report lifecycle behavior.
+- `Clause04Workflow` integrating all declared workflow stages.
+- End-to-end Agentic Clause 04 test suite.
+- Real-input acceptance runner: `scripts/run_agentic_clause04_demo.py`.
+- Persistent acceptance evidence under `reports/evidence/agentic_clause04/`:
+  - `CLAUSE04-DEMO-001_FINAL.md`
+  - `CLAUSE04-DEMO-001_execution_events.json`
+  - `CLAUSE04-DEMO-001_acceptance_summary.json`
+
+### Changed
+- Refactored the Clause 04 runner so deterministic assessment calculation can be called through the adapter while file I/O and console/report concerns remain outside the calculation boundary.
+- Preserved the frozen deterministic Clause 04 readiness score as the authoritative score throughout the governed workflow.
+- Added explicit traceability from assessment identity to evidence decisions, findings, execution events, and final report output.
+
+### Validation
+- Focused Agentic Clause 04 end-to-end tests: **9 passed**.
+- Full regression suite: **232 passed**.
+- Acceptance run command: `python -m scripts.run_agentic_clause04_demo`.
+- Acceptance workflow state: **COMPLETED**.
+- Declared workflow stages completed: **7/7**.
+- Execution events recorded: **16**.
+- Report status: **FINAL**.
+- Deterministic Clause 04 readiness score preserved: **100.0%**.
+- Governed evidence decisions generated: **4**.
+- Findings: **0**.
+- Pending findings: **0**.
+
+### Governance Properties
+- Deterministic control remains authoritative for Clause 04 readiness scoring.
+- The agentic workflow does not recalculate the readiness score.
+- Invalid workflow and review inputs fail closed.
+- Human review is explicit; the workflow does not invent or auto-approve human dispositions.
+- No LLM or external model is used in the governed acceptance path.
+- Execution events remain schema-valid and auditable.
+- Report generation does not make a certification decision or provide independent audit assurance.
+
+### Accepted Phase 3 Limitations
+- Scope remains ISO/IEC 42001 Clause 04 only.
+- Evidence references may originate from human responses and are not independently verified by the agentic reporting layer.
+- Referenced evidence files and their contents are not independently validated by this workflow.
+- Reviewer identity/authentication remains external to `HumanReviewService`.
+- The Phase 3 MVP proves governed orchestration and traceability; it does not replace an accredited certification audit.
+
+---
+
 ## MVP1-Governance-Phase2-v0.2.0
 
 Date: 2026-08-03
