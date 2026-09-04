@@ -1,0 +1,514 @@
+[
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-SCN-01-COMPLETE-0001",
+    "timestamp": "2026-09-04T08:00:00+00:00",
+    "assessment_id": "SCN-01-COMPLETE",
+    "correlation_id": "RUN-SCN-01-COMPLETE",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "INITIALISED",
+    "event_status": "STARTED",
+    "step": "SUPERVISOR",
+    "action": "ASSESSMENT_RUN_STARTED",
+    "input_refs": [
+      "assessment:SCN-01-COMPLETE"
+    ],
+    "output_refs": [],
+    "result": "Governance permitted assessment run start.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-09-04T08:00:00+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:SCN-01-COMPLETE",
+        "run:RUN-SCN-01-COMPLETE"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-SCN-01-COMPLETE-0002",
+    "timestamp": "2026-09-04T08:00:00+00:00",
+    "assessment_id": "SCN-01-COMPLETE",
+    "correlation_id": "RUN-SCN-01-COMPLETE",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "SCOPE_PENDING",
+    "event_status": "STARTED",
+    "step": "ASSESSMENT_PLANNING",
+    "action": "WORKFLOW_STEP_STARTED",
+    "input_refs": [
+      "assessment:SCN-01-COMPLETE"
+    ],
+    "output_refs": [],
+    "result": "Governance permitted workflow step.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-09-04T08:00:00+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:SCN-01-COMPLETE",
+        "run:RUN-SCN-01-COMPLETE"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-SCN-01-COMPLETE-0003",
+    "timestamp": "2026-09-04T08:00:00+00:00",
+    "assessment_id": "SCN-01-COMPLETE",
+    "correlation_id": "RUN-SCN-01-COMPLETE",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "SCOPE_PENDING",
+    "event_status": "SUCCEEDED",
+    "step": "ASSESSMENT_PLANNING",
+    "action": "WORKFLOW_STEP_COMPLETED",
+    "input_refs": [
+      "assessment:SCN-01-COMPLETE"
+    ],
+    "output_refs": [],
+    "result": "Workflow step completed.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-09-04T08:00:00+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:SCN-01-COMPLETE",
+        "run:RUN-SCN-01-COMPLETE"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-SCN-01-COMPLETE-0004",
+    "timestamp": "2026-09-04T08:00:00+00:00",
+    "assessment_id": "SCN-01-COMPLETE",
+    "correlation_id": "RUN-SCN-01-COMPLETE",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "VALIDATING",
+    "event_status": "STARTED",
+    "step": "QUESTION_SELECTION",
+    "action": "WORKFLOW_STEP_STARTED",
+    "input_refs": [
+      "assessment:SCN-01-COMPLETE"
+    ],
+    "output_refs": [],
+    "result": "Governance permitted workflow step.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-09-04T08:00:00+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:SCN-01-COMPLETE",
+        "run:RUN-SCN-01-COMPLETE"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-SCN-01-COMPLETE-0005",
+    "timestamp": "2026-09-04T08:00:00+00:00",
+    "assessment_id": "SCN-01-COMPLETE",
+    "correlation_id": "RUN-SCN-01-COMPLETE",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "VALIDATING",
+    "event_status": "SUCCEEDED",
+    "step": "QUESTION_SELECTION",
+    "action": "WORKFLOW_STEP_COMPLETED",
+    "input_refs": [
+      "assessment:SCN-01-COMPLETE"
+    ],
+    "output_refs": [],
+    "result": "Workflow step completed.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-09-04T08:00:00+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:SCN-01-COMPLETE",
+        "run:RUN-SCN-01-COMPLETE"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-SCN-01-COMPLETE-0006",
+    "timestamp": "2026-09-04T08:00:00+00:00",
+    "assessment_id": "SCN-01-COMPLETE",
+    "correlation_id": "RUN-SCN-01-COMPLETE",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "VALIDATING",
+    "event_status": "STARTED",
+    "step": "CLAUSE_04_EXECUTION",
+    "action": "WORKFLOW_STEP_STARTED",
+    "input_refs": [
+      "assessment:SCN-01-COMPLETE"
+    ],
+    "output_refs": [],
+    "result": "Governance permitted workflow step.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-09-04T08:00:00+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:SCN-01-COMPLETE",
+        "run:RUN-SCN-01-COMPLETE"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-SCN-01-COMPLETE-0007",
+    "timestamp": "2026-09-04T08:00:00+00:00",
+    "assessment_id": "SCN-01-COMPLETE",
+    "correlation_id": "RUN-SCN-01-COMPLETE",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "VALIDATING",
+    "event_status": "SUCCEEDED",
+    "step": "CLAUSE_04_EXECUTION",
+    "action": "WORKFLOW_STEP_COMPLETED",
+    "input_refs": [
+      "assessment:SCN-01-COMPLETE"
+    ],
+    "output_refs": [],
+    "result": "Workflow step completed.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-09-04T08:00:00+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:SCN-01-COMPLETE",
+        "run:RUN-SCN-01-COMPLETE"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-SCN-01-COMPLETE-0008",
+    "timestamp": "2026-09-04T08:00:00+00:00",
+    "assessment_id": "SCN-01-COMPLETE",
+    "correlation_id": "RUN-SCN-01-COMPLETE",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "ASSESSING_EVIDENCE",
+    "event_status": "STARTED",
+    "step": "EVIDENCE_ASSESSMENT",
+    "action": "WORKFLOW_STEP_STARTED",
+    "input_refs": [
+      "assessment:SCN-01-COMPLETE"
+    ],
+    "output_refs": [],
+    "result": "Governance permitted workflow step.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-09-04T08:00:00+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:SCN-01-COMPLETE",
+        "run:RUN-SCN-01-COMPLETE"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-SCN-01-COMPLETE-0009",
+    "timestamp": "2026-09-04T08:00:00+00:00",
+    "assessment_id": "SCN-01-COMPLETE",
+    "correlation_id": "RUN-SCN-01-COMPLETE",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "ASSESSING_EVIDENCE",
+    "event_status": "SUCCEEDED",
+    "step": "EVIDENCE_ASSESSMENT",
+    "action": "WORKFLOW_STEP_COMPLETED",
+    "input_refs": [
+      "assessment:SCN-01-COMPLETE"
+    ],
+    "output_refs": [],
+    "result": "Workflow step completed.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-09-04T08:00:00+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:SCN-01-COMPLETE",
+        "run:RUN-SCN-01-COMPLETE"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-SCN-01-COMPLETE-0010",
+    "timestamp": "2026-09-04T08:00:00+00:00",
+    "assessment_id": "SCN-01-COMPLETE",
+    "correlation_id": "RUN-SCN-01-COMPLETE",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "GENERATING_FINDINGS",
+    "event_status": "STARTED",
+    "step": "FINDING_GENERATION",
+    "action": "WORKFLOW_STEP_STARTED",
+    "input_refs": [
+      "assessment:SCN-01-COMPLETE"
+    ],
+    "output_refs": [],
+    "result": "Governance permitted workflow step.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-09-04T08:00:00+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:SCN-01-COMPLETE",
+        "run:RUN-SCN-01-COMPLETE"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-SCN-01-COMPLETE-0011",
+    "timestamp": "2026-09-04T08:00:00+00:00",
+    "assessment_id": "SCN-01-COMPLETE",
+    "correlation_id": "RUN-SCN-01-COMPLETE",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "GENERATING_FINDINGS",
+    "event_status": "SUCCEEDED",
+    "step": "FINDING_GENERATION",
+    "action": "WORKFLOW_STEP_COMPLETED",
+    "input_refs": [
+      "assessment:SCN-01-COMPLETE"
+    ],
+    "output_refs": [],
+    "result": "Workflow step completed.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-09-04T08:00:00+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:SCN-01-COMPLETE",
+        "run:RUN-SCN-01-COMPLETE"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-SCN-01-COMPLETE-0012",
+    "timestamp": "2026-09-04T08:00:00+00:00",
+    "assessment_id": "SCN-01-COMPLETE",
+    "correlation_id": "RUN-SCN-01-COMPLETE",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "REVIEW_PENDING",
+    "event_status": "STARTED",
+    "step": "HUMAN_REVIEW_DECISION",
+    "action": "WORKFLOW_STEP_STARTED",
+    "input_refs": [
+      "assessment:SCN-01-COMPLETE"
+    ],
+    "output_refs": [],
+    "result": "Governance permitted workflow step.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-09-04T08:00:00+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:SCN-01-COMPLETE",
+        "run:RUN-SCN-01-COMPLETE"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-SCN-01-COMPLETE-0013",
+    "timestamp": "2026-09-04T08:00:00+00:00",
+    "assessment_id": "SCN-01-COMPLETE",
+    "correlation_id": "RUN-SCN-01-COMPLETE",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "REVIEW_PENDING",
+    "event_status": "SUCCEEDED",
+    "step": "HUMAN_REVIEW_DECISION",
+    "action": "WORKFLOW_STEP_COMPLETED",
+    "input_refs": [
+      "assessment:SCN-01-COMPLETE"
+    ],
+    "output_refs": [],
+    "result": "Workflow step completed.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-09-04T08:00:00+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:SCN-01-COMPLETE",
+        "run:RUN-SCN-01-COMPLETE"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-SCN-01-COMPLETE-0014",
+    "timestamp": "2026-09-04T08:00:00+00:00",
+    "assessment_id": "SCN-01-COMPLETE",
+    "correlation_id": "RUN-SCN-01-COMPLETE",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "REPORT_DRAFTED",
+    "event_status": "STARTED",
+    "step": "REPORT_GENERATION",
+    "action": "WORKFLOW_STEP_STARTED",
+    "input_refs": [
+      "assessment:SCN-01-COMPLETE"
+    ],
+    "output_refs": [],
+    "result": "Governance permitted workflow step.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-09-04T08:00:00+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:SCN-01-COMPLETE",
+        "run:RUN-SCN-01-COMPLETE"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-SCN-01-COMPLETE-0015",
+    "timestamp": "2026-09-04T08:00:00+00:00",
+    "assessment_id": "SCN-01-COMPLETE",
+    "correlation_id": "RUN-SCN-01-COMPLETE",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "REPORT_DRAFTED",
+    "event_status": "SUCCEEDED",
+    "step": "REPORT_GENERATION",
+    "action": "WORKFLOW_STEP_COMPLETED",
+    "input_refs": [
+      "assessment:SCN-01-COMPLETE"
+    ],
+    "output_refs": [],
+    "result": "Workflow step completed.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-09-04T08:00:00+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:SCN-01-COMPLETE",
+        "run:RUN-SCN-01-COMPLETE"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "event_id": "EVT-RUN-SCN-01-COMPLETE-0016",
+    "timestamp": "2026-09-04T08:00:00+00:00",
+    "assessment_id": "SCN-01-COMPLETE",
+    "correlation_id": "RUN-SCN-01-COMPLETE",
+    "component_id": "agentic.supervisor",
+    "component_version": "0.3.0",
+    "workflow_state": "COMPLETED",
+    "event_status": "SUCCEEDED",
+    "step": "SUPERVISOR",
+    "action": "ASSESSMENT_RUN_COMPLETED",
+    "input_refs": [
+      "assessment:SCN-01-COMPLETE"
+    ],
+    "output_refs": [],
+    "result": "All approved workflow steps completed.",
+    "policy_decision": "ALLOWED",
+    "human_review_required": false,
+    "duration_ms": 0,
+    "error": null,
+    "provenance": {
+      "created_at": "2026-09-04T08:00:00+00:00",
+      "created_by": "agentic.supervisor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.3.0",
+      "source_refs": [
+        "assessment:SCN-01-COMPLETE",
+        "run:RUN-SCN-01-COMPLETE"
+      ]
+    }
+  }
+]

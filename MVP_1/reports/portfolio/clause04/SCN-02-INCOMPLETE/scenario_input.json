@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "scenario_id": "SCN-02-INCOMPLETE",
+  "title": "Incomplete Clause 04 evidence",
+  "description": "Missing and partial evidence generate unresolved findings and force a draft report.",
+  "run_id": "RUN-SCN-02-INCOMPLETE",
+  "fixed_timestamp": "2026-09-04T08:15:00+00:00",
+  "expected": {
+    "workflow_state": "COMPLETED",
+    "report_status": "DRAFT",
+    "readiness_score": 55.0,
+    "finding_count": 2,
+    "pending_finding_count": 2,
+    "human_review_required": true
+  },
+  "clause04_result": {
+    "session_id": "SESSION-SCN-02-INCOMPLETE",
+    "status": "COMPLETED",
+    "score": 55.0,
+    "evidence_records": [
+      {
+        "session_id": "SESSION-SCN-02-INCOMPLETE",
+        "question_id": "C4-Q01",
+        "clause": "4.1",
+        "title": "Organizational context",
+        "question": "Has the organization determined relevant internal and external issues?",
+        "expected_evidence": [
+          "Context register"
+        ],
+        "response": "Context was discussed, but no structured evidence was supplied.",
+        "response_source_type": "human_response",
+        "actual_evidence_references": [],
+        "confidence_score": 1.0,
+        "confidence_type": "DETERMINISTIC",
+        "auditor_note": "A structured evidence reference is required.",
+        "auditor_flag": false,
+        "timestamp": "2026-09-04T08:15:00+00:00"
+      },
+      {
+        "session_id": "SESSION-SCN-02-INCOMPLETE",
+        "question_id": "C4-Q02",
+        "clause": "4.2",
+        "title": "Interested parties",
+        "question": "Has the organization determined relevant interested parties and requirements?",
+        "expected_evidence": [
+          "Interested-party register"
+        ],
+        "response": "A draft register was supplied but the assessment confidence remains incomplete.",
+        "response_source_type": "human_response",
+        "actual_evidence_references": [
+          {
+            "reference_type": "file_reference",
+            "reference_name": "EV-C4-012-draft-interested-parties.xlsx",
+            "extracted_from": "scenario_fixture"
+          }
+        ],
+        "confidence_score": 0.6,
+        "confidence_type": "DETERMINISTIC",
+        "auditor_note": "The referenced evidence is partial and requires completion.",
+        "auditor_flag": false,
+        "timestamp": "2026-09-04T08:15:00+00:00"
+      }
+    ],
+    "gaps": [
+      {
+        "question_id": "C4-Q01",
+        "clause": "4.1",
+        "gap_type": "EVIDENCE_REQUIRED",
+        "description": "Structured evidence reference is missing."
+      },
+      {
+        "question_id": "C4-Q02",
+        "clause": "4.2",
+        "gap_type": "WEAK_EVIDENCE",
+        "description": "Available evidence is incomplete."
+      }
+    ]
+  },
+  "human_reviews": {}
+}

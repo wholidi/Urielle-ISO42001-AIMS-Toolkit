@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "scenario_id": "SCN-03-REVIEWED",
+  "assessment_id": "SCN-03-REVIEWED",
+  "run_id": "RUN-SCN-03-REVIEWED",
+  "workflow_state": "COMPLETED",
+  "report_status": "FINAL",
+  "readiness_score": 60.0,
+  "evidence_decision_count": 3,
+  "finding_count": 3,
+  "pending_finding_count": 0,
+  "accepted_finding_count": 1,
+  "modified_finding_count": 1,
+  "rejected_finding_count": 1,
+  "human_review_required": false,
+  "completed_steps": [
+    "ASSESSMENT_PLANNING",
+    "QUESTION_SELECTION",
+    "CLAUSE_04_EXECUTION",
+    "EVIDENCE_ASSESSMENT",
+    "FINDING_GENERATION",
+    "HUMAN_REVIEW_DECISION",
+    "REPORT_GENERATION"
+  ]
+}

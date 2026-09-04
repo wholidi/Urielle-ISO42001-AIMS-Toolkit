@@ -1,0 +1,67 @@
+[
+  {
+    "schema_version": "1.0.0",
+    "finding_id": "FND-SCN-02-INCOMPLETE-001",
+    "assessment_id": "SCN-02-INCOMPLETE",
+    "requirement_ref": "4.1",
+    "question_id": "C4-Q01",
+    "condition": "No structured evidence was accepted for C4-Q01.",
+    "criteria": "ISO/IEC 42001 Clause 4.1 assessment criteria for C4-Q01 require sufficient and traceable supporting evidence.",
+    "evidence_refs": [
+      {
+        "reference_type": "EVIDENCE_DECISION",
+        "reference_id": "ED-SCN-02-INCOMPLETE-001"
+      }
+    ],
+    "risk_statement": "Without sufficient supporting evidence, conformity with requirement 4.1 cannot be demonstrated by this assessment.",
+    "severity_preliminary": "MEDIUM",
+    "recommendation": "Provide and validate evidence addressing requirement 4.1, then reassess the evidence.",
+    "human_disposition": "PENDING",
+    "review_record": null,
+    "provenance": {
+      "created_at": "2026-09-04T08:15:00+00:00",
+      "created_by": "agentic.finding_generator",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.1.0",
+      "source_refs": [
+        "evidence_decision:ED-SCN-02-INCOMPLETE-001",
+        "question:C4-Q01"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "finding_id": "FND-SCN-02-INCOMPLETE-002",
+    "assessment_id": "SCN-02-INCOMPLETE",
+    "requirement_ref": "4.2",
+    "question_id": "C4-Q02",
+    "condition": "Evidence for C4-Q02 was only partially evidenced by the deterministic assessment.",
+    "criteria": "ISO/IEC 42001 Clause 4.2 assessment criteria for C4-Q02 require sufficient and traceable supporting evidence.",
+    "evidence_refs": [
+      {
+        "reference_type": "EVIDENCE_DECISION",
+        "reference_id": "ED-SCN-02-INCOMPLETE-002"
+      },
+      {
+        "reference_type": "EVIDENCE",
+        "reference_id": "EV-C4-012-draft-interested-parties.xlsx"
+      }
+    ],
+    "risk_statement": "Partial evidence may leave the assessment conclusion for requirement 4.2 insufficiently supported.",
+    "severity_preliminary": "LOW",
+    "recommendation": "Complete or strengthen the evidence for requirement 4.2 and obtain human review before final disposition.",
+    "human_disposition": "PENDING",
+    "review_record": null,
+    "provenance": {
+      "created_at": "2026-09-04T08:15:00+00:00",
+      "created_by": "agentic.finding_generator",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.1.0",
+      "source_refs": [
+        "evidence_decision:ED-SCN-02-INCOMPLETE-002",
+        "question:C4-Q02",
+        "evidence:EV-C4-012-draft-interested-parties.xlsx"
+      ]
+    }
+  }
+]

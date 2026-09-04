@@ -117,7 +117,9 @@ MVP_1/
 ├── clause_04_context/
 ├── governance/
 ├── reports/
-│   └── evidence/
+│   ├── evidence/
+│   └── portfolio/
+├── scenarios/
 ├── scripts/
 └── tests/
 ```
@@ -135,6 +137,11 @@ Scope: ISO/IEC 42001 Clause 4 only.
 The design principle is:
 
 > **Deterministic control first, agentic assistance second, human accountability always.**
+
+Phase 3.2 adds three reproducible portfolio scenarios showing a complete
+evidence path, an incomplete path that remains draft, and an explicitly
+human-reviewed path. See `MVP_1/README.md` for the execution command and
+artifact locations.
 
 ### End-to-End Workflow
 

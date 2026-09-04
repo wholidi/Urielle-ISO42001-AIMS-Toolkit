@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import replace
 from datetime import datetime, timezone
-from typing import Any
+from typing import Any, Callable
 
 from agentic_assessment.contract_validator import (
     AssessmentContractError,
@@ -43,12 +43,14 @@ class HumanReviewService:
         self,
         *,
         contract_validator: AssessmentContractValidator | None = None,
+        clock: Callable[[], datetime] | None = None,
     ) -> None:
         self.contract_validator = (
             contract_validator
             if contract_validator is not None
             else AssessmentContractValidator()
         )
+        self.clock = clock or (lambda: datetime.now(timezone.utc))
 
     def review(
         self,
@@ -82,9 +84,7 @@ class HumanReviewService:
             comments=comments,
         )
 
-        reviewed_at = datetime.now(
-            timezone.utc
-        ).isoformat()
+        reviewed_at = self.clock().astimezone(timezone.utc).isoformat()
 
         review_record: dict[str, Any] = {
             "reviewer_id": reviewer_id,

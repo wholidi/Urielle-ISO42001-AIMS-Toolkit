@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime, timezone
-from typing import Any, Mapping, Sequence
+from typing import Any, Callable, Mapping, Sequence
 
 from agentic_assessment.contract_validator import (
     AssessmentContractError,
@@ -96,6 +96,7 @@ class FindingGenerator:
         *,
         contract_validator: AssessmentContractValidator | None = None,
         requirement_map: Mapping[str, str] | None = None,
+        clock: Callable[[], datetime] | None = None,
     ) -> None:
         self.contract_validator = (
             contract_validator
@@ -108,6 +109,7 @@ class FindingGenerator:
             if requirement_map is not None
             else QUESTION_REQUIREMENT_MAP
         )
+        self.clock = clock or (lambda: datetime.now(timezone.utc))
 
     def generate(
         self,
@@ -198,9 +200,7 @@ class FindingGenerator:
             decision
         )
 
-        timestamp = datetime.now(
-            timezone.utc
-        ).isoformat()
+        timestamp = self.clock().astimezone(timezone.utc).isoformat()
 
         finding = Finding(
             schema_version="1.0.0",

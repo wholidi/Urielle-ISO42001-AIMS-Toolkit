@@ -44,3 +44,6 @@ jobs:
 
       - name: Run governed Clause 04 acceptance demonstration
         run: python -m scripts.run_agentic_clause04_demo
+
+      - name: Run Clause 04 portfolio scenarios
+        run: python -m scripts.run_clause04_portfolio_scenarios

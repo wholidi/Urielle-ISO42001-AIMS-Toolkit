@@ -1,0 +1,121 @@
+[
+  {
+    "schema_version": "1.0.0",
+    "decision_id": "ED-SCN-03-REVIEWED-001",
+    "assessment_id": "SCN-03-REVIEWED",
+    "question_id": "C4-Q01",
+    "evidence_ids": [],
+    "deterministic_checks": [
+      {
+        "check_id": "CHK-C4-Q01-MAP",
+        "check_type": "QUESTION_MAPPING_VALID",
+        "status": "PASSED",
+        "observation": "Evidence record is mapped to C4-Q01."
+      },
+      {
+        "check_id": "CHK-C4-Q01-EVIDENCE",
+        "check_type": "EVIDENCE_TYPE_VALID",
+        "status": "FAILED",
+        "observation": "No structured evidence references were supplied."
+      }
+    ],
+    "semantic_observations": [],
+    "decision": "NOT_EVIDENCED",
+    "confidence": 1.0,
+    "human_review_required": false,
+    "provenance": {
+      "created_at": "2026-09-04T08:30:00+00:00",
+      "created_by": "agentic.evidence_assessor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.1.0",
+      "source_refs": [
+        "assessment:SCN-03-REVIEWED",
+        "question:C4-Q01"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "decision_id": "ED-SCN-03-REVIEWED-002",
+    "assessment_id": "SCN-03-REVIEWED",
+    "question_id": "C4-Q02",
+    "evidence_ids": [
+      "EV-C4-022-draft-interested-parties.xlsx"
+    ],
+    "deterministic_checks": [
+      {
+        "check_id": "CHK-C4-Q02-MAP",
+        "check_type": "QUESTION_MAPPING_VALID",
+        "status": "PASSED",
+        "observation": "Evidence record is mapped to C4-Q02."
+      },
+      {
+        "check_id": "CHK-C4-Q02-EVIDENCE",
+        "check_type": "EVIDENCE_TYPE_VALID",
+        "status": "PASSED",
+        "observation": "Structured evidence references were supplied."
+      }
+    ],
+    "semantic_observations": [
+      {
+        "observer_type": "DETERMINISTIC_RULES",
+        "observation": "Evidence is partial."
+      }
+    ],
+    "decision": "PARTIALLY_EVIDENCED",
+    "confidence": 0.7,
+    "human_review_required": true,
+    "provenance": {
+      "created_at": "2026-09-04T08:30:00+00:00",
+      "created_by": "agentic.evidence_assessor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.1.0",
+      "source_refs": [
+        "assessment:SCN-03-REVIEWED",
+        "question:C4-Q02"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "decision_id": "ED-SCN-03-REVIEWED-003",
+    "assessment_id": "SCN-03-REVIEWED",
+    "question_id": "C4-Q03",
+    "evidence_ids": [
+      "EV-C4-023-aims-scope.pdf"
+    ],
+    "deterministic_checks": [
+      {
+        "check_id": "CHK-C4-Q03-MAP",
+        "check_type": "QUESTION_MAPPING_VALID",
+        "status": "PASSED",
+        "observation": "Evidence record is mapped to C4-Q03."
+      },
+      {
+        "check_id": "CHK-C4-Q03-EVIDENCE",
+        "check_type": "EVIDENCE_TYPE_VALID",
+        "status": "PASSED",
+        "observation": "Structured evidence references were supplied."
+      }
+    ],
+    "semantic_observations": [
+      {
+        "observer_type": "DETERMINISTIC_RULES",
+        "observation": "Applicability and exclusions require authorized human judgement."
+      }
+    ],
+    "decision": "REQUIRES_HUMAN_JUDGEMENT",
+    "confidence": 1.0,
+    "human_review_required": true,
+    "provenance": {
+      "created_at": "2026-09-04T08:30:00+00:00",
+      "created_by": "agentic.evidence_assessor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.1.0",
+      "source_refs": [
+        "assessment:SCN-03-REVIEWED",
+        "question:C4-Q03"
+      ]
+    }
+  }
+]
