@@ -141,19 +141,21 @@ class SequentialSupervisor:
     """
 
     def __init__(
-    self,
-    *,
-    policy_enforcer: PolicyEnforcer,
-    handlers: Mapping[WorkflowStep, StepHandler] | None = None,
-    contract_validator: AssessmentContractValidator | None = None,
-) -> None:
+        self,
+        *,
+        policy_enforcer: PolicyEnforcer,
+        handlers: Mapping[WorkflowStep, StepHandler] | None = None,
+        contract_validator: AssessmentContractValidator | None = None,
+        clock: Callable[[], datetime] | None = None,
+    ) -> None:
         self.policy_enforcer = policy_enforcer
         self.handlers = dict(handlers or {})
         self.contract_validator = (
             contract_validator
             if contract_validator is not None
             else AssessmentContractValidator()
-    )
+        )
+        self.clock = clock or (lambda: datetime.now(timezone.utc))
 
     def run(
         self,
@@ -375,7 +377,7 @@ class SequentialSupervisor:
     ) -> ExecutionEvent:
         """Create and validate one execution event before emission."""
 
-        timestamp = datetime.now(timezone.utc).isoformat()
+        timestamp = self.clock().astimezone(timezone.utc).isoformat()
 
         event_status = self._event_status(event_type)
 

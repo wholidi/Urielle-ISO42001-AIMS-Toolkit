@@ -1,0 +1,29 @@
+[
+  {
+    "finding_id": "FND-SCN-03-REVIEWED-001",
+    "review_record": {
+      "reviewer_id": "portfolio-reviewer-001",
+      "reviewed_at": "2026-09-04T08:30:00+00:00",
+      "disposition": "ACCEPTED",
+      "comments": "The absence of a structured context record is confirmed."
+    }
+  },
+  {
+    "finding_id": "FND-SCN-03-REVIEWED-002",
+    "review_record": {
+      "reviewer_id": "portfolio-reviewer-001",
+      "reviewed_at": "2026-09-04T08:30:00+00:00",
+      "disposition": "MODIFIED",
+      "comments": "Retain the finding but clarify that a draft register exists and requires approval."
+    }
+  },
+  {
+    "finding_id": "FND-SCN-03-REVIEWED-003",
+    "review_record": {
+      "reviewer_id": "portfolio-reviewer-001",
+      "reviewed_at": "2026-09-04T08:30:00+00:00",
+      "disposition": "REJECTED",
+      "comments": "The reviewer determined that the supplied scope record resolves the flagged ambiguity."
+    }
+  }
+]

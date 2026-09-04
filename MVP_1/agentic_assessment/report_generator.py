@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime, timezone
-from typing import Any, Mapping, Sequence
+from typing import Any, Callable, Mapping, Sequence
 
 from agentic_assessment.clause04_adapter import (
     Clause04AssessmentResult,
@@ -55,6 +55,13 @@ class ReportGenerator:
     - perform human review;
     - invoke an LLM or external model.
     """
+
+    def __init__(
+        self,
+        *,
+        clock: Callable[[], datetime] | None = None,
+    ) -> None:
+        self.clock = clock or (lambda: datetime.now(timezone.utc))
 
     def generate(
         self,
@@ -109,9 +116,7 @@ class ReportGenerator:
             else "FINAL"
         )
 
-        generated_at = datetime.now(
-            timezone.utc
-        ).isoformat()
+        generated_at = self.clock().astimezone(timezone.utc).isoformat()
 
         markdown = self._render_markdown(
             clause04_result=clause04_result,

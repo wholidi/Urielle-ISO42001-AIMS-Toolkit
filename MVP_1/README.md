@@ -60,6 +60,33 @@ python -m scripts.run_agentic_clause04_demo
 The demonstration writes its report, execution-event log, and acceptance
 summary to `MVP_1/reports/evidence/agentic_clause04/`.
 
+## Portfolio scenarios
+
+Phase 3.2 adds three persistent Clause 04 scenarios for review demonstrations:
+
+| Scenario | Evidence state | Human disposition | Report |
+|---|---|---|---|
+| `SCN-01-COMPLETE` | Four structured references | No findings require disposition | `FINAL` |
+| `SCN-02-INCOMPLETE` | Missing and partial evidence | Two findings remain pending | `DRAFT` |
+| `SCN-03-REVIEWED` | Missing, partial, and flagged evidence | Accepted, modified, and rejected | `FINAL` |
+
+Run all scenarios from the repository root in PowerShell:
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.run_clause04_portfolio_scenarios
+```
+
+The scenario definitions are stored in `MVP_1/scenarios/clause04/`. Generated
+portfolio artifacts are stored in
+`MVP_1/reports/portfolio/clause04/<scenario-id>/`. Each scenario persists its
+input, evidence decisions, findings, human-review records, execution events,
+acceptance summary, and governed Markdown report.
+
+Scenario timestamps are fixed test metadata. Production components retain UTC
+wall-clock timestamps unless a clock is explicitly supplied. This makes the
+portfolio artifacts byte-for-byte reproducible without changing normal runtime
+behavior or Clause 04 scoring.
+
 ## Design boundaries
 
 - The frozen deterministic Clause 04 engine remains the readiness-scoring
@@ -69,3 +96,5 @@ summary to `MVP_1/reports/evidence/agentic_clause04/`.
 - Human dispositions are externally supplied and are never invented.
 - No LLM or external model participates in the governed acceptance path.
 - A referenced document is not represented as independently verified evidence.
+- A `FINAL` report means no generated finding remains pending; it is not a
+  certification or conformity decision.

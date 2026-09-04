@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "urielle-iso42001-aims-mvp1"
-version = "0.3.1"
+version = "0.3.2"
 description = "Governed deterministic ISO/IEC 42001 Clause 04 assessment MVP"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -28,6 +28,7 @@ include = [
   "agentic_assessment*",
   "clause_04_context*",
   "governance*",
+  "scenarios*",
   "scripts*",
 ]
 namespaces = true
@@ -42,6 +43,7 @@ governance = [
   "*.yaml",
   "schemas/*.json",
 ]
+scenarios = ["clause04/*.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

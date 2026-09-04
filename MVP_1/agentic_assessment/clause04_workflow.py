@@ -79,6 +79,9 @@ class Clause04Workflow:
         )
 
         self.last_report: AgenticClause04Report | None = None
+        self.last_clause04_result: Clause04AssessmentResult | None = None
+        self.last_evidence_decisions: tuple[EvidenceDecision, ...] = ()
+        self.last_findings: tuple[Finding, ...] = ()
 
     def handlers(self) -> Mapping[WorkflowStep, Any]:
         """Return handlers for the existing SequentialSupervisor."""
@@ -158,6 +161,7 @@ class Clause04Workflow:
 
         next_context = dict(context)
         next_context["clause04_result"] = result
+        self.last_clause04_result = result
 
         return next_context
 
@@ -187,6 +191,7 @@ class Clause04Workflow:
         next_context["evidence_decisions"] = tuple(
             decisions
         )
+        self.last_evidence_decisions = tuple(decisions)
 
         return next_context
 
@@ -294,6 +299,7 @@ class Clause04Workflow:
         next_context["reviewed_findings"] = tuple(
             reviewed_findings
         )
+        self.last_findings = tuple(reviewed_findings)
 
         return next_context
 

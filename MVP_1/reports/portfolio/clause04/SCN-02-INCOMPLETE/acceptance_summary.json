@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "scenario_id": "SCN-02-INCOMPLETE",
+  "assessment_id": "SCN-02-INCOMPLETE",
+  "run_id": "RUN-SCN-02-INCOMPLETE",
+  "workflow_state": "COMPLETED",
+  "report_status": "DRAFT",
+  "readiness_score": 55.0,
+  "evidence_decision_count": 2,
+  "finding_count": 2,
+  "pending_finding_count": 2,
+  "accepted_finding_count": 0,
+  "modified_finding_count": 0,
+  "rejected_finding_count": 0,
+  "human_review_required": true,
+  "completed_steps": [
+    "ASSESSMENT_PLANNING",
+    "QUESTION_SELECTION",
+    "CLAUSE_04_EXECUTION",
+    "EVIDENCE_ASSESSMENT",
+    "FINDING_GENERATION",
+    "HUMAN_REVIEW_DECISION",
+    "REPORT_GENERATION"
+  ]
+}

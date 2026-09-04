@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.0.0",
+  "scenario_id": "SCN-01-COMPLETE",
+  "title": "Complete Clause 04 evidence",
+  "description": "All four Clause 04 questions have structured evidence references and no findings are generated.",
+  "run_id": "RUN-SCN-01-COMPLETE",
+  "fixed_timestamp": "2026-09-04T08:00:00+00:00",
+  "expected": {
+    "workflow_state": "COMPLETED",
+    "report_status": "FINAL",
+    "readiness_score": 100.0,
+    "finding_count": 0,
+    "pending_finding_count": 0,
+    "human_review_required": false
+  },
+  "clause04_result": {
+    "session_id": "SESSION-SCN-01-COMPLETE",
+    "status": "COMPLETED",
+    "score": 100.0,
+    "evidence_records": [
+      {
+        "session_id": "SESSION-SCN-01-COMPLETE",
+        "question_id": "C4-Q01",
+        "clause": "4.1",
+        "title": "Organizational context",
+        "question": "Has the organization determined relevant internal and external issues?",
+        "expected_evidence": [
+          "Context register"
+        ],
+        "response": "The approved context register is referenced.",
+        "response_source_type": "human_response",
+        "actual_evidence_references": [
+          {
+            "reference_type": "file_reference",
+            "reference_name": "EV-C4-001-context-register.xlsx",
+            "extracted_from": "scenario_fixture"
+          }
+        ],
+        "confidence_score": 1.0,
+        "confidence_type": "DETERMINISTIC",
+        "auditor_note": "Reference captured; content is not independently verified by this scenario.",
+        "auditor_flag": false,
+        "timestamp": "2026-09-04T08:00:00+00:00"
+      },
+      {
+        "session_id": "SESSION-SCN-01-COMPLETE",
+        "question_id": "C4-Q02",
+        "clause": "4.2",
+        "title": "Interested parties",
+        "question": "Has the organization determined relevant interested parties and requirements?",
+        "expected_evidence": [
+          "Interested-party register"
+        ],
+        "response": "The approved interested-party register is referenced.",
+        "response_source_type": "human_response",
+        "actual_evidence_references": [
+          {
+            "reference_type": "file_reference",
+            "reference_name": "EV-C4-002-interested-parties.xlsx",
+            "extracted_from": "scenario_fixture"
+          }
+        ],
+        "confidence_score": 1.0,
+        "confidence_type": "DETERMINISTIC",
+        "auditor_note": "Reference captured; content is not independently verified by this scenario.",
+        "auditor_flag": false,
+        "timestamp": "2026-09-04T08:00:00+00:00"
+      },
+      {
+        "session_id": "SESSION-SCN-01-COMPLETE",
+        "question_id": "C4-Q03",
+        "clause": "4.3",
+        "title": "AIMS scope",
+        "question": "Has the organization determined the scope of its AIMS?",
+        "expected_evidence": [
+          "AIMS scope statement"
+        ],
+        "response": "The approved AIMS scope statement is referenced.",
+        "response_source_type": "human_response",
+        "actual_evidence_references": [
+          {
+            "reference_type": "file_reference",
+            "reference_name": "EV-C4-003-aims-scope.pdf",
+            "extracted_from": "scenario_fixture"
+          }
+        ],
+        "confidence_score": 1.0,
+        "confidence_type": "DETERMINISTIC",
+        "auditor_note": "Reference captured; content is not independently verified by this scenario.",
+        "auditor_flag": false,
+        "timestamp": "2026-09-04T08:00:00+00:00"
+      },
+      {
+        "session_id": "SESSION-SCN-01-COMPLETE",
+        "question_id": "C4-Q04",
+        "clause": "4.4",
+        "title": "AI management system",
+        "question": "Has the organization established its AIMS and related processes?",
+        "expected_evidence": [
+          "AIMS process map"
+        ],
+        "response": "The approved AIMS process map is referenced.",
+        "response_source_type": "human_response",
+        "actual_evidence_references": [
+          {
+            "reference_type": "file_reference",
+            "reference_name": "EV-C4-004-process-map.pdf",
+            "extracted_from": "scenario_fixture"
+          }
+        ],
+        "confidence_score": 1.0,
+        "confidence_type": "DETERMINISTIC",
+        "auditor_note": "Reference captured; content is not independently verified by this scenario.",
+        "auditor_flag": false,
+        "timestamp": "2026-09-04T08:00:00+00:00"
+      }
+    ],
+    "gaps": []
+  },
+  "human_reviews": {}
+}

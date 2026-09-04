@@ -1,0 +1,79 @@
+[
+  {
+    "schema_version": "1.0.0",
+    "decision_id": "ED-SCN-02-INCOMPLETE-001",
+    "assessment_id": "SCN-02-INCOMPLETE",
+    "question_id": "C4-Q01",
+    "evidence_ids": [],
+    "deterministic_checks": [
+      {
+        "check_id": "CHK-C4-Q01-MAP",
+        "check_type": "QUESTION_MAPPING_VALID",
+        "status": "PASSED",
+        "observation": "Evidence record is mapped to C4-Q01."
+      },
+      {
+        "check_id": "CHK-C4-Q01-EVIDENCE",
+        "check_type": "EVIDENCE_TYPE_VALID",
+        "status": "FAILED",
+        "observation": "No structured evidence references were supplied."
+      }
+    ],
+    "semantic_observations": [],
+    "decision": "NOT_EVIDENCED",
+    "confidence": 1.0,
+    "human_review_required": false,
+    "provenance": {
+      "created_at": "2026-09-04T08:15:00+00:00",
+      "created_by": "agentic.evidence_assessor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.1.0",
+      "source_refs": [
+        "assessment:SCN-02-INCOMPLETE",
+        "question:C4-Q01"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "decision_id": "ED-SCN-02-INCOMPLETE-002",
+    "assessment_id": "SCN-02-INCOMPLETE",
+    "question_id": "C4-Q02",
+    "evidence_ids": [
+      "EV-C4-012-draft-interested-parties.xlsx"
+    ],
+    "deterministic_checks": [
+      {
+        "check_id": "CHK-C4-Q02-MAP",
+        "check_type": "QUESTION_MAPPING_VALID",
+        "status": "PASSED",
+        "observation": "Evidence record is mapped to C4-Q02."
+      },
+      {
+        "check_id": "CHK-C4-Q02-EVIDENCE",
+        "check_type": "EVIDENCE_TYPE_VALID",
+        "status": "PASSED",
+        "observation": "Structured evidence references were supplied."
+      }
+    ],
+    "semantic_observations": [
+      {
+        "observer_type": "DETERMINISTIC_RULES",
+        "observation": "The referenced evidence is partial and requires completion."
+      }
+    ],
+    "decision": "PARTIALLY_EVIDENCED",
+    "confidence": 0.6,
+    "human_review_required": true,
+    "provenance": {
+      "created_at": "2026-09-04T08:15:00+00:00",
+      "created_by": "agentic.evidence_assessor",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.1.0",
+      "source_refs": [
+        "assessment:SCN-02-INCOMPLETE",
+        "question:C4-Q02"
+      ]
+    }
+  }
+]

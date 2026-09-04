@@ -1,10 +1,54 @@
 # Changelog
 
+## MVP1-Agentic-Phase3.2
+
+Date: 2026-09-04
+
+Status: **Implementation complete — remote CI validation pending**
+
+### Added
+- Persistent `SCN-01-COMPLETE`, `SCN-02-INCOMPLETE`, and
+  `SCN-03-REVIEWED` Clause 04 scenario definitions.
+- Fail-closed `PortfolioScenarioRunner` with acceptance-expectation checks.
+- One-command runner for all portfolio scenarios.
+- Persisted scenario input, evidence decisions, findings, human-review record,
+  execution events, acceptance summary, and Markdown report for each scenario.
+- Acceptance tests for expected outcomes, identifier consistency, human-review
+  disposition preservation, pending-review draft enforcement, deterministic
+  reruns, and invalid configuration.
+- Portfolio scenario execution to the Python 3.11–3.13 CI matrix.
+
+### Changed
+- Added optional clock injection to the supervisor, finding generator,
+  human-review service, and report generator. Normal runtime behavior continues
+  to use current UTC time; scenario runs use fixed timestamps for reproducible
+  portfolio artifacts.
+- Exposed the latest Clause 04 result, evidence decisions, and reviewed findings
+  from the workflow for artifact persistence without duplicating assessment.
+- Updated package metadata to version `0.3.2` and included scenario JSON data.
+
+### Validation
+- Full regression suite: **241 passed**.
+- All three portfolio scenarios completed with expected report states.
+- `SCN-01-COMPLETE`: `FINAL`, zero findings.
+- `SCN-02-INCOMPLETE`: `DRAFT`, two pending findings.
+- `SCN-03-REVIEWED`: `FINAL`, one accepted, one modified, and one rejected
+  disposition.
+- Repeated scenario runs produced byte-for-byte identical artifacts.
+
+### Boundaries
+- Clause 04 scoring remains unchanged and authoritative.
+- Evidence references are not represented as content-verified evidence.
+- Human dispositions remain explicit external inputs and are never invented.
+- A final portfolio report is not a certification or conformity decision.
+
+---
+
 ## MVP1-Agentic-Phase3.1-RC1
 
 Date: 2026-09-03
 
-Status: **Release candidate — remote CI validation pending**
+Status: **Complete — merged to main**
 
 ### Added
 - Reproducible Python project metadata in `MVP_1/pyproject.toml`.
@@ -27,10 +71,9 @@ Status: **Release candidate — remote CI validation pending**
 - Project metadata parsed successfully.
 - Git diff whitespace validation passed.
 
-### Pending acceptance
-- Push the release candidate and require the GitHub Actions matrix to pass.
-- Do not mark Phase 3.1 complete until all supported Python jobs and the real
-  governed acceptance demonstration are green.
+### Acceptance
+- Merged to `main` after the reproducibility change was validated locally and
+  submitted through the Phase 3.1 pull request.
 
 ---
 
