@@ -9,6 +9,9 @@ The implementation is an audit-readiness and portfolio demonstration. It does
 not provide certification, make certification decisions, or replace qualified
 human review.
 
+For a phase-by-phase explanation of why each layer exists, start with the
+[`docs/phases/` understanding guide](docs/phases/README.md).
+
 ## Requirements
 
 - Python 3.11 or newer
