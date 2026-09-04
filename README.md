@@ -212,6 +212,10 @@ Architecture decisions and phase-by-phase implementation records are documented 
 - `docs/implementation/`
 - `MVP_1/CHANGELOG.md` and `MVP_1/VERSION.md`
 
+Clean-clone installation, test, and acceptance-demo commands are documented in
+[`MVP_1/README.md`](MVP_1/README.md). Automated validation runs on Python 3.11,
+3.12, and 3.13 through GitHub Actions.
+
 ---
 
 ## Roadmap

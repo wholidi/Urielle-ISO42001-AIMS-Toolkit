@@ -1,5 +1,39 @@
 # Changelog
 
+## MVP1-Agentic-Phase3.1-RC1
+
+Date: 2026-09-03
+
+Status: **Release candidate — remote CI validation pending**
+
+### Added
+- Reproducible Python project metadata in `MVP_1/pyproject.toml`.
+- Explicit Python 3.11+ compatibility and bounded runtime dependencies.
+- Optional `dev` dependency group containing pytest.
+- Installed-package data declarations for schemas, governance configuration,
+  question-bank data, and demo responses.
+- Clean-clone setup and validation guide in `MVP_1/README.md`.
+- GitHub Actions test and acceptance-demo matrix for Python 3.11–3.13.
+- Explicit `scripts` package for `python -m` execution after installation.
+
+### Fixed
+- Removed duplicate execution-event writes and duplicate confirmation output
+  from `scripts/run_agentic_clause04_demo.py`.
+- Corrected indentation in acceptance-summary construction without changing its
+  contract or contents.
+
+### Local validation
+- Python source compilation passed.
+- Project metadata parsed successfully.
+- Git diff whitespace validation passed.
+
+### Pending acceptance
+- Push the release candidate and require the GitHub Actions matrix to pass.
+- Do not mark Phase 3.1 complete until all supported Python jobs and the real
+  governed acceptance demonstration are green.
+
+---
+
 ## MVP1-Agentic-Phase3
 
 Date: 2026-08-26
