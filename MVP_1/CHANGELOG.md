@@ -7,6 +7,8 @@ Date: 2026-09-04
 Status: **Implementation complete — remote CI validation pending**
 
 ### Added
+- Consistent reader-oriented guides for Phase 0, Phase 1, Phase 2, Phase 3,
+  Phase 3.1, and Phase 3.2 under `docs/phases/`.
 - Persistent `SCN-01-COMPLETE`, `SCN-02-INCOMPLETE`, and
   `SCN-03-REVIEWED` Clause 04 scenario definitions.
 - Fail-closed `PortfolioScenarioRunner` with acceptance-expectation checks.
