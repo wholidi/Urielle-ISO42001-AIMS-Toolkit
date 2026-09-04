@@ -6,6 +6,10 @@ Baseline Status: Frozen / Released Clause 04 rule-based pilot baseline
 Current Agentic Milestone: Phase 3 Complete
 Agentic Status: Governed end-to-end Clause 04 MVP validated on 2026-08-26
 
+Current Reproducibility Milestone: Phase 3.1 release candidate
+Reproducibility Status: Packaging, clean-clone instructions, and a Python
+3.11–3.13 GitHub Actions validation matrix added; first remote CI run pending
+
 Release Artifact:
 - MVP1-Clause04-Pilot-v1.0.zip
 
@@ -99,6 +103,39 @@ Generated outputs:
 ---
 
 ## Version History
+
+### MVP1-Agentic-Phase3.1-RC1
+
+Date: 2026-09-03
+
+Status: **Release candidate — remote CI validation pending**
+
+Added:
+- Declared Python 3.11+ support and runtime dependencies in `pyproject.toml`.
+- Added an optional development dependency group for the complete pytest suite.
+- Included runtime JSON Schemas, governance YAML, question-bank JSON, and
+  response JSON as installed package data.
+- Added clean-clone installation, regression-test, and acceptance-demo
+  instructions in `MVP_1/README.md`.
+- Added GitHub Actions validation across Python 3.11, 3.12, and 3.13.
+- Made `scripts` an explicit Python package for module-based execution.
+
+Changed:
+- Removed duplicate execution-event persistence and duplicate console output
+  from the governed Clause 04 acceptance runner.
+- Expanded `.gitignore` for disposable virtual environments and editable-build
+  metadata.
+
+Validation status:
+- Python source compilation: passed locally.
+- `pyproject.toml` parsing and metadata assertions: passed locally.
+- Diff whitespace validation: passed locally.
+- Full clean-environment dependency installation was blocked by the execution
+  environment's restricted package network. The GitHub Actions matrix is the
+  release acceptance control and must be green before this candidate is marked
+  complete.
+
+---
 
 ### MVP1-Agentic-Phase3
 

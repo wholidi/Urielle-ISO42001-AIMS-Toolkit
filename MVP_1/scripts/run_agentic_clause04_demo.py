@@ -128,10 +128,10 @@ def main() -> None:
     report = workflow.last_report
 
     evidence_dir = (
-    PROJECT_ROOT
-    / "reports"
-    / "evidence"
-    / "agentic_clause04"
+        PROJECT_ROOT
+        / "reports"
+        / "evidence"
+        / "agentic_clause04"
     )
 
     evidence_dir.mkdir(
@@ -173,19 +173,6 @@ def main() -> None:
     )
 
     acceptance_summary_path = (
-    evidence_dir
-    / f"{assessment_id}_acceptance_summary.json"
-)
-    events_path.write_text(
-        json.dumps(
-            events_payload,
-            indent=2,
-            ensure_ascii=False,
-        ),
-        encoding="utf-8",
-    )
-
-    acceptance_summary_path = (
         evidence_dir
         / f"{assessment_id}_acceptance_summary.json"
     )
@@ -201,8 +188,8 @@ def main() -> None:
         "human_review_required": (
             report.pending_finding_count > 0
         ),
-    "completed_steps": [
-        step.value
+        "completed_steps": [
+            step.value
             for step in result.completed_steps
         ],
     }
@@ -223,10 +210,6 @@ def main() -> None:
     print(
         f"Acceptance summary saved to: "
         f"{acceptance_summary_path}"
-    )
-
-    print(
-        f"Execution events saved to: {events_path}"
     )
 
     print("Report summary:")

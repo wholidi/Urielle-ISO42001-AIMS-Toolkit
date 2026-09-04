@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "urielle-iso42001-aims-mvp1"
+version = "0.3.1"
+description = "Governed deterministic ISO/IEC 42001 Clause 04 assessment MVP"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+  { name = "William Hartono" },
+]
+dependencies = [
+  "jsonschema>=4.21,<5",
+  "PyYAML>=6.0,<7",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0,<9",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = [
+  "agentic_assessment*",
+  "clause_04_context*",
+  "governance*",
+  "scripts*",
+]
+namespaces = true
+
+[tool.setuptools.package-data]
+agentic_assessment = ["schemas/*.json"]
+clause_04_context = [
+  "questions/*.json",
+  "responses/human/*.json",
+]
+governance = [
+  "*.yaml",
+  "schemas/*.json",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
