@@ -7,3 +7,12 @@ __pycache__/
 .env
 # Python generated files
 *.py[cod]
+
+# External interoperability validation workspaces
+testing/evgraph/source/
+testing/**/.venv/
+
+# Python generated files
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
