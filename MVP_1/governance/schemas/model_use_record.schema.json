@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://urielle-ai.com/schemas/governance/model_use_record.schema.json",
   "title": "Urielle-AI Model Use Record",
-  "description": "Governance record declaring whether AI or external models are permitted in the Clause 04 pilot. Phase 2 requires deterministic-only execution and prohibits model invocation.",
+  "description": "Governance record declaring whether AI or external models are permitted in the governed assessment runtime. Deterministic orchestration and reporting are permitted; model invocation remains prohibited.",
   "type": "object",
   "additionalProperties": false,
   "required": [

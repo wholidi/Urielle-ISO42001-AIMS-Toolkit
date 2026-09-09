@@ -239,6 +239,7 @@ def test_forbidden_runtime_capabilities_are_recorded() -> None:
         "GENERATIVE_TEXT_CREATION",
         "AUTONOMOUS_FINDING_GENERATION",
         "AUTONOMOUS_HUMAN_APPROVAL",
-        "SUPERVISOR_ORCHESTRATION",
-        "REPORT_GENERATION",
     }.issubset(prohibited)
+
+    assert "SUPERVISOR_ORCHESTRATION" not in prohibited
+    assert "REPORT_GENERATION" not in prohibited

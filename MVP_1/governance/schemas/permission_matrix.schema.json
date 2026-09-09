@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://urielle-ai.com/schemas/governance/permission_matrix.schema.json",
   "title": "Urielle-AI Governance Permission Matrix",
-  "description": "Deterministic authorization contract for registered Clause 04 governance components. Explicit deny takes precedence over allow, and unregistered components are denied by default.",
+  "description": "Deterministic authorization contract for registered governed-assessment components. Explicit deny takes precedence over allow, and unregistered components are denied by default.",
   "type": "object",
   "additionalProperties": false,
   "required": [

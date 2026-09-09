@@ -1,7 +1,8 @@
 # MVP_1 Phase Understanding Guide
 
 This directory explains the development of the governed ISO/IEC 42001 Clause
-04 assessment MVP one phase at a time.
+04 assessment MVP one phase at a time and introduces the bounded Clause 05
+extension planned for Toolkit Release 0.2.
 
 The documents are written as reader guides. Historical implementation records
 remain in `docs/baseline/` and `docs/implementation/`, while architectural
@@ -18,6 +19,11 @@ decisions remain in `docs/architecture/`.
 | [Phase 3.1](phase_3_1_reproducibility.md) | Can someone else install and validate it? | Reproducible package and CI |
 | [Phase 3.2](phase_3_2_portfolio_scenarios.md) | Does it behave correctly outside the successful case? | Complete, incomplete, and reviewed scenarios |
 | [Phase 4](phase_4_evidence_integrity.md) | Can evidence identity and integrity be established without claiming content sufficiency? | Fail-closed provenance lifecycle and human acceptance boundary |
+
+Toolkit Release 0.2 starts from the
+[Clause 05 baseline inventory](../baseline/toolkit_release_0_2_clause05_inventory.md)
+and the compatibility decision in
+[ADR-0003](../architecture/ADR-0003-clause-neutral-governed-assessment.md).
 
 ## How the phases build on each other
 
