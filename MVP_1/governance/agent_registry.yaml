@@ -1,5 +1,5 @@
 ﻿schema_version: "1.0.0"
-registry_version: "0.2.0"
+registry_version: "0.4.0"
 default_execution_mode: DETERMINISTIC_ONLY
 
 components:
@@ -41,7 +41,7 @@ components:
   - component_id: governance.audit_logger
     component_type: AUDIT_LOGGER
     version: "0.2.0"
-    enabled: true
+    enabled: false
     execution_mode: DETERMINISTIC_ONLY
     implementation: governance.audit_logger.AuditLogger
     allowed_actions:
@@ -92,4 +92,103 @@ components:
       - GENERATE_ASSESSMENT_FINDING
       - APPROVE_HUMAN_DECISION
       - ALTER_SOURCE_EVIDENCE
+    human_approval_required: false
+
+  - component_id: agentic.clause04_adapter
+    component_type: CLAUSE_ADAPTER
+    version: "0.1.0"
+    enabled: true
+    execution_mode: DETERMINISTIC_ONLY
+    implementation: agentic_assessment.clause04_adapter.Clause04Adapter
+    allowed_actions:
+      - EXECUTE_CLAUSE_04_ASSESSMENT
+      - NORMALIZE_CLAUSE_04_RESULT
+    prohibited_actions:
+      - CALL_EXTERNAL_MODEL
+      - MODIFY_PROTECTED_PATH
+      - RECALCULATE_CLAUSE_04_SCORE
+      - APPROVE_HUMAN_DECISION
+      - ALTER_SOURCE_EVIDENCE
+    human_approval_required: false
+
+  - component_id: agentic.evidence_integrity
+    component_type: EVIDENCE_INTEGRITY_VERIFIER
+    version: "0.1.0"
+    enabled: true
+    execution_mode: DETERMINISTIC_ONLY
+    implementation: agentic_assessment.evidence_integrity.EvidenceIntegrityVerifier
+    allowed_actions:
+      - VERIFY_EVIDENCE_INTEGRITY
+      - RECORD_EVIDENCE_LIFECYCLE
+    prohibited_actions:
+      - CALL_EXTERNAL_MODEL
+      - MODIFY_PROTECTED_PATH
+      - INTERPRET_EVIDENCE_CONTENT
+      - APPROVE_EVIDENCE_DECISION
+      - ALTER_SOURCE_EVIDENCE
+    human_approval_required: false
+
+  - component_id: agentic.evidence_assessor
+    component_type: EVIDENCE_ASSESSOR
+    version: "0.2.0"
+    enabled: true
+    execution_mode: DETERMINISTIC_ONLY
+    implementation: agentic_assessment.evidence_assessor.EvidenceAssessor
+    allowed_actions:
+      - ASSESS_EVIDENCE_RECORDS
+      - CREATE_EVIDENCE_DECISION
+    prohibited_actions:
+      - CALL_EXTERNAL_MODEL
+      - MODIFY_PROTECTED_PATH
+      - PERFORM_HUMAN_EVIDENCE_ACCEPTANCE
+      - APPROVE_HUMAN_DECISION
+      - ALTER_SOURCE_EVIDENCE
+    human_approval_required: false
+
+  - component_id: agentic.finding_generator
+    component_type: FINDING_GENERATOR
+    version: "0.1.0"
+    enabled: true
+    execution_mode: DETERMINISTIC_ONLY
+    implementation: agentic_assessment.finding_generator.FindingGenerator
+    allowed_actions:
+      - GENERATE_DRAFT_FINDING
+    prohibited_actions:
+      - CALL_EXTERNAL_MODEL
+      - MODIFY_PROTECTED_PATH
+      - FINALIZE_ASSESSMENT_FINDING
+      - APPROVE_HUMAN_DECISION
+      - ALTER_SOURCE_EVIDENCE
+    human_approval_required: false
+
+  - component_id: agentic.human_review
+    component_type: HUMAN_REVIEW_SERVICE
+    version: "0.1.0"
+    enabled: true
+    execution_mode: DETERMINISTIC_ONLY
+    implementation: agentic_assessment.human_review.HumanReviewService
+    allowed_actions:
+      - APPLY_EXTERNAL_HUMAN_DISPOSITION
+    prohibited_actions:
+      - CALL_EXTERNAL_MODEL
+      - MODIFY_PROTECTED_PATH
+      - INVENT_HUMAN_DISPOSITION
+      - AUTOMATE_HUMAN_APPROVAL
+      - ALTER_SOURCE_EVIDENCE
+    human_approval_required: false
+
+  - component_id: agentic.report_generator
+    component_type: REPORT_GENERATOR
+    version: "0.1.0"
+    enabled: true
+    execution_mode: DETERMINISTIC_ONLY
+    implementation: agentic_assessment.report_generator.ReportGenerator
+    allowed_actions:
+      - GENERATE_GOVERNED_REPORT
+    prohibited_actions:
+      - CALL_EXTERNAL_MODEL
+      - MODIFY_PROTECTED_PATH
+      - RECALCULATE_CLAUSE_04_SCORE
+      - MODIFY_HUMAN_DISPOSITION
+      - ISSUE_CERTIFICATION_CONCLUSION
     human_approval_required: false

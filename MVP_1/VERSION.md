@@ -15,7 +15,15 @@ Portfolio Status: Three deterministic Clause 04 scenarios implemented and
 validated: complete, incomplete, and human-reviewed
 
 Current Evidence Integrity Milestone: Phase 4
-Evidence Integrity Status: Implemented and locally validated; remote CI pending
+Evidence Integrity Status: Complete; local regression and Python 3.11–3.13 CI passed
+
+Current Toolkit Roadmap Milestone: Toolkit Release 0.2 — Clause 05 Leadership
+Toolkit Release Status: Step 1 baseline and governance alignment locally complete; remote CI pending
+
+Python Package Version: 0.4.0
+
+The Toolkit Release 0.2 roadmap label is separate from the Python package
+version. It does not downgrade or replace package version 0.4.0.
 
 Release Artifact:
 - MVP1-Clause04-Pilot-v1.0.zip

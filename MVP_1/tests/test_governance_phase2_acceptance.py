@@ -157,5 +157,55 @@ def test_phase_2_runtime_has_no_model_enablement() -> None:
 
     assert "EXTERNAL_MODEL_INVOCATION" in prohibited
     assert "GENERATIVE_TEXT_CREATION" in prohibited
-    assert "SUPERVISOR_ORCHESTRATION" in prohibited
-    assert "REPORT_GENERATION" in prohibited
+    assert "AUTONOMOUS_FINDING_GENERATION" in prohibited
+    assert "AUTONOMOUS_HUMAN_APPROVAL" in prohibited
+    assert "SUPERVISOR_ORCHESTRATION" not in prohibited
+    assert "REPORT_GENERATION" not in prohibited
+
+
+def test_runtime_registry_covers_implemented_assessment_components() -> None:
+    runtime = initialize_governance(GOVERNANCE_ROOT)
+
+    registered = {
+        item["component_id"]
+        for item in runtime.configuration.agent_registry["components"]
+        if item["enabled"]
+    }
+    permitted = {
+        item["component_id"]
+        for item in runtime.configuration.permission_matrix["permissions"]
+    }
+    implemented = {
+        "agentic.supervisor",
+        "agentic.clause04_adapter",
+        "agentic.evidence_integrity",
+        "agentic.evidence_assessor",
+        "agentic.finding_generator",
+        "agentic.human_review",
+        "agentic.report_generator",
+    }
+
+    assert implemented <= registered
+    assert implemented <= permitted
+
+
+def test_registered_runtime_components_deny_external_models() -> None:
+    runtime = initialize_governance(GOVERNANCE_ROOT)
+
+    resources = {
+        "agentic.supervisor": "AGENTIC_ASSESSMENT_WORKFLOW",
+        "agentic.clause04_adapter": "CLAUSE_04_ASSESSMENT_ENGINE",
+        "agentic.evidence_integrity": "EVIDENCE_FILE",
+        "agentic.evidence_assessor": "EVIDENCE_ASSESSMENT",
+        "agentic.finding_generator": "ASSESSMENT_FINDING",
+        "agentic.human_review": "HUMAN_REVIEW_RECORD",
+        "agentic.report_generator": "ASSESSMENT_REPORT",
+    }
+
+    for component_id, resource in resources.items():
+        decision = runtime.policy_enforcer.evaluate(
+            component_id=component_id,
+            resource=resource,
+            action="CALL_EXTERNAL_MODEL",
+        )
+        assert decision.decision is PolicyDecisionType.DENY

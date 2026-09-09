@@ -1,5 +1,47 @@
 # Changelog
 
+## Toolkit Release 0.2 — Step 1 Baseline and Governance Alignment
+
+Date: 2026-09-09
+
+Status: **Implemented and locally validated — remote CI pending**
+
+### Added
+
+- Clause 04 Release 0.2 characterization tests protecting the authoritative
+  score, normalized result, Clause 4.1–4.4 coverage, and default workflow order.
+- Clause 05 source-artifact baseline inventory, including the confirmed
+  S5-02 through S5-05 reference mismatch.
+- ADR-0003 defining the clause-neutral extension and Clause 04 compatibility
+  boundary.
+- Governance coverage tests for implemented deterministic runtime components.
+
+### Changed
+
+- Updated the component registry and permission matrix to reflect the
+  deterministic runtime components already implemented.
+- Marked the unimplemented audit logger as disabled.
+- Corrected the model-use record so deterministic supervisor orchestration and
+  governed report generation are no longer listed as prohibited capabilities.
+- Kept external and generative model use prohibited.
+- Recorded completed Phase 4 Python 3.11–3.13 CI status.
+
+### Boundaries
+
+- No Clause 05 executable contracts, question bank, workflow, scenarios, or
+  reports are introduced in this step.
+- The Clause 04 engine and scoring logic are unchanged.
+- Python package version remains `0.4.0`.
+- No commit, tag, release, merge, or push is performed.
+
+### Validation
+
+- Full Python 3.12 regression: **257 passed** (253 existing tests plus 4 new
+  Release 0.2 baseline and governance tests).
+- Clause 04 authoritative result remains 100.0% with four records and zero
+  gaps.
+- Diff whitespace validation passed.
+
 ## MVP1-Agentic-Phase4
 
 Date: 2026-09-08

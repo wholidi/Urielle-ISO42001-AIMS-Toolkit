@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://urielle-ai.com/schemas/governance/agent_registry.schema.json",
   "title": "Urielle-AI Governance Agent Registry",
-  "description": "Configuration contract for components permitted to participate in the Clause 04 deterministic governance pilot. Registration does not grant permission; permissions are evaluated separately.",
+  "description": "Configuration contract for components permitted to participate in the governed deterministic assessment runtime. Registration does not grant permission; permissions are evaluated separately.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -64,7 +64,13 @@
             "CONFIGURATION_LOADER",
             "POLICY_ENFORCER",
             "AUDIT_LOGGER",
-            "SEQUENTIAL_SUPERVISOR"
+            "SEQUENTIAL_SUPERVISOR",
+            "CLAUSE_ADAPTER",
+            "EVIDENCE_ASSESSOR",
+            "EVIDENCE_INTEGRITY_VERIFIER",
+            "FINDING_GENERATOR",
+            "HUMAN_REVIEW_SERVICE",
+            "REPORT_GENERATOR"
           ]
         },
         "version": {
