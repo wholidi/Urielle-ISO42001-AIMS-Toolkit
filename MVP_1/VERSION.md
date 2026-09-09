@@ -14,6 +14,9 @@ Current Portfolio Milestone: Phase 3.2
 Portfolio Status: Three deterministic Clause 04 scenarios implemented and
 validated: complete, incomplete, and human-reviewed
 
+Current Evidence Integrity Milestone: Phase 4
+Evidence Integrity Status: Implemented and locally validated; remote CI pending
+
 Release Artifact:
 - MVP1-Clause04-Pilot-v1.0.zip
 
@@ -35,12 +38,14 @@ The frozen Clause 04 pilot above (`MVP1-Clause04-Pilot-v1.0`) is versioned and t
 | `agentic_assessment` | Phase 3 runtime complete | Phase 1–3 | Contracts, supervisor, Clause 04 adapter, evidence assessor, finding generator, human-review service, report generator, and end-to-end workflow integrated |
 | `governance` | Governance baseline 0.2.0 | Phase 2+ | Deterministic, fail-closed governance configuration and enforcement used by the runtime workflow |
 | `scenarios` | Portfolio scenario set 0.3.2 | Phase 3.2 | Persistent complete, incomplete, and human-reviewed Clause 04 demonstrations |
+| `evidence_integrity` | Evidence lifecycle 0.4.0 | Phase 4 | Safe file resolution, SHA-256 verification, provenance, and explicit human evidence decisions |
 
 Phase 3 introduces governed runtime orchestration but does **not** introduce LLM-controlled enforcement. The acceptance path uses no LLM or external model. Human review remains an explicit external accountability boundary.
 
 Combined regression, all packages, at Phase 3 completion: **232 passed**.
 Focused Agentic Clause 04 end-to-end suite: **9 passed**.
 Combined regression at Phase 3.2: **241 passed**.
+Combined regression at Phase 4: **253 passed**.
 
 See `docs/architecture/ADR-0001-sequential-supervisor.md`, `docs/architecture/ADR-0002-deterministic-governance-layer.md`, and `docs/implementation/` for detail.
 

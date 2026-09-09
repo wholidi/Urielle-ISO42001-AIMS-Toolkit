@@ -18,6 +18,7 @@ SCENARIO_ROOT = PROJECT_ROOT / "scenarios" / "clause04"
 EXPECTED_ARTIFACTS = {
     "scenario_input.json",
     "evidence_decisions.json",
+    "evidence_integrity_records.json",
     "findings.json",
     "human_review_record.json",
     "execution_events.json",

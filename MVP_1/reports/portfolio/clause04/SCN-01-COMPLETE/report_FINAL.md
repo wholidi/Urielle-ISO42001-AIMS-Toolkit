@@ -22,7 +22,7 @@ This report is not a certification decision or full audit assurance.
 - Confidence: 1.0
 - Human Review Required: False
 - Evidence References:
-  - EV-C4-001-context-register.xlsx
+  - EV-C4-001-context-register.txt
 
 ### C4-Q02
 
@@ -31,7 +31,7 @@ This report is not a certification decision or full audit assurance.
 - Confidence: 1.0
 - Human Review Required: False
 - Evidence References:
-  - EV-C4-002-interested-parties.xlsx
+  - EV-C4-002-interested-parties.txt
 
 ### C4-Q03
 
@@ -40,7 +40,7 @@ This report is not a certification decision or full audit assurance.
 - Confidence: 1.0
 - Human Review Required: False
 - Evidence References:
-  - EV-C4-003-aims-scope.pdf
+  - EV-C4-003-aims-scope.txt
 
 ### C4-Q04
 
@@ -49,7 +49,7 @@ This report is not a certification decision or full audit assurance.
 - Confidence: 1.0
 - Human Review Required: False
 - Evidence References:
-  - EV-C4-004-process-map.pdf
+  - EV-C4-004-process-map.txt
 
 ## Findings
 

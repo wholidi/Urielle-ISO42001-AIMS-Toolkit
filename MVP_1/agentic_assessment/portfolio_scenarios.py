@@ -49,6 +49,9 @@ class PortfolioScenarioRunner:
         "expected",
         "clause04_result",
         "human_reviews",
+        "evidence_root",
+        "evidence_manifest",
+        "evidence_reviews",
     }
 
     def __init__(self, *, output_root: Path | str) -> None:
@@ -87,6 +90,9 @@ class PortfolioScenarioRunner:
             assessment_context={
                 "assessment_id": scenario_id,
                 "human_reviews": scenario["human_reviews"],
+                "evidence_root": path.parent / str(scenario["evidence_root"]),
+                "evidence_manifest": scenario["evidence_manifest"],
+                "evidence_reviews": scenario["evidence_reviews"],
             },
             steps=WORKFLOW_SEQUENCE,
         )
@@ -118,6 +124,9 @@ class PortfolioScenarioRunner:
             "modified_finding_count": report.modified_finding_count,
             "rejected_finding_count": report.rejected_finding_count,
             "human_review_required": report.pending_finding_count > 0,
+            "evidence_status_counts": self._status_counts(
+                workflow.last_evidence_integrity_records
+            ),
             "completed_steps": [step.value for step in result.completed_steps],
         }
         self._verify_expected(scenario["expected"], summary)
@@ -142,6 +151,10 @@ class PortfolioScenarioRunner:
             "evidence_decisions.json": [
                 decision.to_contract()
                 for decision in workflow.last_evidence_decisions
+            ],
+            "evidence_integrity_records.json": [
+                record.to_contract()
+                for record in workflow.last_evidence_integrity_records
             ],
             "findings.json": reviewed_findings,
             "human_review_record.json": review_records,
@@ -219,6 +232,25 @@ class PortfolioScenarioRunner:
             raise PortfolioScenarioError("clause04_result is invalid.")
         if not isinstance(scenario.get("human_reviews"), Mapping):
             raise PortfolioScenarioError("human_reviews is invalid.")
+        if not isinstance(scenario.get("evidence_root"), str):
+            raise PortfolioScenarioError("evidence_root is invalid.")
+        if not isinstance(scenario.get("evidence_manifest"), Mapping):
+            raise PortfolioScenarioError("evidence_manifest is invalid.")
+        if not isinstance(scenario.get("evidence_reviews"), Mapping):
+            raise PortfolioScenarioError("evidence_reviews is invalid.")
+
+    @staticmethod
+    def _status_counts(records: Any) -> dict[str, int]:
+        counts = {
+            status: 0 for status in (
+                "REFERENCED", "FILE_PRESENT", "INTEGRITY_VERIFIED",
+                "CONTENT_REVIEWED", "ACCEPTED", "REJECTED",
+                "UNABLE_TO_ESTABLISH",
+            )
+        }
+        for record in records:
+            counts[record.evidence_status] += 1
+        return counts
 
     @staticmethod
     def _verify_expected(

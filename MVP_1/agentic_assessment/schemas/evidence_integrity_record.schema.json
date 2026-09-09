@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://urielle-ai.com/schemas/agentic_assessment/evidence_integrity_record.schema.json",
+  "title": "Urielle-AI Clause 04 Evidence Integrity Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "integrity_record_id", "assessment_id", "question_id", "evidence_id", "locator", "declared_sha256", "observed_sha256", "evidence_status", "status_history", "deterministic_checks", "content_review", "provenance"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "integrity_record_id": {"type": "string", "pattern": "^EIR-[A-Z0-9][A-Z0-9._-]{2,99}-[0-9]{3}$"},
+    "assessment_id": {"type": "string", "minLength": 3, "maxLength": 100},
+    "question_id": {"type": "string", "pattern": "^C4-Q[0-9]{2,3}$"},
+    "evidence_id": {"type": "string", "minLength": 1, "maxLength": 200},
+    "locator": {"type": ["string", "null"], "minLength": 1, "maxLength": 500},
+    "declared_sha256": {"type": ["string", "null"], "pattern": "^[A-Fa-f0-9]{64}$"},
+    "observed_sha256": {"type": ["string", "null"], "pattern": "^[A-Fa-f0-9]{64}$"},
+    "evidence_status": {"$ref": "#/$defs/status"},
+    "status_history": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false, "required": ["status", "recorded_at", "actor"], "properties": {"status": {"$ref": "#/$defs/status"}, "recorded_at": {"type": "string", "format": "date-time"}, "actor": {"type": "string", "minLength": 1}}}},
+    "deterministic_checks": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["check_type", "status", "observation"], "properties": {"check_type": {"enum": ["MANIFEST_ENTRY_PRESENT", "SAFE_PATH", "FILE_PRESENT", "HASH_VERIFIED"]}, "status": {"enum": ["PASSED", "FAILED", "NOT_RUN"]}, "observation": {"type": "string", "minLength": 1}}}},
+    "content_review": {"type": ["object", "null"], "additionalProperties": false, "required": ["reviewer_id", "reviewed_at", "content_reviewed", "disposition", "comments"], "properties": {"reviewer_id": {"type": "string", "minLength": 1}, "reviewed_at": {"type": "string", "format": "date-time"}, "content_reviewed": {"const": true}, "disposition": {"type": ["string", "null"], "enum": ["ACCEPTED", "REJECTED", null]}, "comments": {"type": ["string", "null"]}}, "if": {"properties": {"disposition": {"type": "string"}}}, "then": {"properties": {"comments": {"type": "string", "minLength": 1}}}},
+    "provenance": {"type": "object", "additionalProperties": false, "required": ["created_at", "created_by", "generator", "generator_version", "source_refs"], "properties": {"created_at": {"type": "string", "format": "date-time"}, "created_by": {"type": "string", "minLength": 1}, "generator": {"const": "DETERMINISTIC_RULES"}, "generator_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"}, "source_refs": {"type": "array", "minItems": 3, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}}}
+  },
+  "$defs": {"status": {"enum": ["REFERENCED", "FILE_PRESENT", "INTEGRITY_VERIFIED", "CONTENT_REVIEWED", "ACCEPTED", "REJECTED", "UNABLE_TO_ESTABLISH"]}}
+}

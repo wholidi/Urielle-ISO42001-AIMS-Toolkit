@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any, Mapping, Sequence
 
 from agentic_assessment.clause04_adapter import (
@@ -12,10 +13,15 @@ from agentic_assessment.contract_validator import (
     AssessmentContractError,
     AssessmentContractValidator,
 )
+from agentic_assessment.evidence_integrity import (
+    EvidenceIntegrityError,
+    EvidenceIntegrityRecord,
+    EvidenceIntegrityVerifier,
+)
 
 
 EVIDENCE_ASSESSOR_COMPONENT_ID = "agentic.evidence_assessor"
-EVIDENCE_ASSESSOR_VERSION = "0.1.0"
+EVIDENCE_ASSESSOR_VERSION = "0.2.0"
 
 
 class EvidenceAssessorError(RuntimeError):
@@ -79,17 +85,25 @@ class EvidenceAssessor:
         self,
         *,
         contract_validator: AssessmentContractValidator | None = None,
+        integrity_verifier: EvidenceIntegrityVerifier | None = None,
     ) -> None:
         self.contract_validator = (
             contract_validator
             if contract_validator is not None
             else AssessmentContractValidator()
         )
+        self.integrity_verifier = integrity_verifier or EvidenceIntegrityVerifier(
+            contract_validator=self.contract_validator
+        )
+        self.last_integrity_records: tuple[EvidenceIntegrityRecord, ...] = ()
 
     def assess(
         self,
         *,
         clause04_result: Clause04AssessmentResult,
+        evidence_root: Path | str | None = None,
+        evidence_manifest: Mapping[str, Any] | None = None,
+        evidence_reviews: Mapping[str, Any] | None = None,
     ) -> tuple[EvidenceDecision, ...]:
         """Assess every normalized Clause 04 evidence record."""
 
@@ -101,20 +115,61 @@ class EvidenceAssessor:
                 "clause04_result is missing or invalid."
             )
 
+        manifest = self._require_mapping(evidence_manifest, "evidence_manifest")
+        reviews = self._require_mapping(evidence_reviews, "evidence_reviews")
+        referenced_ids: set[str] = set()
+        for source_record in clause04_result.evidence_records:
+            if not isinstance(source_record, Mapping):
+                raise EvidenceAssessorError("Clause 04 evidence record is invalid.")
+            referenced_ids.update(
+                self._extract_evidence_ids(
+                    source_record.get("actual_evidence_references")
+                )
+            )
+        unknown_reviews = set(reviews) - referenced_ids
+        if unknown_reviews:
+            raise EvidenceAssessorError(
+                "Evidence review references an unknown evidence identifier."
+            )
         decisions: list[EvidenceDecision] = []
+        integrity_records: list[EvidenceIntegrityRecord] = []
+        integrity_sequence = 0
 
         for sequence, record in enumerate(
             clause04_result.evidence_records,
             start=1,
         ):
+            evidence_ids = self._extract_evidence_ids(
+                record.get("actual_evidence_references")
+            ) if isinstance(record, Mapping) else ()
+            record_integrity: list[EvidenceIntegrityRecord] = []
+            for evidence_id in evidence_ids:
+                integrity_sequence += 1
+                try:
+                    integrity = self.integrity_verifier.verify(
+                        sequence=integrity_sequence,
+                        assessment_id=clause04_result.assessment_id,
+                        question_id=self._require_string(record.get("question_id"), "question_id"),
+                        evidence_id=evidence_id,
+                        evidence_root=evidence_root,
+                        manifest_entry=manifest.get(evidence_id),
+                        review=reviews.get(evidence_id),
+                        timestamp=self._require_string(record.get("timestamp"), "timestamp"),
+                    )
+                except EvidenceIntegrityError as exc:
+                    raise EvidenceAssessorError(str(exc)) from exc
+                record_integrity.append(integrity)
+                integrity_records.append(integrity)
             decision = self._assess_record(
                 assessment_id=clause04_result.assessment_id,
                 sequence=sequence,
                 record=record,
+                integrity_records=tuple(record_integrity),
             )
 
             decisions.append(decision)
 
+        self.last_integrity_records = tuple(integrity_records)
         return tuple(decisions)
 
     def _assess_record(
@@ -123,6 +178,7 @@ class EvidenceAssessor:
         assessment_id: str,
         sequence: int,
         record: Mapping[str, Any],
+        integrity_records: tuple[EvidenceIntegrityRecord, ...],
     ) -> EvidenceDecision:
         """Create one deterministic evidence decision."""
 
@@ -161,8 +217,8 @@ class EvidenceAssessor:
 
         decision = self._derive_decision(
             evidence_ids=evidence_ids,
-            confidence=confidence,
             auditor_flag=auditor_flag,
+            integrity_records=integrity_records,
         )
 
         human_review_required = decision in {
@@ -224,21 +280,28 @@ class EvidenceAssessor:
     def _derive_decision(
         *,
         evidence_ids: tuple[str, ...],
-        confidence: float,
         auditor_flag: bool,
+        integrity_records: tuple[EvidenceIntegrityRecord, ...],
     ) -> str:
         """Apply deterministic evidence-decision rules."""
 
-        if auditor_flag:
-            return "REQUIRES_HUMAN_JUDGEMENT"
-
         if not evidence_ids:
             return "NOT_EVIDENCED"
-
-        if confidence < 1.0:
+        statuses = [item.evidence_status for item in integrity_records]
+        accepted = statuses.count("ACCEPTED")
+        if not auditor_flag and accepted == len(evidence_ids):
+            return "EVIDENCED"
+        if accepted:
             return "PARTIALLY_EVIDENCED"
+        return "REQUIRES_HUMAN_JUDGEMENT"
 
-        return "EVIDENCED"
+    @staticmethod
+    def _require_mapping(value: Any, field_name: str) -> Mapping[str, Any]:
+        if value is None:
+            return {}
+        if not isinstance(value, Mapping):
+            raise EvidenceAssessorError(f"{field_name} must be a mapping.")
+        return value
 
     @staticmethod
     def _extract_evidence_ids(
@@ -276,8 +339,11 @@ class EvidenceAssessor:
                     "reference_name."
                 )
 
-            if reference_name not in evidence_ids:
-                evidence_ids.append(reference_name)
+            if reference_name in evidence_ids:
+                raise EvidenceAssessorError(
+                    "Duplicate evidence identifier is not permitted."
+                )
+            evidence_ids.append(reference_name)
 
         return tuple(evidence_ids)
 

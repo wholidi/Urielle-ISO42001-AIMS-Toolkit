@@ -1,5 +1,37 @@
 # Changelog
 
+## MVP1-Agentic-Phase4
+
+Date: 2026-09-08
+
+Status: **Implementation complete — remote CI validation pending**
+
+### Added
+- Evidence lifecycle contract and deterministic integrity verifier.
+- Safe-root path enforcement and SHA-256 comparison.
+- Explicit human content-review, acceptance, and rejection records.
+- Persistent evidence-integrity artifacts and synthetic scenario fixtures.
+- Phase 4 understanding guide and fail-closed lifecycle tests.
+
+### Changed
+- A structured filename alone no longer produces `EVIDENCED`.
+- Only explicit human acceptance after integrity verification can support an
+  `EVIDENCED` decision.
+- Portfolio summaries include evidence lifecycle status counts.
+- Package version updated to `0.4.0`.
+
+### Validation
+- Full regression suite: **253 passed**.
+- All three persistent scenarios completed with expected report states.
+- Clause 04 readiness scores remain inherited and unchanged.
+
+### Boundaries
+- No evidence-content interpretation, OCR, LLM review, automatic sufficiency
+  decision, certification conclusion, new clause, SaaS application, or UI.
+- Evidence acceptance and finding disposition remain separate human decisions.
+
+---
+
 ## MVP1-Agentic-Phase3.2
 
 Date: 2026-09-04

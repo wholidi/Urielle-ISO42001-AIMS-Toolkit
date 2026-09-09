@@ -5,6 +5,31 @@
   "description": "Three findings receive explicit accepted, modified, and rejected human dispositions.",
   "run_id": "RUN-SCN-03-REVIEWED",
   "fixed_timestamp": "2026-09-04T08:30:00+00:00",
+  "evidence_root": "evidence/SCN-03-REVIEWED",
+  "evidence_manifest": {
+    "EV-C4-022-draft-interested-parties.txt": {
+      "locator": "EV-C4-022-draft-interested-parties.txt",
+      "declared_sha256": "974b9414f7fde92e0a0bd4b62ce36f4409c792187703268d9a9201359838ac57"
+    },
+    "EV-C4-023-aims-scope.txt": {
+      "locator": "EV-C4-023-aims-scope.txt",
+      "declared_sha256": "30e87d94ccad5a845fb4b00af7302816d8156659b05c3e1ff5b9818770ff88a5"
+    }
+  },
+  "evidence_reviews": {
+    "EV-C4-022-draft-interested-parties.txt": {
+      "reviewer_id": "portfolio-reviewer-001",
+      "content_reviewed": true,
+      "disposition": null,
+      "comments": "Content reviewed; acceptance remains unresolved."
+    },
+    "EV-C4-023-aims-scope.txt": {
+      "reviewer_id": "portfolio-reviewer-001",
+      "content_reviewed": true,
+      "disposition": "REJECTED",
+      "comments": "Rejected for the mapped question after human review."
+    }
+  },
   "expected": {
     "workflow_state": "COMPLETED",
     "report_status": "FINAL",
@@ -53,7 +78,7 @@
         "actual_evidence_references": [
           {
             "reference_type": "file_reference",
-            "reference_name": "EV-C4-022-draft-interested-parties.xlsx",
+            "reference_name": "EV-C4-022-draft-interested-parties.txt",
             "extracted_from": "scenario_fixture"
           }
         ],
@@ -77,7 +102,7 @@
         "actual_evidence_references": [
           {
             "reference_type": "file_reference",
-            "reference_name": "EV-C4-023-aims-scope.pdf",
+            "reference_name": "EV-C4-023-aims-scope.txt",
             "extracted_from": "scenario_fixture"
           }
         ],

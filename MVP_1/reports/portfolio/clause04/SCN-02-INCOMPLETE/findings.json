@@ -35,7 +35,7 @@
     "assessment_id": "SCN-02-INCOMPLETE",
     "requirement_ref": "4.2",
     "question_id": "C4-Q02",
-    "condition": "Evidence for C4-Q02 was only partially evidenced by the deterministic assessment.",
+    "condition": "Evidence for C4-Q02 requires human judgement before assessment disposition.",
     "criteria": "ISO/IEC 42001 Clause 4.2 assessment criteria for C4-Q02 require sufficient and traceable supporting evidence.",
     "evidence_refs": [
       {
@@ -44,12 +44,16 @@
       },
       {
         "reference_type": "EVIDENCE",
-        "reference_id": "EV-C4-012-draft-interested-parties.xlsx"
+        "reference_id": "EV-C4-012-draft-interested-parties.txt"
+      },
+      {
+        "reference_type": "EVIDENCE",
+        "reference_id": "EV-C4-013-missing-scope.txt"
       }
     ],
-    "risk_statement": "Partial evidence may leave the assessment conclusion for requirement 4.2 insufficiently supported.",
-    "severity_preliminary": "LOW",
-    "recommendation": "Complete or strengthen the evidence for requirement 4.2 and obtain human review before final disposition.",
+    "risk_statement": "Automated disposition would exceed the deterministic assessment boundary for requirement 4.2.",
+    "severity_preliminary": "REVIEW_REQUIRED",
+    "recommendation": "Route the evidence decision to an authorized human reviewer before final disposition.",
     "human_disposition": "PENDING",
     "review_record": null,
     "provenance": {
@@ -60,7 +64,8 @@
       "source_refs": [
         "evidence_decision:ED-SCN-02-INCOMPLETE-002",
         "question:C4-Q02",
-        "evidence:EV-C4-012-draft-interested-parties.xlsx"
+        "evidence:EV-C4-012-draft-interested-parties.txt",
+        "evidence:EV-C4-013-missing-scope.txt"
       ]
     }
   }

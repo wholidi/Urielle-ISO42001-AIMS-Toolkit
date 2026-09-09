@@ -17,6 +17,7 @@ decisions remain in `docs/architecture/`.
 | [Phase 3](phase_3_workflow.md) | Can the governed components complete an assessment? | End-to-end sequential workflow |
 | [Phase 3.1](phase_3_1_reproducibility.md) | Can someone else install and validate it? | Reproducible package and CI |
 | [Phase 3.2](phase_3_2_portfolio_scenarios.md) | Does it behave correctly outside the successful case? | Complete, incomplete, and reviewed scenarios |
+| [Phase 4](phase_4_evidence_integrity.md) | Can evidence identity and integrity be established without claiming content sufficiency? | Fail-closed provenance lifecycle and human acceptance boundary |
 
 ## How the phases build on each other
 
@@ -27,6 +28,7 @@ flowchart TD
     P2 --> P3["Phase 3: Integrate workflow"]
     P3 --> P31["Phase 3.1: Make reproducible"]
     P31 --> P32["Phase 3.2: Prove scenarios"]
+    P32 --> P4["Phase 4: Verify integrity"]
 ```
 
 The phases are cumulative. A later phase adds evidence about the system without
@@ -46,5 +48,5 @@ The MVP:
 ## Recommended reading order
 
 Read the phase guides in sequence. For a short portfolio walkthrough, focus on
-Phase 0, Phase 2, Phase 3, and Phase 3.2: these explain the trusted baseline,
-governance controls, complete workflow, and visible demonstration cases.
+Phase 0, Phase 2, Phase 3, Phase 3.2, and Phase 4: these explain the trusted
+baseline, governance controls, workflow, scenarios, and evidence boundary.

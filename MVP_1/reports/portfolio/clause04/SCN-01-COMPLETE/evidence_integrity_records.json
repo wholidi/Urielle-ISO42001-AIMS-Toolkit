@@ -1,0 +1,294 @@
+[
+  {
+    "schema_version": "1.0.0",
+    "integrity_record_id": "EIR-SCN-01-COMPLETE-001",
+    "assessment_id": "SCN-01-COMPLETE",
+    "question_id": "C4-Q01",
+    "evidence_id": "EV-C4-001-context-register.txt",
+    "locator": "EV-C4-001-context-register.txt",
+    "declared_sha256": "8c16cea4cbd289d9c497a2784c0037c276bea58a8bbc284e8eccacb76f16d025",
+    "observed_sha256": "8c16cea4cbd289d9c497a2784c0037c276bea58a8bbc284e8eccacb76f16d025",
+    "evidence_status": "ACCEPTED",
+    "status_history": [
+      {
+        "status": "REFERENCED",
+        "recorded_at": "2026-09-04T08:00:00+00:00",
+        "actor": "agentic.evidence_integrity"
+      },
+      {
+        "status": "FILE_PRESENT",
+        "recorded_at": "2026-09-04T08:00:00+00:00",
+        "actor": "agentic.evidence_integrity"
+      },
+      {
+        "status": "INTEGRITY_VERIFIED",
+        "recorded_at": "2026-09-04T08:00:00+00:00",
+        "actor": "agentic.evidence_integrity"
+      },
+      {
+        "status": "CONTENT_REVIEWED",
+        "recorded_at": "2026-09-04T08:00:00+00:00",
+        "actor": "portfolio-reviewer-001"
+      },
+      {
+        "status": "ACCEPTED",
+        "recorded_at": "2026-09-04T08:00:00+00:00",
+        "actor": "portfolio-reviewer-001"
+      }
+    ],
+    "deterministic_checks": [
+      {
+        "check_type": "SAFE_PATH",
+        "status": "PASSED",
+        "observation": "Evidence resolved within the permitted root."
+      },
+      {
+        "check_type": "FILE_PRESENT",
+        "status": "PASSED",
+        "observation": "A readable regular file is present."
+      },
+      {
+        "check_type": "HASH_VERIFIED",
+        "status": "PASSED",
+        "observation": "Observed SHA-256 matches the declaration."
+      }
+    ],
+    "content_review": {
+      "reviewer_id": "portfolio-reviewer-001",
+      "reviewed_at": "2026-09-04T08:00:00+00:00",
+      "content_reviewed": true,
+      "disposition": "ACCEPTED",
+      "comments": "Accepted for the mapped Clause 04 question."
+    },
+    "provenance": {
+      "created_at": "2026-09-04T08:00:00+00:00",
+      "created_by": "agentic.evidence_integrity",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.1.0",
+      "source_refs": [
+        "assessment:SCN-01-COMPLETE",
+        "question:C4-Q01",
+        "evidence:EV-C4-001-context-register.txt"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "integrity_record_id": "EIR-SCN-01-COMPLETE-002",
+    "assessment_id": "SCN-01-COMPLETE",
+    "question_id": "C4-Q02",
+    "evidence_id": "EV-C4-002-interested-parties.txt",
+    "locator": "EV-C4-002-interested-parties.txt",
+    "declared_sha256": "51cf3eb0a11888c42cfadee61223579f5c7d35cf79631378c91292e63f17221a",
+    "observed_sha256": "51cf3eb0a11888c42cfadee61223579f5c7d35cf79631378c91292e63f17221a",
+    "evidence_status": "ACCEPTED",
+    "status_history": [
+      {
+        "status": "REFERENCED",
+        "recorded_at": "2026-09-04T08:00:00+00:00",
+        "actor": "agentic.evidence_integrity"
+      },
+      {
+        "status": "FILE_PRESENT",
+        "recorded_at": "2026-09-04T08:00:00+00:00",
+        "actor": "agentic.evidence_integrity"
+      },
+      {
+        "status": "INTEGRITY_VERIFIED",
+        "recorded_at": "2026-09-04T08:00:00+00:00",
+        "actor": "agentic.evidence_integrity"
+      },
+      {
+        "status": "CONTENT_REVIEWED",
+        "recorded_at": "2026-09-04T08:00:00+00:00",
+        "actor": "portfolio-reviewer-001"
+      },
+      {
+        "status": "ACCEPTED",
+        "recorded_at": "2026-09-04T08:00:00+00:00",
+        "actor": "portfolio-reviewer-001"
+      }
+    ],
+    "deterministic_checks": [
+      {
+        "check_type": "SAFE_PATH",
+        "status": "PASSED",
+        "observation": "Evidence resolved within the permitted root."
+      },
+      {
+        "check_type": "FILE_PRESENT",
+        "status": "PASSED",
+        "observation": "A readable regular file is present."
+      },
+      {
+        "check_type": "HASH_VERIFIED",
+        "status": "PASSED",
+        "observation": "Observed SHA-256 matches the declaration."
+      }
+    ],
+    "content_review": {
+      "reviewer_id": "portfolio-reviewer-001",
+      "reviewed_at": "2026-09-04T08:00:00+00:00",
+      "content_reviewed": true,
+      "disposition": "ACCEPTED",
+      "comments": "Accepted for the mapped Clause 04 question."
+    },
+    "provenance": {
+      "created_at": "2026-09-04T08:00:00+00:00",
+      "created_by": "agentic.evidence_integrity",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.1.0",
+      "source_refs": [
+        "assessment:SCN-01-COMPLETE",
+        "question:C4-Q02",
+        "evidence:EV-C4-002-interested-parties.txt"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "integrity_record_id": "EIR-SCN-01-COMPLETE-003",
+    "assessment_id": "SCN-01-COMPLETE",
+    "question_id": "C4-Q03",
+    "evidence_id": "EV-C4-003-aims-scope.txt",
+    "locator": "EV-C4-003-aims-scope.txt",
+    "declared_sha256": "d3fa45ef1f1d263765141edcbc483cefba50c822efe44080fdc49faddeef11ef",
+    "observed_sha256": "d3fa45ef1f1d263765141edcbc483cefba50c822efe44080fdc49faddeef11ef",
+    "evidence_status": "ACCEPTED",
+    "status_history": [
+      {
+        "status": "REFERENCED",
+        "recorded_at": "2026-09-04T08:00:00+00:00",
+        "actor": "agentic.evidence_integrity"
+      },
+      {
+        "status": "FILE_PRESENT",
+        "recorded_at": "2026-09-04T08:00:00+00:00",
+        "actor": "agentic.evidence_integrity"
+      },
+      {
+        "status": "INTEGRITY_VERIFIED",
+        "recorded_at": "2026-09-04T08:00:00+00:00",
+        "actor": "agentic.evidence_integrity"
+      },
+      {
+        "status": "CONTENT_REVIEWED",
+        "recorded_at": "2026-09-04T08:00:00+00:00",
+        "actor": "portfolio-reviewer-001"
+      },
+      {
+        "status": "ACCEPTED",
+        "recorded_at": "2026-09-04T08:00:00+00:00",
+        "actor": "portfolio-reviewer-001"
+      }
+    ],
+    "deterministic_checks": [
+      {
+        "check_type": "SAFE_PATH",
+        "status": "PASSED",
+        "observation": "Evidence resolved within the permitted root."
+      },
+      {
+        "check_type": "FILE_PRESENT",
+        "status": "PASSED",
+        "observation": "A readable regular file is present."
+      },
+      {
+        "check_type": "HASH_VERIFIED",
+        "status": "PASSED",
+        "observation": "Observed SHA-256 matches the declaration."
+      }
+    ],
+    "content_review": {
+      "reviewer_id": "portfolio-reviewer-001",
+      "reviewed_at": "2026-09-04T08:00:00+00:00",
+      "content_reviewed": true,
+      "disposition": "ACCEPTED",
+      "comments": "Accepted for the mapped Clause 04 question."
+    },
+    "provenance": {
+      "created_at": "2026-09-04T08:00:00+00:00",
+      "created_by": "agentic.evidence_integrity",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.1.0",
+      "source_refs": [
+        "assessment:SCN-01-COMPLETE",
+        "question:C4-Q03",
+        "evidence:EV-C4-003-aims-scope.txt"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "integrity_record_id": "EIR-SCN-01-COMPLETE-004",
+    "assessment_id": "SCN-01-COMPLETE",
+    "question_id": "C4-Q04",
+    "evidence_id": "EV-C4-004-process-map.txt",
+    "locator": "EV-C4-004-process-map.txt",
+    "declared_sha256": "d23b558f59839d8ffd215781dd8bad83e73a8e2b8ab1b03e91cbecba869912f4",
+    "observed_sha256": "d23b558f59839d8ffd215781dd8bad83e73a8e2b8ab1b03e91cbecba869912f4",
+    "evidence_status": "ACCEPTED",
+    "status_history": [
+      {
+        "status": "REFERENCED",
+        "recorded_at": "2026-09-04T08:00:00+00:00",
+        "actor": "agentic.evidence_integrity"
+      },
+      {
+        "status": "FILE_PRESENT",
+        "recorded_at": "2026-09-04T08:00:00+00:00",
+        "actor": "agentic.evidence_integrity"
+      },
+      {
+        "status": "INTEGRITY_VERIFIED",
+        "recorded_at": "2026-09-04T08:00:00+00:00",
+        "actor": "agentic.evidence_integrity"
+      },
+      {
+        "status": "CONTENT_REVIEWED",
+        "recorded_at": "2026-09-04T08:00:00+00:00",
+        "actor": "portfolio-reviewer-001"
+      },
+      {
+        "status": "ACCEPTED",
+        "recorded_at": "2026-09-04T08:00:00+00:00",
+        "actor": "portfolio-reviewer-001"
+      }
+    ],
+    "deterministic_checks": [
+      {
+        "check_type": "SAFE_PATH",
+        "status": "PASSED",
+        "observation": "Evidence resolved within the permitted root."
+      },
+      {
+        "check_type": "FILE_PRESENT",
+        "status": "PASSED",
+        "observation": "A readable regular file is present."
+      },
+      {
+        "check_type": "HASH_VERIFIED",
+        "status": "PASSED",
+        "observation": "Observed SHA-256 matches the declaration."
+      }
+    ],
+    "content_review": {
+      "reviewer_id": "portfolio-reviewer-001",
+      "reviewed_at": "2026-09-04T08:00:00+00:00",
+      "content_reviewed": true,
+      "disposition": "ACCEPTED",
+      "comments": "Accepted for the mapped Clause 04 question."
+    },
+    "provenance": {
+      "created_at": "2026-09-04T08:00:00+00:00",
+      "created_by": "agentic.evidence_integrity",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.1.0",
+      "source_refs": [
+        "assessment:SCN-01-COMPLETE",
+        "question:C4-Q04",
+        "evidence:EV-C4-004-process-map.txt"
+      ]
+    }
+  }
+]
