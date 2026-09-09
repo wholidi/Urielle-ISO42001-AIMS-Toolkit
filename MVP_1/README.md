@@ -65,13 +65,13 @@ summary to `MVP_1/reports/evidence/agentic_clause04/`.
 
 ## Portfolio scenarios
 
-Phase 3.2 adds three persistent Clause 04 scenarios for review demonstrations:
+Phases 3.2 and 4 provide three persistent Clause 04 demonstrations:
 
 | Scenario | Evidence state | Human disposition | Report |
 |---|---|---|---|
-| `SCN-01-COMPLETE` | Four structured references | No findings require disposition | `FINAL` |
-| `SCN-02-INCOMPLETE` | Missing and partial evidence | Two findings remain pending | `DRAFT` |
-| `SCN-03-REVIEWED` | Missing, partial, and flagged evidence | Accepted, modified, and rejected | `FINAL` |
+| `SCN-01-COMPLETE` | Integrity verified and human accepted | No findings require disposition | `FINAL` |
+| `SCN-02-INCOMPLETE` | Missing, file-present, and unable to establish | Two findings remain pending | `DRAFT` |
+| `SCN-03-REVIEWED` | Content reviewed and rejected | Finding reviews are separately resolved | `FINAL` |
 
 Run all scenarios from the repository root in PowerShell:
 
@@ -82,7 +82,7 @@ Run all scenarios from the repository root in PowerShell:
 The scenario definitions are stored in `MVP_1/scenarios/clause04/`. Generated
 portfolio artifacts are stored in
 `MVP_1/reports/portfolio/clause04/<scenario-id>/`. Each scenario persists its
-input, evidence decisions, findings, human-review records, execution events,
+input, evidence integrity records, evidence decisions, findings, human-review records, execution events,
 acceptance summary, and governed Markdown report.
 
 Scenario timestamps are fixed test metadata. Production components retain UTC
@@ -98,6 +98,6 @@ behavior or Clause 04 scoring.
 - Invalid workflow and human-review inputs fail closed.
 - Human dispositions are externally supplied and are never invented.
 - No LLM or external model participates in the governed acceptance path.
-- A referenced document is not represented as independently verified evidence.
+- A reference, present file, or matching hash cannot by itself establish content sufficiency.
 - A `FINAL` report means no generated finding remains pending; it is not a
   certification or conformity decision.

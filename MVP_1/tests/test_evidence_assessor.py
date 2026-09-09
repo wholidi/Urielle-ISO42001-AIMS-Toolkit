@@ -66,7 +66,7 @@ def build_result(
     )
 
 
-def test_evidenced_record_produces_evidenced_decision() -> None:
+def test_reference_alone_requires_human_judgement() -> None:
     assessor = EvidenceAssessor()
 
     decisions = assessor.assess(
@@ -80,8 +80,8 @@ def test_evidenced_record_produces_evidenced_decision() -> None:
     decision = decisions[0]
 
     assert decision.question_id == "C4-Q01"
-    assert decision.decision == "EVIDENCED"
-    assert decision.human_review_required is False
+    assert decision.decision == "REQUIRES_HUMAN_JUDGEMENT"
+    assert decision.human_review_required is True
     assert decision.confidence == 1.0
 
     assert decision.evidence_ids == (
@@ -120,7 +120,7 @@ def test_missing_evidence_is_not_evidenced() -> None:
     assert decision.human_review_required is False
 
 
-def test_partial_confidence_requires_human_review() -> None:
+def test_confidence_cannot_elevate_unverified_evidence() -> None:
     assessor = EvidenceAssessor()
 
     record = build_record(
@@ -133,7 +133,7 @@ def test_partial_confidence_requires_human_review() -> None:
 
     assert (
         decision.decision
-        == "PARTIALLY_EVIDENCED"
+        == "REQUIRES_HUMAN_JUDGEMENT"
     )
 
     assert decision.human_review_required is True
@@ -245,6 +245,29 @@ def test_invalid_evidence_reference_fails_closed() -> None:
     ):
         assessor.assess(
             clause04_result=build_result(record)
+        )
+
+
+def test_duplicate_evidence_identifier_fails_closed() -> None:
+    reference = {
+        "reference_type": "file_reference",
+        "reference_name": "EV-DUPLICATE",
+        "extracted_from": "test",
+    }
+    with pytest.raises(EvidenceAssessorError, match="Duplicate evidence"):
+        EvidenceAssessor().assess(
+            clause04_result=build_result(
+                build_record(references=[reference, reference])
+            )
+        )
+
+
+def test_unknown_evidence_review_fails_closed() -> None:
+    with pytest.raises(EvidenceAssessorError, match="unknown evidence"):
+        EvidenceAssessor().assess(
+            clause04_result=build_result(build_record()),
+            evidence_manifest={},
+            evidence_reviews={"EV-UNKNOWN": {}},
         )
 
 

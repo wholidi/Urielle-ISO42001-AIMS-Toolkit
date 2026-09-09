@@ -12,6 +12,7 @@ from agentic_assessment.evidence_assessor import (
     EvidenceAssessor,
     EvidenceDecision,
 )
+from agentic_assessment.evidence_integrity import EvidenceIntegrityRecord
 from agentic_assessment.finding_generator import (
     Finding,
     FindingGenerator,
@@ -81,6 +82,7 @@ class Clause04Workflow:
         self.last_report: AgenticClause04Report | None = None
         self.last_clause04_result: Clause04AssessmentResult | None = None
         self.last_evidence_decisions: tuple[EvidenceDecision, ...] = ()
+        self.last_evidence_integrity_records: tuple[EvidenceIntegrityRecord, ...] = ()
         self.last_findings: tuple[Finding, ...] = ()
 
     def handlers(self) -> Mapping[WorkflowStep, Any]:
@@ -184,7 +186,10 @@ class Clause04Workflow:
             )
 
         decisions = self.evidence_assessor.assess(
-            clause04_result=clause04_result
+            clause04_result=clause04_result,
+            evidence_root=context.get("evidence_root"),
+            evidence_manifest=context.get("evidence_manifest"),
+            evidence_reviews=context.get("evidence_reviews"),
         )
 
         next_context = dict(context)
@@ -192,6 +197,12 @@ class Clause04Workflow:
             decisions
         )
         self.last_evidence_decisions = tuple(decisions)
+        self.last_evidence_integrity_records = (
+            self.evidence_assessor.last_integrity_records
+        )
+        next_context["evidence_integrity_records"] = (
+            self.last_evidence_integrity_records
+        )
 
         return next_context
 

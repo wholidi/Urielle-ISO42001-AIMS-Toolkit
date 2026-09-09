@@ -28,11 +28,12 @@ This report is not a certification decision or full audit assurance.
 ### C4-Q02
 
 - Decision ID: `ED-SCN-02-INCOMPLETE-002`
-- Decision: **PARTIALLY_EVIDENCED**
+- Decision: **REQUIRES_HUMAN_JUDGEMENT**
 - Confidence: 0.6
 - Human Review Required: True
 - Evidence References:
-  - EV-C4-012-draft-interested-parties.xlsx
+  - EV-C4-012-draft-interested-parties.txt
+  - EV-C4-013-missing-scope.txt
 
 ## Findings
 
@@ -61,12 +62,12 @@ Provide and validate evidence addressing requirement 4.1, then reassess the evid
 ### FND-SCN-02-INCOMPLETE-002 — Clause 4.2
 
 - Question: C4-Q02
-- Preliminary Severity: **LOW**
+- Preliminary Severity: **REVIEW_REQUIRED**
 - Human Disposition: **PENDING**
 
 **Condition**
 
-Evidence for C4-Q02 was only partially evidenced by the deterministic assessment.
+Evidence for C4-Q02 requires human judgement before assessment disposition.
 
 **Criteria**
 
@@ -74,11 +75,11 @@ ISO/IEC 42001 Clause 4.2 assessment criteria for C4-Q02 require sufficient and t
 
 **Risk Statement**
 
-Partial evidence may leave the assessment conclusion for requirement 4.2 insufficiently supported.
+Automated disposition would exceed the deterministic assessment boundary for requirement 4.2.
 
 **Recommendation**
 
-Complete or strengthen the evidence for requirement 4.2 and obtain human review before final disposition.
+Route the evidence decision to an authorized human reviewer before final disposition.
 
 ## Traceability
 

@@ -1,0 +1,143 @@
+[
+  {
+    "schema_version": "1.0.0",
+    "integrity_record_id": "EIR-SCN-03-REVIEWED-001",
+    "assessment_id": "SCN-03-REVIEWED",
+    "question_id": "C4-Q02",
+    "evidence_id": "EV-C4-022-draft-interested-parties.txt",
+    "locator": "EV-C4-022-draft-interested-parties.txt",
+    "declared_sha256": "974b9414f7fde92e0a0bd4b62ce36f4409c792187703268d9a9201359838ac57",
+    "observed_sha256": "974b9414f7fde92e0a0bd4b62ce36f4409c792187703268d9a9201359838ac57",
+    "evidence_status": "CONTENT_REVIEWED",
+    "status_history": [
+      {
+        "status": "REFERENCED",
+        "recorded_at": "2026-09-04T08:30:00+00:00",
+        "actor": "agentic.evidence_integrity"
+      },
+      {
+        "status": "FILE_PRESENT",
+        "recorded_at": "2026-09-04T08:30:00+00:00",
+        "actor": "agentic.evidence_integrity"
+      },
+      {
+        "status": "INTEGRITY_VERIFIED",
+        "recorded_at": "2026-09-04T08:30:00+00:00",
+        "actor": "agentic.evidence_integrity"
+      },
+      {
+        "status": "CONTENT_REVIEWED",
+        "recorded_at": "2026-09-04T08:30:00+00:00",
+        "actor": "portfolio-reviewer-001"
+      }
+    ],
+    "deterministic_checks": [
+      {
+        "check_type": "SAFE_PATH",
+        "status": "PASSED",
+        "observation": "Evidence resolved within the permitted root."
+      },
+      {
+        "check_type": "FILE_PRESENT",
+        "status": "PASSED",
+        "observation": "A readable regular file is present."
+      },
+      {
+        "check_type": "HASH_VERIFIED",
+        "status": "PASSED",
+        "observation": "Observed SHA-256 matches the declaration."
+      }
+    ],
+    "content_review": {
+      "reviewer_id": "portfolio-reviewer-001",
+      "reviewed_at": "2026-09-04T08:30:00+00:00",
+      "content_reviewed": true,
+      "disposition": null,
+      "comments": "Content reviewed; acceptance remains unresolved."
+    },
+    "provenance": {
+      "created_at": "2026-09-04T08:30:00+00:00",
+      "created_by": "agentic.evidence_integrity",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.1.0",
+      "source_refs": [
+        "assessment:SCN-03-REVIEWED",
+        "question:C4-Q02",
+        "evidence:EV-C4-022-draft-interested-parties.txt"
+      ]
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "integrity_record_id": "EIR-SCN-03-REVIEWED-002",
+    "assessment_id": "SCN-03-REVIEWED",
+    "question_id": "C4-Q03",
+    "evidence_id": "EV-C4-023-aims-scope.txt",
+    "locator": "EV-C4-023-aims-scope.txt",
+    "declared_sha256": "30e87d94ccad5a845fb4b00af7302816d8156659b05c3e1ff5b9818770ff88a5",
+    "observed_sha256": "30e87d94ccad5a845fb4b00af7302816d8156659b05c3e1ff5b9818770ff88a5",
+    "evidence_status": "REJECTED",
+    "status_history": [
+      {
+        "status": "REFERENCED",
+        "recorded_at": "2026-09-04T08:30:00+00:00",
+        "actor": "agentic.evidence_integrity"
+      },
+      {
+        "status": "FILE_PRESENT",
+        "recorded_at": "2026-09-04T08:30:00+00:00",
+        "actor": "agentic.evidence_integrity"
+      },
+      {
+        "status": "INTEGRITY_VERIFIED",
+        "recorded_at": "2026-09-04T08:30:00+00:00",
+        "actor": "agentic.evidence_integrity"
+      },
+      {
+        "status": "CONTENT_REVIEWED",
+        "recorded_at": "2026-09-04T08:30:00+00:00",
+        "actor": "portfolio-reviewer-001"
+      },
+      {
+        "status": "REJECTED",
+        "recorded_at": "2026-09-04T08:30:00+00:00",
+        "actor": "portfolio-reviewer-001"
+      }
+    ],
+    "deterministic_checks": [
+      {
+        "check_type": "SAFE_PATH",
+        "status": "PASSED",
+        "observation": "Evidence resolved within the permitted root."
+      },
+      {
+        "check_type": "FILE_PRESENT",
+        "status": "PASSED",
+        "observation": "A readable regular file is present."
+      },
+      {
+        "check_type": "HASH_VERIFIED",
+        "status": "PASSED",
+        "observation": "Observed SHA-256 matches the declaration."
+      }
+    ],
+    "content_review": {
+      "reviewer_id": "portfolio-reviewer-001",
+      "reviewed_at": "2026-09-04T08:30:00+00:00",
+      "content_reviewed": true,
+      "disposition": "REJECTED",
+      "comments": "Rejected for the mapped question after human review."
+    },
+    "provenance": {
+      "created_at": "2026-09-04T08:30:00+00:00",
+      "created_by": "agentic.evidence_integrity",
+      "generator": "DETERMINISTIC_RULES",
+      "generator_version": "0.1.0",
+      "source_refs": [
+        "assessment:SCN-03-REVIEWED",
+        "question:C4-Q03",
+        "evidence:EV-C4-023-aims-scope.txt"
+      ]
+    }
+  }
+]

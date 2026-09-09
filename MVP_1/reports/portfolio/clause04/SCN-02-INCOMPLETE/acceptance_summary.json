@@ -13,6 +13,15 @@
   "modified_finding_count": 0,
   "rejected_finding_count": 0,
   "human_review_required": true,
+  "evidence_status_counts": {
+    "REFERENCED": 0,
+    "FILE_PRESENT": 1,
+    "INTEGRITY_VERIFIED": 0,
+    "CONTENT_REVIEWED": 0,
+    "ACCEPTED": 0,
+    "REJECTED": 0,
+    "UNABLE_TO_ESTABLISH": 1
+  },
   "completed_steps": [
     "ASSESSMENT_PLANNING",
     "QUESTION_SELECTION",

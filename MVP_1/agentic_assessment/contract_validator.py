@@ -20,6 +20,7 @@ class AssessmentContractValidator:
     SCHEMA_FILES = {
         "execution_event": "execution_event.schema.json",
         "evidence_decision": "evidence_decision.schema.json",
+        "evidence_integrity_record": "evidence_integrity_record.schema.json",
         "finding": "finding.schema.json",
     }
 

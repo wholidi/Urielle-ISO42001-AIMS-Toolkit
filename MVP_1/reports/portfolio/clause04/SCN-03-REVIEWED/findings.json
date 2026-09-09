@@ -40,7 +40,7 @@
     "assessment_id": "SCN-03-REVIEWED",
     "requirement_ref": "4.2",
     "question_id": "C4-Q02",
-    "condition": "Evidence for C4-Q02 was only partially evidenced by the deterministic assessment.",
+    "condition": "Evidence for C4-Q02 requires human judgement before assessment disposition.",
     "criteria": "ISO/IEC 42001 Clause 4.2 assessment criteria for C4-Q02 require sufficient and traceable supporting evidence.",
     "evidence_refs": [
       {
@@ -49,12 +49,12 @@
       },
       {
         "reference_type": "EVIDENCE",
-        "reference_id": "EV-C4-022-draft-interested-parties.xlsx"
+        "reference_id": "EV-C4-022-draft-interested-parties.txt"
       }
     ],
-    "risk_statement": "Partial evidence may leave the assessment conclusion for requirement 4.2 insufficiently supported.",
-    "severity_preliminary": "LOW",
-    "recommendation": "Complete or strengthen the evidence for requirement 4.2 and obtain human review before final disposition.",
+    "risk_statement": "Automated disposition would exceed the deterministic assessment boundary for requirement 4.2.",
+    "severity_preliminary": "REVIEW_REQUIRED",
+    "recommendation": "Route the evidence decision to an authorized human reviewer before final disposition.",
     "human_disposition": "MODIFIED",
     "review_record": {
       "reviewer_id": "portfolio-reviewer-001",
@@ -70,7 +70,7 @@
       "source_refs": [
         "evidence_decision:ED-SCN-03-REVIEWED-002",
         "question:C4-Q02",
-        "evidence:EV-C4-022-draft-interested-parties.xlsx"
+        "evidence:EV-C4-022-draft-interested-parties.txt"
       ]
     }
   },
@@ -89,7 +89,7 @@
       },
       {
         "reference_type": "EVIDENCE",
-        "reference_id": "EV-C4-023-aims-scope.pdf"
+        "reference_id": "EV-C4-023-aims-scope.txt"
       }
     ],
     "risk_statement": "Automated disposition would exceed the deterministic assessment boundary for requirement 4.3.",
@@ -110,7 +110,7 @@
       "source_refs": [
         "evidence_decision:ED-SCN-03-REVIEWED-003",
         "question:C4-Q03",
-        "evidence:EV-C4-023-aims-scope.pdf"
+        "evidence:EV-C4-023-aims-scope.txt"
       ]
     }
   }
