@@ -12,6 +12,10 @@ human review.
 For a phase-by-phase explanation of why each layer exists, start with the
 [`docs/phases/` understanding guide](docs/phases/README.md).
 
+Toolkit Release 0.2 Phase 2 adds clause-neutral `2.0.0` data contracts under
+`agentic_assessment/schemas/v2/`. See the
+[`controlled-vocabulary guide`](docs/implementation/toolkit_release_0_2_phase_2_controlled_vocabulary.md).
+
 ## Requirements
 
 - Python 3.11 or newer

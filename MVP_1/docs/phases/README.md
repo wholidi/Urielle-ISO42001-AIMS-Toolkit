@@ -1,5 +1,12 @@
 # MVP_1 Phase Understanding Guide
 
+## Toolkit Release 0.2 extension
+
+- Step 1 freezes and characterizes the Clause 04 baseline.
+- Step 2 adds clause-neutral v2 contracts and controlled vocabulary without
+  changing the Clause 04 v1 contracts.
+- Steps 3–7 remain outside the Step 2 change set.
+
 This directory explains the development of the governed ISO/IEC 42001 Clause
 04 assessment MVP one phase at a time and introduces the bounded Clause 05
 extension planned for Toolkit Release 0.2.

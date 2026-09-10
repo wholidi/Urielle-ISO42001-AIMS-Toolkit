@@ -1,0 +1,6 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://urielle-ai.com/schemas/agentic_assessment/v2/report_state.schema.json","title":"Report workflow state v2","type":"object","additionalProperties":false,
+  "required":["schema_version","report_id","assessment_id","status","pending_finding_ids","unresolved_requirement_assessment_ids","conclusion_type","recorded_at"],
+  "properties":{"schema_version":{"const":"2.0.0"},"report_id":{"type":"string","pattern":"^RPT-[A-Z0-9][A-Z0-9._-]{2,95}$"},"assessment_id":{"type":"string","pattern":"^ASM-[A-Z0-9][A-Z0-9._-]{2,95}$"},"status":{"enum":["DRAFT","FINAL"]},"pending_finding_ids":{"type":"array","uniqueItems":true,"items":{"type":"string","pattern":"^FND-[A-Z0-9][A-Z0-9._-]{2,95}$"}},"unresolved_requirement_assessment_ids":{"type":"array","uniqueItems":true,"items":{"type":"string","pattern":"^REQ-[A-Z0-9][A-Z0-9._-]{2,95}$"}},"conclusion_type":{"const":"WORKFLOW_STATE_ONLY"},"recorded_at":{"type":"string","format":"date-time"}},
+  "allOf":[{"if":{"properties":{"status":{"const":"FINAL"}},"required":["status"]},"then":{"properties":{"pending_finding_ids":{"maxItems":0},"unresolved_requirement_assessment_ids":{"maxItems":0}}}}]
+}
