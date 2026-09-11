@@ -1,0 +1,5 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://urielle-ai.com/schemas/agentic_assessment/v2/execution_event.schema.json","title":"Clause-neutral execution event v2","type":"object","additionalProperties":false,
+  "required":["schema_version","event_id","assessment_id","sequence","component_id","event_type","status","occurred_at"],
+  "properties":{"schema_version":{"const":"2.0.0"},"event_id":{"type":"string","pattern":"^EVT-[A-Z0-9][A-Z0-9._-]{2,95}$"},"assessment_id":{"type":"string","pattern":"^ASM-[A-Z0-9][A-Z0-9._-]{2,95}$"},"sequence":{"type":"integer","minimum":1},"component_id":{"type":"string","pattern":"^[a-z][a-z0-9_.-]{2,99}$"},"event_type":{"enum":["ASSESSMENT_PLANNED","EVIDENCE_MAPPED","INTEGRITY_CHECKED","CONTENT_REVIEW_RECORDED","EVIDENCE_ACCEPTANCE_RECORDED","REQUIREMENT_ASSESSED","FINDING_RECORDED","REPORT_STATE_CHANGED","WORKFLOW_FAILED"]},"status":{"enum":["STARTED","SUCCEEDED","FAILED","BLOCKED","AWAITING_HUMAN_REVIEW"]},"occurred_at":{"type":"string","format":"date-time"},"subject_id":{"type":"string","pattern":"^[A-Z][A-Z0-9._-]{2,99}$"}}
+}

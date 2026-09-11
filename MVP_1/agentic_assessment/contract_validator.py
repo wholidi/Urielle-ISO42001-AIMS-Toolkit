@@ -22,6 +22,15 @@ class AssessmentContractValidator:
         "evidence_decision": "evidence_decision.schema.json",
         "evidence_integrity_record": "evidence_integrity_record.schema.json",
         "finding": "finding.schema.json",
+        "v2.assessment_plan": "v2/assessment_plan.schema.json",
+        "v2.evidence_manifest": "v2/evidence_manifest.schema.json",
+        "v2.evidence_mapping": "v2/evidence_mapping.schema.json",
+        "v2.evidence_lifecycle_record": "v2/evidence_lifecycle_record.schema.json",
+        "v2.evidence_acceptance_record": "v2/evidence_acceptance_record.schema.json",
+        "v2.requirement_assessment": "v2/requirement_assessment.schema.json",
+        "v2.finding": "v2/finding.schema.json",
+        "v2.execution_event": "v2/execution_event.schema.json",
+        "v2.report_state": "v2/report_state.schema.json",
     }
 
     def __init__(self, schema_root: Path | str | None = None) -> None:

@@ -34,7 +34,7 @@ include = [
 namespaces = true
 
 [tool.setuptools.package-data]
-agentic_assessment = ["schemas/*.json"]
+agentic_assessment = ["schemas/*.json", "schemas/v2/*.json"]
 clause_04_context = [
   "questions/*.json",
   "responses/human/*.json",

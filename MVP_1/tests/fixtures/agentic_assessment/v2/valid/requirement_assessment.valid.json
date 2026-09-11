@@ -1,0 +1,1 @@
+{"schema_version":"2.0.0","requirement_assessment_id":"REQ-C05-001","assessment_id":"ASM-DEMO-001","requirement_ref":"5.1","question_id":"Q-C05-001","outcome":"SUPPORTED","accepted_evidence_acceptance_ids":["ACC-C05-001"],"rationale":"Supported by a question-specific human acceptance record.","evaluated_at":"2026-09-10T10:11:00Z","evaluator_type":"DETERMINISTIC_RULES"}

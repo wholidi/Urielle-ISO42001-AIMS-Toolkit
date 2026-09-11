@@ -1,0 +1,1 @@
+{"schema_version":"2.0.0","assessment_id":"ASM-DEMO-001","evidence_items":[{"evidence_id":"EVD-POLICY-001","path":"evidence/../../secret.txt","media_type":"text/plain"}]}

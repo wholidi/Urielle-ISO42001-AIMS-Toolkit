@@ -1,5 +1,33 @@
 # Changelog
 
+## Toolkit Release 0.2 — Step 2 Clause-neutral Contracts
+
+Date: 2026-09-10
+
+Status: **Implemented and locally validated — remote CI pending**
+
+### Added
+
+- Nine closed JSON Schema `2.0.0` contracts for clause-neutral assessment
+  planning, evidence handling, requirement evaluation, findings, events, and
+  report state.
+- Question-specific human evidence-acceptance records and reader-oriented
+  controlled-vocabulary documentation.
+- Valid and intentionally invalid fixtures, focused boundary tests, and a
+  byte-for-byte regression guard for all authoritative v1 schemas.
+
+### Changed
+
+- Registered the v2 schemas under explicit `v2.*` runtime contract names.
+- Included nested v2 schemas in installed package data.
+
+### Boundaries
+
+- Clause 04 v1 contracts, readiness logic, scores, and outputs are unchanged.
+- No Clause 05 question bank, evaluator, shared kernel, workflow, scenario, or
+  runtime output is introduced.
+- Python package version remains `0.4.0`.
+
 ## Toolkit Release 0.2 — Step 1 Baseline and Governance Alignment
 
 Date: 2026-09-09
