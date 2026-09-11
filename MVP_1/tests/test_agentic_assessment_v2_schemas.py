@@ -56,7 +56,15 @@ def test_invalid_fixture_fails_closed(fixture: Path) -> None:
 
 
 def test_authoritative_v1_schema_bytes_are_unchanged() -> None:
-    actual = {path.name: hashlib.sha256(path.read_bytes()).hexdigest() for path in SCHEMA_ROOT.glob("*.schema.json")}
+    # Git may materialize text files with CRLF on Windows. Hash the canonical
+    # LF representation stored by the repository so this byte guard is stable
+    # across supported development environments.
+    actual = {
+        path.name: hashlib.sha256(
+            path.read_bytes().replace(b"\r\n", b"\n")
+        ).hexdigest()
+        for path in SCHEMA_ROOT.glob("*.schema.json")
+    }
     assert actual == V1_SHA256
 
 
