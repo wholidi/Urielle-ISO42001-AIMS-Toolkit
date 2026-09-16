@@ -1,5 +1,29 @@
 # Changelog
 
+## Toolkit Release 0.2 - Step 3 Shared Governed Kernel
+
+Date: 2026-09-16
+
+Status: **Implemented and locally validated - remote CI pending**
+
+### Added
+
+- A clause-neutral deterministic library for linked v2 record validation,
+  evidence integrity, lifecycle transitions, human acceptance, requirement
+  evaluation, stable draft findings, report state, and execution events.
+- ADR-0004 and reader-oriented Phase 3 implementation documentation.
+- Focused tests for lifecycle, linkage, human boundaries, determinism,
+  reporting gates, and Clause 04 isolation.
+
+### Boundaries
+
+- Governance registry, permissions, approval rules, and model-use records are
+  unchanged; runtime authorization remains deferred to Phase 5.
+- All v1 and v2 schemas and all Clause 04 runtime modules are unchanged.
+- No Clause 05 question bank, evidence map, adapter, workflow, scenario, or
+  report is introduced.
+- Python package version remains `0.4.0`.
+
 ## Toolkit Release 0.2 — Step 2 Clause-neutral Contracts
 
 Date: 2026-09-10
