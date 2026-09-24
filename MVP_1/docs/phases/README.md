@@ -5,7 +5,9 @@
 - Step 1 freezes and characterizes the Clause 04 baseline.
 - Step 2 adds clause-neutral v2 contracts and controlled vocabulary without
   changing the Clause 04 v1 contracts.
-- Steps 3–7 remain outside the Step 2 change set.
+- Step 3 adds the clause-neutral shared governed kernel without enabling a new
+  runtime actor or changing Clause 04.
+- Steps 4-7 remain outside the Step 3 change set.
 
 This directory explains the development of the governed ISO/IEC 42001 Clause
 04 assessment MVP one phase at a time and introduces the bounded Clause 05
@@ -31,6 +33,8 @@ Toolkit Release 0.2 starts from the
 [Clause 05 baseline inventory](../baseline/toolkit_release_0_2_clause05_inventory.md)
 and the compatibility decision in
 [ADR-0003](../architecture/ADR-0003-clause-neutral-governed-assessment.md).
+The shared-kernel boundary is recorded in
+[ADR-0004](../architecture/ADR-0004-shared-governed-kernel.md).
 
 ## How the phases build on each other
 

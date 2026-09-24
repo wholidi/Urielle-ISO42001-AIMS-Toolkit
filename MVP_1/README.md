@@ -16,6 +16,13 @@ Toolkit Release 0.2 Phase 2 adds clause-neutral `2.0.0` data contracts under
 `agentic_assessment/schemas/v2/`. See the
 [`controlled-vocabulary guide`](docs/implementation/toolkit_release_0_2_phase_2_controlled_vocabulary.md).
 
+Toolkit Release 0.2 Phase 3 adds a clause-neutral shared governed kernel under
+`agentic_assessment/shared_kernel/`. It validates linked v2 records, preserves
+question-specific human acceptance, derives deterministic findings and report
+state, and leaves the Clause 04 runtime unchanged. See
+[`ADR-0004`](docs/architecture/ADR-0004-shared-governed-kernel.md) and the
+[`Phase 3 implementation guide`](docs/implementation/toolkit_release_0_2_phase_3_shared_kernel.md).
+
 ## Requirements
 
 - Python 3.11 or newer
