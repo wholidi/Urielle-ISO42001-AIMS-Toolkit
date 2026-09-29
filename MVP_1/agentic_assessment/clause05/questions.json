@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "clause": "5",
+  "source": "05_Leadership/5_Leadership_Clause_Register.xlsx + approved Release 0.2 design decomposition",
+  "questions": [
+    {"question_id":"Q-C05-5.1-001","clause_ref":"5.1","requirement_ref":"5.1","question_text":"Is named top-management accountability for the AIMS established?","mandatory":true,"applicability":"APPLICABLE","human_acceptance_required":true},
+    {"question_id":"Q-C05-5.1-002","clause_ref":"5.1","requirement_ref":"5.1","question_text":"Is alignment of the AI policy and AIMS objectives with organizational direction established?","mandatory":true,"applicability":"APPLICABLE","human_acceptance_required":true},
+    {"question_id":"Q-C05-5.1-003","clause_ref":"5.1","requirement_ref":"5.1","question_text":"Is integration of AIMS requirements into relevant business processes established?","mandatory":true,"applicability":"APPLICABLE","human_acceptance_required":true},
+    {"question_id":"Q-C05-5.1-004","clause_ref":"5.1","requirement_ref":"5.1","question_text":"Are leadership resource decisions and allocation for the AIMS established?","mandatory":true,"applicability":"APPLICABLE","human_acceptance_required":true},
+    {"question_id":"Q-C05-5.1-005","clause_ref":"5.1","requirement_ref":"5.1","question_text":"Is leadership communication and support for personnel contributing to the AIMS established?","mandatory":true,"applicability":"APPLICABLE","human_acceptance_required":true},
+    {"question_id":"Q-C05-5.1-006","clause_ref":"5.1","requirement_ref":"5.1","question_text":"Is leadership action supporting intended AIMS outcomes and continual improvement established?","mandatory":true,"applicability":"APPLICABLE","human_acceptance_required":true},
+    {"question_id":"Q-C05-5.2-001","clause_ref":"5.2","requirement_ref":"5.2","question_text":"Is an AI policy established, documented and maintained under control?","mandatory":true,"applicability":"APPLICABLE","human_acceptance_required":true},
+    {"question_id":"Q-C05-5.2-002","clause_ref":"5.2","requirement_ref":"5.2","question_text":"Is the AI policy content appropriate to the organization and does it provide the required framework and commitments?","mandatory":true,"applicability":"APPLICABLE","human_acceptance_required":true},
+    {"question_id":"Q-C05-5.2-003","clause_ref":"5.2","requirement_ref":"5.2","question_text":"Is formal top-management approval of the AI policy established?","mandatory":true,"applicability":"APPLICABLE","human_acceptance_required":true},
+    {"question_id":"Q-C05-5.2-004","clause_ref":"5.2","requirement_ref":"5.2","question_text":"Is internal communication of the AI policy established?","mandatory":true,"applicability":"APPLICABLE","human_acceptance_required":true},
+    {"question_id":"Q-C05-5.2-005","clause_ref":"5.2","requirement_ref":"5.2","question_text":"Is relevant personnel training or acknowledgement of the AI policy established?","mandatory":true,"applicability":"APPLICABLE","human_acceptance_required":true},
+    {"question_id":"Q-C05-5.2-006","clause_ref":"5.2","requirement_ref":"5.2","question_text":"Where applicable, is external availability of the AI policy established?","mandatory":true,"applicability":"CONDITIONAL","human_acceptance_required":true},
+    {"question_id":"Q-C05-5.2-007","clause_ref":"5.2","requirement_ref":"5.2","question_text":"Is maintenance and review of the AI policy established?","mandatory":true,"applicability":"APPLICABLE","human_acceptance_required":true},
+    {"question_id":"Q-C05-5.2-008","clause_ref":"5.2","requirement_ref":"5.2","question_text":"Is implementation of the AI policy in actual decisions and processes established?","mandatory":true,"applicability":"APPLICABLE","human_acceptance_required":true},
+    {"question_id":"Q-C05-5.3-001","clause_ref":"5.3","requirement_ref":"5.3","question_text":"Are AIMS responsibilities assigned to named people or accountable roles?","mandatory":true,"applicability":"APPLICABLE","human_acceptance_required":true},
+    {"question_id":"Q-C05-5.3-002","clause_ref":"5.3","requirement_ref":"5.3","question_text":"Are AIMS authorities explicitly defined?","mandatory":true,"applicability":"APPLICABLE","human_acceptance_required":true},
+    {"question_id":"Q-C05-5.3-003","clause_ref":"5.3","requirement_ref":"5.3","question_text":"Are appointment and acceptance or understanding of AIMS responsibilities established?","mandatory":true,"applicability":"APPLICABLE","human_acceptance_required":true},
+    {"question_id":"Q-C05-5.3-004","clause_ref":"5.3","requirement_ref":"5.3","question_text":"Are responsibility and authority records consistent across the RACI, role register, appointments and organization chart?","mandatory":true,"applicability":"APPLICABLE","human_acceptance_required":true},
+    {"question_id":"Q-C05-5.3-005","clause_ref":"5.3","requirement_ref":"5.3","question_text":"Is responsibility for reporting AIMS performance assigned?","mandatory":true,"applicability":"APPLICABLE","human_acceptance_required":true},
+    {"question_id":"Q-C05-5.3-006","clause_ref":"5.3","requirement_ref":"5.3","question_text":"Is the actual AIMS performance reporting route and cadence established?","mandatory":true,"applicability":"APPLICABLE","human_acceptance_required":true},
+    {"question_id":"Q-C05-5.3-007","clause_ref":"5.3","requirement_ref":"5.3","question_text":"Are delegation and continuity arrangements for AIMS responsibilities established?","mandatory":true,"applicability":"APPLICABLE","human_acceptance_required":true}
+  ]
+}
