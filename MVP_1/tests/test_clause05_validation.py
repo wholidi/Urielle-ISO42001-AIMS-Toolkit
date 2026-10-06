@@ -1,4 +1,7 @@
+from copy import deepcopy
+
 import pytest
+
 from agentic_assessment.clause05.config import load_evidence_map, load_question_bank
 from agentic_assessment.clause05.validation import Clause05ConfigError, validate_clause05_configuration
 
@@ -52,4 +55,42 @@ def test_resource_decision_mapping_must_remain_corroborating():
     )
     target["evidence_role"] = "PRIMARY"
     with pytest.raises(Clause05ConfigError, match="resource-decision"):
+        validate_clause05_configuration(load_question_bank(), em)
+
+
+def test_artifact_catalog_cannot_omit_an_approved_source():
+    em = load_evidence_map()
+    em["artifact_catalog"].remove("S5-14")
+    with pytest.raises(Clause05ConfigError, match="exactly match"):
+        validate_clause05_configuration(load_question_bank(), em)
+
+
+def test_artifact_catalog_cannot_add_an_invented_source():
+    em = load_evidence_map()
+    em["artifact_catalog"].append("S5-99")
+    with pytest.raises(Clause05ConfigError, match="exactly match"):
+        validate_clause05_configuration(load_question_bank(), em)
+
+
+def test_approved_source_cannot_be_substituted_by_invented_source():
+    em = deepcopy(load_evidence_map())
+    em["artifact_catalog"] = [
+        "S5-99" if source == "S5-02" else source
+        for source in em["artifact_catalog"]
+    ]
+    for mapping in em["mappings"]:
+        if mapping["evidence_id"] == "S5-02":
+            mapping["evidence_id"] = "S5-99"
+    with pytest.raises(Clause05ConfigError, match="exactly match"):
+        validate_clause05_configuration(load_question_bank(), em)
+
+
+def test_reporting_occurrence_mapping_is_required():
+    em = load_evidence_map()
+    em["mappings"] = [
+        mapping
+        for mapping in em["mappings"]
+        if mapping["mapping_id"] != "C05MAP-5.3-006-B"
+    ]
+    with pytest.raises(Clause05ConfigError, match="reporting occurrence"):
         validate_clause05_configuration(load_question_bank(), em)

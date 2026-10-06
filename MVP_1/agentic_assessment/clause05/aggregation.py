@@ -11,6 +11,7 @@ from agentic_assessment.shared_kernel.validation import (
     require_contract,
 )
 
+from .config import load_question_bank
 from .validation import QUESTION_ID
 
 class Clause05AggregationError(RuntimeError):
@@ -58,7 +59,23 @@ def aggregate_requirement(
         raise Clause05AggregationError(
             "Expected question identity does not match the Clause 05 requirement."
         )
-    expected = tuple(sorted(supplied_question_ids))
+    configured = tuple(
+        sorted(
+            question["question_id"]
+            for question in load_question_bank()["questions"]
+            if question["requirement_ref"] == requirement_ref
+            and question["mandatory"] is True
+        )
+    )
+    if not configured:
+        raise Clause05AggregationError(
+            "Requirement has no configured mandatory Clause 05 questions."
+        )
+    if tuple(sorted(supplied_question_ids)) != configured:
+        raise Clause05AggregationError(
+            "Expected questions must exactly match the complete configured mandatory set."
+        )
+    expected = configured
     try:
         records = [
             require_contract("requirement_assessment", item) for item in assessments
@@ -83,20 +100,21 @@ def aggregate_requirement(
         raise Clause05AggregationError("Unexpected question assessment is prohibited.")
 
     ordered_records = [by_question.get(qid) for qid in expected]
-    if any(record is None for record in ordered_records):
+    outcomes = [
+        record["outcome"] for record in ordered_records if record is not None
+    ]
+    if any(value == "UNSUPPORTED" for value in outcomes):
+        outcome = "UNSUPPORTED"
+        rationale = "At least one mandatory atomic question is unsupported."
+    elif any(record is None for record in ordered_records):
         outcome = "UNRESOLVED"
         rationale = "One or more mandatory atomic questions have no assessment."
+    elif all(value == "SUPPORTED" for value in outcomes):
+        outcome = "SUPPORTED"
+        rationale = "All mandatory atomic questions are supported by question-specific human-accepted evidence."
     else:
-        outcomes = [record["outcome"] for record in ordered_records]
-        if any(value == "UNSUPPORTED" for value in outcomes):
-            outcome = "UNSUPPORTED"
-            rationale = "At least one mandatory atomic question is unsupported."
-        elif all(value == "SUPPORTED" for value in outcomes):
-            outcome = "SUPPORTED"
-            rationale = "All mandatory atomic questions are supported by question-specific human-accepted evidence."
-        else:
-            outcome = "UNRESOLVED"
-            rationale = "One or more mandatory atomic questions remain unresolved."
+        outcome = "UNRESOLVED"
+        rationale = "One or more mandatory atomic questions remain unresolved."
 
     assessment_ids = tuple(
         sorted(

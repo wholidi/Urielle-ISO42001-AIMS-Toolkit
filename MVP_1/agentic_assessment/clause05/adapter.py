@@ -170,6 +170,22 @@ def evaluate_clause05_question(
         if source["mapping_id"] not in CORROBORATING_ONLY_MAPPING_IDS
     }
 
+    for item in mapping_records:
+        source = expected.get(item["mapping_id"])
+        if source is None:
+            continue
+        expected_evidence_id = source_evidence_id(source["evidence_id"])
+        if (
+            item["assessment_id"] != assessment_id
+            or item["question_id"] != question_id
+            or item["requirement_ref"] != requirement_ref
+            or item["evidence_id"] != expected_evidence_id
+        ):
+            raise SharedKernelError(
+                "Clause 05 runtime mapping does not match its configured question, "
+                "requirement, mapping, and source identity."
+            )
+
     question_records = [
         item
         for item in mapping_records

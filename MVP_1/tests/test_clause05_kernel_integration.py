@@ -152,6 +152,76 @@ def test_resource_review_record_is_corroborating_only():
     assert "corroborating only" in result.rationale
 
 
+def test_reporting_schedule_without_accepted_occurrence_evidence_is_unresolved():
+    mappings = _question_mappings("Q-C05-5.3-006")
+    assert {mapping["evidence_id"] for mapping in mappings} == {
+        "EVD-S5-05",
+        "EVD-S5-14",
+    }
+    schedule = next(
+        mapping for mapping in mappings if mapping["evidence_id"] == "EVD-S5-14"
+    )
+    occurrence = next(
+        mapping for mapping in mappings if mapping["evidence_id"] == "EVD-S5-05"
+    )
+    schedule_lifecycle, schedule_acceptance = _acceptance(schedule, "ACCEPTED")
+    occurrence_unreviewed = _lifecycle(occurrence, "UNABLE_TO_ESTABLISH")
+
+    result = evaluate_clause05_question(
+        assessment_id=ASSESSMENT_ID,
+        question_id="Q-C05-5.3-006",
+        mappings=mappings,
+        lifecycles=[schedule_lifecycle, occurrence_unreviewed],
+        acceptances=[schedule_acceptance],
+        evaluated_at=TIMESTAMP,
+    )
+    assert result.outcome == "UNRESOLVED"
+    assert result.accepted_evidence_acceptance_ids == ()
+
+
+def test_reporting_occurrence_requires_question_specific_human_acceptance():
+    mappings = _question_mappings("Q-C05-5.3-006")
+    pairs = [_acceptance(mapping, "ACCEPTED") for mapping in mappings]
+
+    result = evaluate_clause05_question(
+        assessment_id=ASSESSMENT_ID,
+        question_id="Q-C05-5.3-006",
+        mappings=mappings,
+        lifecycles=[pair[0] for pair in pairs],
+        acceptances=[pair[1] for pair in pairs],
+        evaluated_at=TIMESTAMP,
+    )
+    assert result.outcome == "SUPPORTED"
+    assert len(result.accepted_evidence_acceptance_ids) == 2
+
+
+@pytest.mark.parametrize(
+    ("field", "replacement"),
+    [
+        ("question_id", "Q-C05-5.2-001"),
+        ("requirement_ref", "5.1"),
+        ("evidence_id", "EVD-S5-01"),
+    ],
+)
+def test_runtime_mapping_tuple_must_match_configured_source(field, replacement):
+    mappings = _question_mappings("Q-C05-5.2-003")
+    target = next(
+        mapping for mapping in mappings if mapping["evidence_id"] == "EVD-S5-06"
+    )
+    target[field] = replacement
+    pairs = [_acceptance(mapping, "ACCEPTED") for mapping in mappings]
+
+    with pytest.raises(SharedKernelError, match="runtime mapping"):
+        evaluate_clause05_question(
+            assessment_id=ASSESSMENT_ID,
+            question_id="Q-C05-5.2-003",
+            mappings=mappings,
+            lifecycles=[pair[0] for pair in pairs],
+            acceptances=[pair[1] for pair in pairs],
+            evaluated_at=TIMESTAMP,
+        )
+
+
 def test_non_human_acceptance_cannot_support_clause05():
     mappings = _question_mappings("Q-C05-5.2-001")
     lifecycle, accepted = _acceptance(mappings[0], "ACCEPTED")

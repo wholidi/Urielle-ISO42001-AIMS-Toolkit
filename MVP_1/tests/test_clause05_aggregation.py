@@ -4,6 +4,7 @@ from agentic_assessment.clause05.aggregation import (
     Clause05AggregationError,
     aggregate_requirement,
 )
+from agentic_assessment.clause05.config import load_question_bank
 
 TIMESTAMP = "2026-09-29T00:00:00Z"
 
@@ -23,7 +24,11 @@ def rec(qid, outcome):
         "evaluator_type": "DETERMINISTIC_RULES",
     }
 
-Q = ["Q-C05-5.1-001", "Q-C05-5.1-002", "Q-C05-5.1-003"]
+Q = [
+    question["question_id"]
+    for question in load_question_bank()["questions"]
+    if question["requirement_ref"] == "5.1" and question["mandatory"] is True
+]
 
 def test_all_supported_aggregates_supported():
     result = aggregate_requirement(
@@ -33,7 +38,9 @@ def test_all_supported_aggregates_supported():
     assert result.outcome == "SUPPORTED"
 
 def test_one_unsupported_aggregates_unsupported():
-    rows = [rec(Q[0],"SUPPORTED"), rec(Q[1],"UNSUPPORTED"), rec(Q[2],"UNRESOLVED")]
+    rows = [rec(q, "SUPPORTED") for q in Q]
+    rows[1] = rec(Q[1], "UNSUPPORTED")
+    rows[2] = rec(Q[2], "UNRESOLVED")
     assert aggregate_requirement(
         assessment_id="ASM-C05-TEST", requirement_ref="5.1",
         question_ids=Q, assessments=rows
@@ -69,6 +76,28 @@ def test_invalid_requirement_assessment_fails_closed():
         aggregate_requirement(
             assessment_id="ASM-C05-TEST",
             requirement_ref="5.1",
-            question_ids=[Q[0]],
+            question_ids=Q,
             assessments=[invalid],
         )
+
+
+def test_subset_of_configured_mandatory_questions_is_rejected():
+    with pytest.raises(Clause05AggregationError, match="complete configured"):
+        aggregate_requirement(
+            assessment_id="ASM-C05-TEST",
+            requirement_ref="5.1",
+            question_ids=Q[:1],
+            assessments=[rec(Q[0], "SUPPORTED")],
+        )
+
+
+def test_unsupported_precedes_missing_mandatory_question():
+    rows = [rec(q, "SUPPORTED") for q in Q[:-1]]
+    rows[0] = rec(Q[0], "UNSUPPORTED")
+    result = aggregate_requirement(
+        assessment_id="ASM-C05-TEST",
+        requirement_ref="5.1",
+        question_ids=Q,
+        assessments=rows,
+    )
+    assert result.outcome == "UNSUPPORTED"

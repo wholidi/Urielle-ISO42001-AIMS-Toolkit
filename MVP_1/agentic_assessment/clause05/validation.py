@@ -9,6 +9,7 @@ from typing import Any, Mapping
 QUESTION_ID = re.compile(r"^Q-C05-(5\.[123])-\d{3}$")
 MAPPING_ID = re.compile(r"^C05MAP-(5\.[123])-\d{3}-[A-Z]$")
 ARTIFACT_ID = re.compile(r"^S5-\d{2}$")
+APPROVED_ARTIFACT_IDS = frozenset(f"S5-{index:02d}" for index in range(1, 15))
 ALLOWED_CLAUSES = {"5.1", "5.2", "5.3"}
 ALLOWED_ROLES = {"PRIMARY", "CORROBORATING", "CONDITIONAL"}
 ALLOWED_RULES = {"ALL_OF", "ANY_OF", "CONDITIONAL"}
@@ -84,6 +85,10 @@ def validate_clause05_configuration(
     catalog_set = set(catalog)
     if any(not isinstance(e, str) or ARTIFACT_ID.fullmatch(e) is None for e in catalog):
         raise Clause05ConfigError("Invalid Clause 05 artifact identity.")
+    if catalog_set != APPROVED_ARTIFACT_IDS:
+        raise Clause05ConfigError(
+            "Artifact catalog must exactly match the approved S5-01 through S5-14 inventory."
+        )
 
     mapping_ids: set[str] = set()
     mapping_pairs: set[tuple[str, str]] = set()
@@ -160,7 +165,21 @@ def validate_clause05_configuration(
         raise Clause05ConfigError("Policy approval must map S5-01 and S5-06.")
 
     reporting = [m for m in mappings if m["question_id"] == "Q-C05-5.3-006"]
-    if any("actual reporting occurrence" not in m["claim_supported"].lower() for m in reporting):
+    if {m["evidence_id"] for m in reporting} != {"S5-05", "S5-14"}:
+        raise Clause05ConfigError(
+            "Actual reporting occurrence requires explicit S5-05 and S5-14 mappings."
+        )
+    occurrence = next(m for m in reporting if m["evidence_id"] == "S5-05")
+    if (
+        occurrence["evidence_role"] != "PRIMARY"
+        or occurrence["combination_rule"] != "ALL_OF"
+        or "actual reporting occurrence" not in occurrence["claim_supported"].lower()
+    ):
+        raise Clause05ConfigError(
+            "Actual reporting occurrence evidence must be primary and required."
+        )
+    schedule = next(m for m in reporting if m["evidence_id"] == "S5-14")
+    if "actual reporting occurrence" not in schedule["claim_supported"].lower():
         raise Clause05ConfigError("Reporting schedule must not imply reporting occurrence.")
 
     corroborating_only = [
