@@ -14,7 +14,11 @@ from agentic_assessment.shared_kernel.validation import (
 )
 
 from .config import load_evidence_map, load_question_bank
-from .validation import Clause05ConfigError, validate_clause05_configuration
+from .validation import (
+    CORROBORATING_ONLY_MAPPING_IDS,
+    Clause05ConfigError,
+    validate_clause05_configuration,
+)
 
 
 def source_evidence_id(source_artifact_id: str) -> str:
@@ -41,14 +45,14 @@ def build_evidence_mappings(
     *,
     assessment_id: str,
     created_at: str,
-    mapping_status: str = "IN_SCOPE",
+    mapping_status: str | None = None,
     question_bank: Mapping[str, Any] | None = None,
     evidence_map: Mapping[str, Any] | None = None,
 ) -> list[dict[str, Any]]:
-    qb = dict(question_bank or load_question_bank())
-    em = dict(evidence_map or load_evidence_map())
+    qb = dict(load_question_bank() if question_bank is None else question_bank)
+    em = dict(load_evidence_map() if evidence_map is None else evidence_map)
     validate_clause05_configuration(qb, em)
-    if mapping_status not in {"PROPOSED", "IN_SCOPE", "OUT_OF_SCOPE"}:
+    if mapping_status not in {None, "PROPOSED", "IN_SCOPE", "OUT_OF_SCOPE"}:
         raise ValueError("Invalid v2 evidence mapping status.")
 
     result: list[dict[str, Any]] = []
@@ -69,7 +73,15 @@ def build_evidence_mappings(
             "question_id": source["question_id"],
             "requirement_ref": source["clause_ref"],
             "evidence_id": evidence_id,
-            "mapping_status": mapping_status,
+            "mapping_status": (
+                mapping_status
+                if mapping_status is not None
+                else (
+                    "PROPOSED"
+                    if source["combination_rule"] == "CONDITIONAL"
+                    else "IN_SCOPE"
+                )
+            ),
             "created_at": created_at,
         }
         result.append(require_contract("evidence_mapping", record))
@@ -110,8 +122,8 @@ def evaluate_clause05_question(
 ) -> RequirementAssessment:
     """Evaluate one Clause 05 atomic question using P03 validation plus P04 combination rules."""
 
-    qb = dict(question_bank or load_question_bank())
-    em = dict(evidence_map or load_evidence_map())
+    qb = dict(load_question_bank() if question_bank is None else question_bank)
+    em = dict(load_evidence_map() if evidence_map is None else evidence_map)
     validate_clause05_configuration(qb, em)
 
     questions = {item["question_id"]: item for item in qb["questions"]}
@@ -151,6 +163,12 @@ def evaluate_clause05_question(
             evidence_id=evidence_id,
         )
         expected[mapping_id] = source
+
+    supportable_ids = {
+        mapping_id
+        for mapping_id, source in expected.items()
+        if source["mapping_id"] not in CORROBORATING_ONLY_MAPPING_IDS
+    }
 
     question_records = [
         item
@@ -194,6 +212,20 @@ def evaluate_clause05_question(
     accepted_ids = {mid for mid, decision in decisions.items() if decision == "ACCEPTED"}
     rejected_ids = {mid for mid, decision in decisions.items() if decision == "REJECTED"}
     rule = source_mappings[0]["combination_rule"]
+
+    if not supportable_ids:
+        return _override_requirement_result(
+            kernel_result,
+            outcome="UNRESOLVED",
+            rationale=(
+                "Configured evidence is corroborating only; authoritative evidence for "
+                "the question is not established."
+            ),
+        )
+
+    accepted_ids &= supportable_ids
+    rejected_ids &= supportable_ids
+    expected_ids &= supportable_ids
 
     if rule == "ALL_OF":
         if expected_ids and expected_ids <= accepted_ids:

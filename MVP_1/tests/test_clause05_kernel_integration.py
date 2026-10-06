@@ -134,6 +134,24 @@ def test_any_of_accepts_one_human_accepted_mapping_and_fails_closed_on_others():
     assert result.accepted_evidence_acceptance_ids == (accepted.acceptance_id,)
 
 
+def test_resource_review_record_is_corroborating_only():
+    mappings = _question_mappings("Q-C05-5.1-004")
+    assert len(mappings) == 1
+    lifecycle, accepted = _acceptance(mappings[0], "ACCEPTED")
+
+    result = evaluate_clause05_question(
+        assessment_id=ASSESSMENT_ID,
+        question_id="Q-C05-5.1-004",
+        mappings=mappings,
+        lifecycles=[lifecycle],
+        acceptances=[accepted],
+        evaluated_at=TIMESTAMP,
+    )
+    assert result.outcome == "UNRESOLVED"
+    assert result.accepted_evidence_acceptance_ids == ()
+    assert "corroborating only" in result.rationale
+
+
 def test_non_human_acceptance_cannot_support_clause05():
     mappings = _question_mappings("Q-C05-5.2-001")
     lifecycle, accepted = _acceptance(mappings[0], "ACCEPTED")

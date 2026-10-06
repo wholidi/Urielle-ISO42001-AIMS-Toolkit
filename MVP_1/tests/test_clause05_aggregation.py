@@ -1,12 +1,26 @@
-from agentic_assessment.clause05.aggregation import aggregate_requirement
+import pytest
+
+from agentic_assessment.clause05.aggregation import (
+    Clause05AggregationError,
+    aggregate_requirement,
+)
+
+TIMESTAMP = "2026-09-29T00:00:00Z"
 
 def rec(qid, outcome):
     return {
+        "schema_version": "2.0.0",
         "requirement_assessment_id": "REQ-" + qid,
         "assessment_id": "ASM-C05-TEST",
         "requirement_ref": "5.1",
         "question_id": qid,
         "outcome": outcome,
+        "accepted_evidence_acceptance_ids": (
+            ["ACC-" + qid] if outcome == "SUPPORTED" else []
+        ),
+        "rationale": "Governed test assessment.",
+        "evaluated_at": TIMESTAMP,
+        "evaluator_type": "DETERMINISTIC_RULES",
     }
 
 Q = ["Q-C05-5.1-001", "Q-C05-5.1-002", "Q-C05-5.1-003"]
@@ -36,3 +50,25 @@ def test_input_order_does_not_change_identity():
     a = aggregate_requirement(assessment_id="ASM-C05-TEST", requirement_ref="5.1", question_ids=Q, assessments=rows)
     b = aggregate_requirement(assessment_id="ASM-C05-TEST", requirement_ref="5.1", question_ids=list(reversed(Q)), assessments=list(reversed(rows)))
     assert a.to_dict() == b.to_dict()
+
+
+def test_duplicate_expected_question_fails_closed():
+    with pytest.raises(Clause05AggregationError, match="Duplicate expected"):
+        aggregate_requirement(
+            assessment_id="ASM-C05-TEST",
+            requirement_ref="5.1",
+            question_ids=[Q[0], Q[0]],
+            assessments=[rec(Q[0], "SUPPORTED")],
+        )
+
+
+def test_invalid_requirement_assessment_fails_closed():
+    invalid = rec(Q[0], "SUPPORTED")
+    invalid["accepted_evidence_acceptance_ids"] = []
+    with pytest.raises(Clause05AggregationError, match="Invalid requirement"):
+        aggregate_requirement(
+            assessment_id="ASM-C05-TEST",
+            requirement_ref="5.1",
+            question_ids=[Q[0]],
+            assessments=[invalid],
+        )

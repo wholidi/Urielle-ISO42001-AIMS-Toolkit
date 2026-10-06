@@ -13,6 +13,7 @@ ALLOWED_CLAUSES = {"5.1", "5.2", "5.3"}
 ALLOWED_ROLES = {"PRIMARY", "CORROBORATING", "CONDITIONAL"}
 ALLOWED_RULES = {"ALL_OF", "ANY_OF", "CONDITIONAL"}
 ALLOWED_APPLICABILITY = {"APPLICABLE", "CONDITIONAL"}
+CORROBORATING_ONLY_MAPPING_IDS = frozenset({"C05MAP-5.1-004-A"})
 
 
 class Clause05ConfigError(RuntimeError):
@@ -101,6 +102,11 @@ def validate_clause05_configuration(
         if qid not in index:
             raise Clause05ConfigError("Mapping references an unknown question.")
         question = index[qid]
+        expected_mapping_prefix = f"C05MAP-{question['clause_ref']}-{qid.rsplit('-', 1)[-1]}-"
+        if not mid.startswith(expected_mapping_prefix):
+            raise Clause05ConfigError(
+                "Mapping identity does not match its question identity."
+            )
         if m.get("clause_ref") != question["clause_ref"]:
             raise Clause05ConfigError("Mapping clause does not match its question.")
         if evidence_id not in catalog_set:
@@ -156,3 +162,13 @@ def validate_clause05_configuration(
     reporting = [m for m in mappings if m["question_id"] == "Q-C05-5.3-006"]
     if any("actual reporting occurrence" not in m["claim_supported"].lower() for m in reporting):
         raise Clause05ConfigError("Reporting schedule must not imply reporting occurrence.")
+
+    corroborating_only = [
+        m for m in mappings if m["mapping_id"] in CORROBORATING_ONLY_MAPPING_IDS
+    ]
+    if len(corroborating_only) != len(CORROBORATING_ONLY_MAPPING_IDS) or any(
+        m["evidence_role"] != "CORROBORATING" for m in corroborating_only
+    ):
+        raise Clause05ConfigError(
+            "The resource-decision limitation must remain corroborating only."
+        )

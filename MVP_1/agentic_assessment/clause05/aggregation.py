@@ -3,15 +3,15 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Mapping, Sequence
+from typing import Any, Sequence
 
-try:
-    from agentic_assessment.shared_kernel.validation import canonical_identifier
-except Exception:  # pragma: no cover - local checkpoint fallback
-    import hashlib, json
-    def canonical_identifier(prefix: str, *parts: Any) -> str:
-        payload = json.dumps(parts, ensure_ascii=False, separators=(",", ":"), sort_keys=True).encode()
-        return f"{prefix}-{hashlib.sha256(payload).hexdigest().upper()}"
+from agentic_assessment.shared_kernel.validation import (
+    SharedKernelError,
+    canonical_identifier,
+    require_contract,
+)
+
+from .validation import QUESTION_ID
 
 class Clause05AggregationError(RuntimeError):
     pass
@@ -37,14 +37,6 @@ class Clause05RequirementResult:
             "rationale": self.rationale,
         }
 
-def _record(value: Any) -> dict[str, Any]:
-    if isinstance(value, Mapping):
-        return dict(value)
-    serializer = getattr(value, "to_contract", None)
-    if callable(serializer):
-        return dict(serializer())
-    raise Clause05AggregationError("Invalid requirement assessment record.")
-
 def aggregate_requirement(
     *,
     assessment_id: str,
@@ -52,10 +44,29 @@ def aggregate_requirement(
     question_ids: Sequence[str],
     assessments: Sequence[Any],
 ) -> Clause05RequirementResult:
-    expected = tuple(sorted(set(question_ids)))
-    if not expected:
+    supplied_question_ids = tuple(question_ids)
+    if not supplied_question_ids:
         raise Clause05AggregationError("At least one expected question is required.")
-    records = [_record(item) for item in assessments]
+    if len(supplied_question_ids) != len(set(supplied_question_ids)):
+        raise Clause05AggregationError("Duplicate expected question is prohibited.")
+    if any(
+        not isinstance(qid, str)
+        or QUESTION_ID.fullmatch(qid) is None
+        or f"Q-C05-{requirement_ref}-" not in qid
+        for qid in supplied_question_ids
+    ):
+        raise Clause05AggregationError(
+            "Expected question identity does not match the Clause 05 requirement."
+        )
+    expected = tuple(sorted(supplied_question_ids))
+    try:
+        records = [
+            require_contract("requirement_assessment", item) for item in assessments
+        ]
+    except SharedKernelError as exc:
+        raise Clause05AggregationError(
+            "Invalid requirement assessment record."
+        ) from exc
     by_question: dict[str, dict[str, Any]] = {}
     for record in records:
         if record.get("assessment_id") != assessment_id:

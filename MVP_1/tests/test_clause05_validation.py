@@ -36,3 +36,20 @@ def test_conditional_question_must_use_conditional_rule():
     target["combination_rule"] = "ANY_OF"
     with pytest.raises(Clause05ConfigError):
         validate_clause05_configuration(load_question_bank(), em)
+
+
+def test_mapping_identity_must_match_question_identity():
+    em = load_evidence_map()
+    em["mappings"][0]["mapping_id"] = "C05MAP-5.2-001-A"
+    with pytest.raises(Clause05ConfigError, match="Mapping identity"):
+        validate_clause05_configuration(load_question_bank(), em)
+
+
+def test_resource_decision_mapping_must_remain_corroborating():
+    em = load_evidence_map()
+    target = next(
+        m for m in em["mappings"] if m["mapping_id"] == "C05MAP-5.1-004-A"
+    )
+    target["evidence_role"] = "PRIMARY"
+    with pytest.raises(Clause05ConfigError, match="resource-decision"):
+        validate_clause05_configuration(load_question_bank(), em)
