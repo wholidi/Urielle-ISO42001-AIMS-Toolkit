@@ -85,12 +85,26 @@ def test_approved_source_cannot_be_substituted_by_invented_source():
         validate_clause05_configuration(load_question_bank(), em)
 
 
-def test_reporting_occurrence_mapping_is_required():
+@pytest.mark.parametrize(
+    "mapping_id",
+    ["C05MAP-5.3-006-A", "C05MAP-5.3-006-B", "C05MAP-5.3-006-C"],
+)
+def test_every_reporting_occurrence_mapping_is_required(mapping_id):
     em = load_evidence_map()
     em["mappings"] = [
         mapping
         for mapping in em["mappings"]
-        if mapping["mapping_id"] != "C05MAP-5.3-006-B"
+        if mapping["mapping_id"] != mapping_id
     ]
     with pytest.raises(Clause05ConfigError, match="reporting occurrence"):
         validate_clause05_configuration(load_question_bank(), em)
+
+
+def test_reporting_occurrence_question_cannot_revert_to_schedule_wording():
+    qb = load_question_bank()
+    question = next(
+        item for item in qb["questions"] if item["question_id"] == "Q-C05-5.3-006"
+    )
+    question["question_text"] = "Is the reporting route and cadence established?"
+    with pytest.raises(Clause05ConfigError, match="occurrence-specific"):
+        validate_clause05_configuration(qb, load_evidence_map())

@@ -22,7 +22,7 @@
     {"question_id":"Q-C05-5.3-003","clause_ref":"5.3","requirement_ref":"5.3","question_text":"Are appointment and acceptance or understanding of AIMS responsibilities established?","mandatory":true,"applicability":"APPLICABLE","human_acceptance_required":true},
     {"question_id":"Q-C05-5.3-004","clause_ref":"5.3","requirement_ref":"5.3","question_text":"Are responsibility and authority records consistent across the RACI, role register, appointments and organization chart?","mandatory":true,"applicability":"APPLICABLE","human_acceptance_required":true},
     {"question_id":"Q-C05-5.3-005","clause_ref":"5.3","requirement_ref":"5.3","question_text":"Is responsibility for reporting AIMS performance assigned?","mandatory":true,"applicability":"APPLICABLE","human_acceptance_required":true},
-    {"question_id":"Q-C05-5.3-006","clause_ref":"5.3","requirement_ref":"5.3","question_text":"Is the actual AIMS performance reporting route and cadence established?","mandatory":true,"applicability":"APPLICABLE","human_acceptance_required":true},
+    {"question_id":"Q-C05-5.3-006","clause_ref":"5.3","requirement_ref":"5.3","question_text":"Is an actual AIMS performance reporting occurrence established?","mandatory":true,"applicability":"APPLICABLE","human_acceptance_required":true},
     {"question_id":"Q-C05-5.3-007","clause_ref":"5.3","requirement_ref":"5.3","question_text":"Are delegation and continuity arrangements for AIMS responsibilities established?","mandatory":true,"applicability":"APPLICABLE","human_acceptance_required":true}
   ]
 }

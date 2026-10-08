@@ -164,23 +164,48 @@ def validate_clause05_configuration(
     if {m["evidence_id"] for m in approval} != {"S5-01", "S5-06"}:
         raise Clause05ConfigError("Policy approval must map S5-01 and S5-06.")
 
-    reporting = [m for m in mappings if m["question_id"] == "Q-C05-5.3-006"]
-    if {m["evidence_id"] for m in reporting} != {"S5-05", "S5-14"}:
+    reporting_question = index["Q-C05-5.3-006"]
+    if reporting_question["question_text"] != (
+        "Is an actual AIMS performance reporting occurrence established?"
+    ):
         raise Clause05ConfigError(
-            "Actual reporting occurrence requires explicit S5-05 and S5-14 mappings."
+            "The reporting question must remain atomic and occurrence-specific."
+        )
+    reporting = [m for m in mappings if m["question_id"] == "Q-C05-5.3-006"]
+    if {m["evidence_id"] for m in reporting} != {"S5-05", "S5-11", "S5-14"}:
+        raise Clause05ConfigError(
+            "Actual reporting occurrence requires explicit S5-05, S5-11, and S5-14 mappings."
+        )
+    if any(
+        m["evidence_role"] != "PRIMARY"
+        or m["combination_rule"] != "ALL_OF"
+        or m["human_acceptance_required"] is not True
+        for m in reporting
+    ):
+        raise Clause05ConfigError(
+            "Every reporting-occurrence source must be primary, required, and human accepted."
         )
     occurrence = next(m for m in reporting if m["evidence_id"] == "S5-05")
     if (
-        occurrence["evidence_role"] != "PRIMARY"
-        or occurrence["combination_rule"] != "ALL_OF"
-        or "actual reporting occurrence" not in occurrence["claim_supported"].lower()
+        "actual reporting occurrence" not in occurrence["claim_supported"].lower()
+        or "explicitly accepted for this question" not in occurrence["claim_supported"].lower()
+        or "template presence alone" not in occurrence["claim_supported"].lower()
     ):
         raise Clause05ConfigError(
-            "Actual reporting occurrence evidence must be primary and required."
+            "S5-05 must be claim-specific occurrence content, not template presence."
         )
     schedule = next(m for m in reporting if m["evidence_id"] == "S5-14")
-    if "actual reporting occurrence" not in schedule["claim_supported"].lower():
+    if (
+        "route/cadence planning" not in schedule["claim_supported"].lower()
+        or "does not prove" not in schedule["claim_supported"].lower()
+    ):
         raise Clause05ConfigError("Reporting schedule must not imply reporting occurrence.")
+    role = next(m for m in reporting if m["evidence_id"] == "S5-11")
+    if (
+        "assigned reporting role" not in role["claim_supported"].lower()
+        or "alone does not prove" not in role["claim_supported"].lower()
+    ):
+        raise Clause05ConfigError("Reporting role alone must not imply reporting occurrence.")
 
     corroborating_only = [
         m for m in mappings if m["mapping_id"] in CORROBORATING_ONLY_MAPPING_IDS

@@ -64,6 +64,32 @@ def _acceptance(mapping, decision):
     return lifecycle, acceptance
 
 
+def _evaluate_reporting(accepted_evidence_ids=(), *, reverse=False):
+    mappings = _question_mappings("Q-C05-5.3-006")
+    lifecycles = []
+    acceptances = []
+    for mapping in mappings:
+        if mapping["evidence_id"] in accepted_evidence_ids:
+            lifecycle, acceptance = _acceptance(mapping, "ACCEPTED")
+            lifecycles.append(lifecycle)
+            acceptances.append(acceptance)
+        else:
+            lifecycles.append(_lifecycle(mapping, "UNABLE_TO_ESTABLISH"))
+    if reverse:
+        mappings.reverse()
+        lifecycles.reverse()
+        acceptances.reverse()
+    result = evaluate_clause05_question(
+        assessment_id=ASSESSMENT_ID,
+        question_id="Q-C05-5.3-006",
+        mappings=mappings,
+        lifecycles=lifecycles,
+        acceptances=acceptances,
+        evaluated_at=TIMESTAMP,
+    )
+    return result
+
+
 def test_all_of_requires_every_mapping_to_be_human_accepted():
     mappings = _question_mappings("Q-C05-5.2-003")
     assert len(mappings) == 2
@@ -152,47 +178,79 @@ def test_resource_review_record_is_corroborating_only():
     assert "corroborating only" in result.rationale
 
 
-def test_reporting_schedule_without_accepted_occurrence_evidence_is_unresolved():
+@pytest.mark.parametrize(
+    "accepted_evidence_ids",
+    [
+        {"EVD-S5-14"},
+        {"EVD-S5-05", "EVD-S5-14"},
+        {"EVD-S5-11", "EVD-S5-14"},
+    ],
+)
+def test_incomplete_reporting_combination_is_unresolved(accepted_evidence_ids):
     mappings = _question_mappings("Q-C05-5.3-006")
     assert {mapping["evidence_id"] for mapping in mappings} == {
         "EVD-S5-05",
+        "EVD-S5-11",
         "EVD-S5-14",
     }
-    schedule = next(
-        mapping for mapping in mappings if mapping["evidence_id"] == "EVD-S5-14"
-    )
-    occurrence = next(
-        mapping for mapping in mappings if mapping["evidence_id"] == "EVD-S5-05"
-    )
-    schedule_lifecycle, schedule_acceptance = _acceptance(schedule, "ACCEPTED")
-    occurrence_unreviewed = _lifecycle(occurrence, "UNABLE_TO_ESTABLISH")
+    result = _evaluate_reporting(accepted_evidence_ids)
+    assert result.outcome == "UNRESOLVED"
+    assert result.accepted_evidence_acceptance_ids == ()
 
+
+def test_reporting_occurrence_requires_question_specific_human_acceptance():
+    result = _evaluate_reporting(
+        {"EVD-S5-05", "EVD-S5-11", "EVD-S5-14"}
+    )
+    assert result.outcome == "SUPPORTED"
+    assert len(result.accepted_evidence_acceptance_ids) == 3
+
+
+def test_reporting_file_presence_without_acceptance_is_unresolved():
+    mappings = _question_mappings("Q-C05-5.3-006")
     result = evaluate_clause05_question(
         assessment_id=ASSESSMENT_ID,
         question_id="Q-C05-5.3-006",
         mappings=mappings,
-        lifecycles=[schedule_lifecycle, occurrence_unreviewed],
-        acceptances=[schedule_acceptance],
+        lifecycles=[],
+        acceptances=[],
+        evaluated_at=TIMESTAMP,
+    )
+    assert result.outcome == "UNRESOLVED"
+
+
+def test_reporting_acceptance_for_another_question_cannot_contribute():
+    reporting_mappings = _question_mappings("Q-C05-5.3-006")
+    other_mapping = next(
+        mapping
+        for mapping in _question_mappings("Q-C05-5.3-005")
+        if mapping["evidence_id"] == "EVD-S5-11"
+    )
+    other_lifecycle, other_acceptance = _acceptance(other_mapping, "ACCEPTED")
+
+    result = evaluate_clause05_question(
+        assessment_id=ASSESSMENT_ID,
+        question_id="Q-C05-5.3-006",
+        mappings=[*reporting_mappings, other_mapping],
+        lifecycles=[
+            *[
+                _lifecycle(mapping, "UNABLE_TO_ESTABLISH")
+                for mapping in reporting_mappings
+            ],
+            other_lifecycle,
+        ],
+        acceptances=[other_acceptance],
         evaluated_at=TIMESTAMP,
     )
     assert result.outcome == "UNRESOLVED"
     assert result.accepted_evidence_acceptance_ids == ()
 
 
-def test_reporting_occurrence_requires_question_specific_human_acceptance():
-    mappings = _question_mappings("Q-C05-5.3-006")
-    pairs = [_acceptance(mapping, "ACCEPTED") for mapping in mappings]
-
-    result = evaluate_clause05_question(
-        assessment_id=ASSESSMENT_ID,
-        question_id="Q-C05-5.3-006",
-        mappings=mappings,
-        lifecycles=[pair[0] for pair in pairs],
-        acceptances=[pair[1] for pair in pairs],
-        evaluated_at=TIMESTAMP,
-    )
-    assert result.outcome == "SUPPORTED"
-    assert len(result.accepted_evidence_acceptance_ids) == 2
+def test_reporting_combination_is_input_order_independent():
+    accepted = {"EVD-S5-05", "EVD-S5-11", "EVD-S5-14"}
+    forward = _evaluate_reporting(accepted)
+    reversed_result = _evaluate_reporting(accepted, reverse=True)
+    assert reversed_result == forward
 
 
 @pytest.mark.parametrize(
