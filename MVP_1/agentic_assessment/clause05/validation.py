@@ -9,12 +9,11 @@ from typing import Any, Mapping
 QUESTION_ID = re.compile(r"^Q-C05-(5\.[123])-\d{3}$")
 MAPPING_ID = re.compile(r"^C05MAP-(5\.[123])-\d{3}-[A-Z]$")
 ARTIFACT_ID = re.compile(r"^S5-\d{2}$")
-APPROVED_ARTIFACT_IDS = frozenset(f"S5-{index:02d}" for index in range(1, 15))
+APPROVED_ARTIFACT_IDS = frozenset(f"S5-{index:02d}" for index in range(1, 16))
 ALLOWED_CLAUSES = {"5.1", "5.2", "5.3"}
 ALLOWED_ROLES = {"PRIMARY", "CORROBORATING", "CONDITIONAL"}
 ALLOWED_RULES = {"ALL_OF", "ANY_OF", "CONDITIONAL"}
 ALLOWED_APPLICABILITY = {"APPLICABLE", "CONDITIONAL"}
-CORROBORATING_ONLY_MAPPING_IDS = frozenset({"C05MAP-5.1-004-A"})
 
 
 class Clause05ConfigError(RuntimeError):
@@ -87,7 +86,7 @@ def validate_clause05_configuration(
         raise Clause05ConfigError("Invalid Clause 05 artifact identity.")
     if catalog_set != APPROVED_ARTIFACT_IDS:
         raise Clause05ConfigError(
-            "Artifact catalog must exactly match the approved S5-01 through S5-14 inventory."
+            "Artifact catalog must exactly match the approved S5-01 through S5-15 inventory."
         )
 
     mapping_ids: set[str] = set()
@@ -164,6 +163,49 @@ def validate_clause05_configuration(
     if {m["evidence_id"] for m in approval} != {"S5-01", "S5-06"}:
         raise Clause05ConfigError("Policy approval must map S5-01 and S5-06.")
 
+    resource_decision = [
+        m for m in mappings if m["question_id"] == "Q-C05-5.1-004"
+    ]
+    if {m["evidence_id"] for m in resource_decision} != {"S5-05", "S5-15"}:
+        raise Clause05ConfigError(
+            "Resource decisions require explicit S5-05 and S5-15 mappings."
+        )
+    resource_by_source = {
+        mapping["evidence_id"]: mapping for mapping in resource_decision
+    }
+    corroborating_resource = resource_by_source["S5-05"]
+    authoritative_resource = resource_by_source["S5-15"]
+    if (
+        corroborating_resource["evidence_role"] != "CORROBORATING"
+        or authoritative_resource["evidence_role"] != "PRIMARY"
+        or any(
+            mapping["combination_rule"] != "ALL_OF"
+            or mapping["human_acceptance_required"] is not True
+            for mapping in resource_decision
+        )
+    ):
+        raise Clause05ConfigError(
+            "S5-05 corroboration and primary S5-15 decision evidence must both be "
+            "question-specifically human accepted under ALL_OF."
+        )
+    if (
+        "cannot establish" not in corroborating_resource["claim_supported"].lower()
+        or "authoritative s5-15" not in corroborating_resource["claim_supported"].lower()
+    ):
+        raise Clause05ConfigError(
+            "S5-05 must remain corroborating and unable to establish resource support alone."
+        )
+    if (
+        "authoritative leadership resource-allocation decision"
+        not in authoritative_resource["claim_supported"].lower()
+        or "template presence" not in authoritative_resource["claim_supported"].lower()
+        or "explicitly accepted for this question"
+        not in authoritative_resource["claim_supported"].lower()
+    ):
+        raise Clause05ConfigError(
+            "S5-15 must require completed, claim-specific human-accepted decision content."
+        )
+
     reporting_question = index["Q-C05-5.3-006"]
     if reporting_question["question_text"] != (
         "Is an actual AIMS performance reporting occurrence established?"
@@ -206,13 +248,3 @@ def validate_clause05_configuration(
         or "alone does not prove" not in role["claim_supported"].lower()
     ):
         raise Clause05ConfigError("Reporting role alone must not imply reporting occurrence.")
-
-    corroborating_only = [
-        m for m in mappings if m["mapping_id"] in CORROBORATING_ONLY_MAPPING_IDS
-    ]
-    if len(corroborating_only) != len(CORROBORATING_ONLY_MAPPING_IDS) or any(
-        m["evidence_role"] != "CORROBORATING" for m in corroborating_only
-    ):
-        raise Clause05ConfigError(
-            "The resource-decision limitation must remain corroborating only."
-        )

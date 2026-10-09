@@ -59,7 +59,7 @@ def _acceptance(mapping, decision):
         decision=decision,
         reviewer_id=REVIEWER,
         decided_at=TIMESTAMP,
-        rationale="Question-specific human review.",
+        rationale="Synthetic test fixture: question-specific human review.",
     )
     return lifecycle, acceptance
 
@@ -88,6 +88,53 @@ def _evaluate_reporting(accepted_evidence_ids=(), *, reverse=False):
         evaluated_at=TIMESTAMP,
     )
     return result
+
+
+def _evaluate_resource_decision(
+    accepted_evidence_ids=(),
+    *,
+    rejected_evidence_ids=(),
+    include_other_question_acceptance=False,
+    reverse=False,
+):
+    mappings = _question_mappings("Q-C05-5.1-004")
+    lifecycles = []
+    acceptances = []
+    for mapping in mappings:
+        if mapping["evidence_id"] in accepted_evidence_ids:
+            lifecycle, acceptance = _acceptance(mapping, "ACCEPTED")
+            acceptances.append(acceptance)
+        elif mapping["evidence_id"] in rejected_evidence_ids:
+            lifecycle, acceptance = _acceptance(mapping, "REJECTED")
+            acceptances.append(acceptance)
+        else:
+            lifecycle = _lifecycle(mapping, "UNABLE_TO_ESTABLISH")
+        lifecycles.append(lifecycle)
+
+    if include_other_question_acceptance:
+        other_mapping = next(
+            mapping
+            for mapping in _question_mappings("Q-C05-5.1-003")
+            if mapping["evidence_id"] == "EVD-S5-05"
+        )
+        other_lifecycle, other_acceptance = _acceptance(other_mapping, "ACCEPTED")
+        mappings.append(other_mapping)
+        lifecycles.append(other_lifecycle)
+        acceptances.append(other_acceptance)
+
+    if reverse:
+        mappings.reverse()
+        lifecycles.reverse()
+        acceptances.reverse()
+
+    return evaluate_clause05_question(
+        assessment_id=ASSESSMENT_ID,
+        question_id="Q-C05-5.1-004",
+        mappings=mappings,
+        lifecycles=lifecycles,
+        acceptances=acceptances,
+        evaluated_at=TIMESTAMP,
+    )
 
 
 def test_all_of_requires_every_mapping_to_be_human_accepted():
@@ -160,22 +207,55 @@ def test_any_of_accepts_one_human_accepted_mapping_and_fails_closed_on_others():
     assert result.accepted_evidence_acceptance_ids == (accepted.acceptance_id,)
 
 
-def test_resource_review_record_is_corroborating_only():
+@pytest.mark.parametrize(
+    "accepted_evidence_ids",
+    [{"EVD-S5-05"}, {"EVD-S5-15"}],
+)
+def test_resource_decision_requires_both_sources(accepted_evidence_ids):
     mappings = _question_mappings("Q-C05-5.1-004")
-    assert len(mappings) == 1
-    lifecycle, accepted = _acceptance(mappings[0], "ACCEPTED")
-
-    result = evaluate_clause05_question(
-        assessment_id=ASSESSMENT_ID,
-        question_id="Q-C05-5.1-004",
-        mappings=mappings,
-        lifecycles=[lifecycle],
-        acceptances=[accepted],
-        evaluated_at=TIMESTAMP,
-    )
+    assert {mapping["evidence_id"] for mapping in mappings} == {
+        "EVD-S5-05",
+        "EVD-S5-15",
+    }
+    result = _evaluate_resource_decision(accepted_evidence_ids)
     assert result.outcome == "UNRESOLVED"
     assert result.accepted_evidence_acceptance_ids == ()
-    assert "corroborating only" in result.rationale
+
+
+def test_resource_decision_presence_without_acceptance_is_unresolved():
+    result = _evaluate_resource_decision()
+    assert result.outcome == "UNRESOLVED"
+    assert result.accepted_evidence_acceptance_ids == ()
+
+
+def test_resource_decision_acceptance_for_another_question_is_unresolved():
+    result = _evaluate_resource_decision(include_other_question_acceptance=True)
+    assert result.outcome == "UNRESOLVED"
+    assert result.accepted_evidence_acceptance_ids == ()
+
+
+def test_resource_decision_requires_question_specific_acceptance_of_both_sources():
+    result = _evaluate_resource_decision({"EVD-S5-05", "EVD-S5-15"})
+    assert result.outcome == "SUPPORTED"
+    assert len(result.accepted_evidence_acceptance_ids) == 2
+
+
+@pytest.mark.parametrize("rejected_evidence_id", ["EVD-S5-05", "EVD-S5-15"])
+def test_rejected_required_resource_evidence_is_unsupported(rejected_evidence_id):
+    other = {"EVD-S5-05", "EVD-S5-15"} - {rejected_evidence_id}
+    result = _evaluate_resource_decision(
+        other,
+        rejected_evidence_ids={rejected_evidence_id},
+    )
+    assert result.outcome == "UNSUPPORTED"
+    assert result.accepted_evidence_acceptance_ids == ()
+
+
+def test_resource_decision_combination_is_input_order_independent():
+    accepted = {"EVD-S5-05", "EVD-S5-15"}
+    forward = _evaluate_resource_decision(accepted)
+    reversed_result = _evaluate_resource_decision(accepted, reverse=True)
+    assert reversed_result == forward
 
 
 @pytest.mark.parametrize(

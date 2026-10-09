@@ -31,6 +31,24 @@ No numeric readiness score is introduced. No file presence, integrity result, po
 role title, RACI entry, schedule, confidence value or model output can create authoritative support.
 Human question-specific acceptance remains a prerequisite through the P03 kernel.
 
+## Authorized S5-15 inventory exception
+
+On 2026-10-09, the human owner authorized a narrow exception to the Phase 04 protected-source
+boundary for F02. The approved Clause 05 inventory is extended from S5-01–S5-14 to S5-01–S5-15 by
+adding only `Evidence_Repository/Section_5/S5-15_AIMS_Resource_Allocation_Decision_Record_Template.docx`.
+All S5-01–S5-14 files and identities remain unchanged.
+
+S5-15 is a blank, explicitly uncompleted record template, not evidence of an actual decision. For
+`Q-C05-5.1-004`, it is PRIMARY authoritative resource-decision evidence and S5-05 remains
+CORROBORATING management-review evidence. The two mappings use `ALL_OF`; both must have completed
+engagement content and explicit question-specific human acceptance. Neither source can support the
+question alone, and no template presence, filename, hash, role title, blank field, or automated
+output can substitute for a human-accepted resource-allocation decision.
+
+This exception does not alter the frozen v2 contracts, P03 shared kernel, other protected source
+artifacts, governance configuration, permissions, model-use controls, or later phase boundaries.
+F02 remains ACTION OPEN until independent verification and the human owner's closure decision.
+
 ## Phase boundary
 
 Step 4 adds no supervisor, runtime workflow, governance registration, permission expansion,

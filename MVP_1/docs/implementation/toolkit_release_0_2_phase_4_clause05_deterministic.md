@@ -38,22 +38,23 @@ combination-rule validation, deterministic aggregation, stable identity, P03 ker
 missing / unable-to-establish evidence, rejected evidence, non-human acceptance rejection,
 unconfigured evidence rejection, and phase-boundary leakage.
 
-The resource-decision mapping remains a documented evidence blocker. Inspection of every approved
-S5-01 through S5-14 source found no authoritative leadership resource-allocation approval record.
-S5-05, Section 3(d), states that pilot-stage resource adequacy was assessed as sufficient and lists
-future production needs, but it does not record a specific leadership allocation or approval decision.
-S5-10's “Allocate and approve AIMS resources (S5-04)” activity and S5-12 section 2 responsibility 6
-only assign responsibility and retain the known mismatched S5-04 reference; S5-04 is actually a
-third-party model risk assessment. None can be reclassified as the missing decision record. S5-05
-therefore remains corroborating-only and Q-C05-5.1-004 remains `UNRESOLVED`. Resolution requires a
-separately authorized, claim-specific record identifying the approving leader, resources allocated
-(people, budget, tools or infrastructure), scope, decision and date, followed by explicit human
-acceptance. Adding that real evidence would affect the protected source/inventory boundary and is
-outside Phase 04 remediation authority.
+On 2026-10-09, the human owner authorized a narrow protected-area exception to add S5-15,
+`S5-15_AIMS_Resource_Allocation_Decision_Record_Template.docx`, to the approved Clause 05 source
+inventory. The artifact is deliberately an uncompleted blank template. It captures record identity
+and AIMS scope, the approving leader and authority, decision date and decision, allocated people,
+budget, tools/infrastructure, scope and conditions, approval reference, and related evidence. It
+contains no fabricated decision, signature, date, or human acceptance.
+
+Question `Q-C05-5.1-004` now requires S5-15 as PRIMARY authoritative decision evidence together
+with S5-05 as CORROBORATING management-review evidence under `ALL_OF`. Both submitted engagement
+records require explicit, question-specific human acceptance. S5-05 alone, S5-15 alone, blank
+template presence, file identity, hash, role title, or acceptance attached to another question
+remains `UNRESOLVED`; explicit rejection of either required record is `UNSUPPORTED`. F02 remains
+ACTION OPEN pending independent verification and a separate human closure decision.
 
 Runtime mappings must match the configured assessment, question, requirement, canonical mapping,
 and `EVD-S5` source tuple before an acceptance can contribute. The source catalog is fixed to the
-approved S5-01 through S5-14 inventory; missing, additional, invented, or substituted identities
+approved S5-01 through S5-15 inventory; missing, additional, invented, or substituted identities
 fail configuration validation.
 
 Excluded: governed Clause 05 workflow, runtime supervisor, permissions, scenarios, release

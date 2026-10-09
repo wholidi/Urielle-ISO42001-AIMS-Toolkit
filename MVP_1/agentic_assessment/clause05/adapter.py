@@ -14,11 +14,7 @@ from agentic_assessment.shared_kernel.validation import (
 )
 
 from .config import load_evidence_map, load_question_bank
-from .validation import (
-    CORROBORATING_ONLY_MAPPING_IDS,
-    Clause05ConfigError,
-    validate_clause05_configuration,
-)
+from .validation import Clause05ConfigError, validate_clause05_configuration
 
 
 def source_evidence_id(source_artifact_id: str) -> str:
@@ -164,12 +160,6 @@ def evaluate_clause05_question(
         )
         expected[mapping_id] = source
 
-    supportable_ids = {
-        mapping_id
-        for mapping_id, source in expected.items()
-        if source["mapping_id"] not in CORROBORATING_ONLY_MAPPING_IDS
-    }
-
     for item in mapping_records:
         source = expected.get(item["mapping_id"])
         if source is None:
@@ -228,20 +218,6 @@ def evaluate_clause05_question(
     accepted_ids = {mid for mid, decision in decisions.items() if decision == "ACCEPTED"}
     rejected_ids = {mid for mid, decision in decisions.items() if decision == "REJECTED"}
     rule = source_mappings[0]["combination_rule"]
-
-    if not supportable_ids:
-        return _override_requirement_result(
-            kernel_result,
-            outcome="UNRESOLVED",
-            rationale=(
-                "Configured evidence is corroborating only; authoritative evidence for "
-                "the question is not established."
-            ),
-        )
-
-    accepted_ids &= supportable_ids
-    rejected_ids &= supportable_ids
-    expected_ids &= supportable_ids
 
     if rule == "ALL_OF":
         if expected_ids and expected_ids <= accepted_ids:

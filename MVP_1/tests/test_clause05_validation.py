@@ -54,13 +54,36 @@ def test_resource_decision_mapping_must_remain_corroborating():
         m for m in em["mappings"] if m["mapping_id"] == "C05MAP-5.1-004-A"
     )
     target["evidence_role"] = "PRIMARY"
-    with pytest.raises(Clause05ConfigError, match="resource-decision"):
+    with pytest.raises(Clause05ConfigError, match="S5-05 corroboration"):
+        validate_clause05_configuration(load_question_bank(), em)
+
+
+def test_resource_decision_mapping_must_use_primary_s5_15():
+    em = load_evidence_map()
+    target = next(
+        m for m in em["mappings"] if m["mapping_id"] == "C05MAP-5.1-004-B"
+    )
+    target["evidence_role"] = "CORROBORATING"
+    with pytest.raises(Clause05ConfigError, match="primary S5-15"):
+        validate_clause05_configuration(load_question_bank(), em)
+
+
+@pytest.mark.parametrize(
+    "mapping_id",
+    ["C05MAP-5.1-004-A", "C05MAP-5.1-004-B"],
+)
+def test_every_resource_decision_mapping_is_required(mapping_id):
+    em = load_evidence_map()
+    em["mappings"] = [
+        mapping for mapping in em["mappings"] if mapping["mapping_id"] != mapping_id
+    ]
+    with pytest.raises(Clause05ConfigError, match="Resource decisions require"):
         validate_clause05_configuration(load_question_bank(), em)
 
 
 def test_artifact_catalog_cannot_omit_an_approved_source():
     em = load_evidence_map()
-    em["artifact_catalog"].remove("S5-14")
+    em["artifact_catalog"].remove("S5-15")
     with pytest.raises(Clause05ConfigError, match="exactly match"):
         validate_clause05_configuration(load_question_bank(), em)
 
@@ -75,11 +98,11 @@ def test_artifact_catalog_cannot_add_an_invented_source():
 def test_approved_source_cannot_be_substituted_by_invented_source():
     em = deepcopy(load_evidence_map())
     em["artifact_catalog"] = [
-        "S5-99" if source == "S5-02" else source
+        "S5-99" if source == "S5-15" else source
         for source in em["artifact_catalog"]
     ]
     for mapping in em["mappings"]:
-        if mapping["evidence_id"] == "S5-02":
+        if mapping["evidence_id"] == "S5-15":
             mapping["evidence_id"] = "S5-99"
     with pytest.raises(Clause05ConfigError, match="exactly match"):
         validate_clause05_configuration(load_question_bank(), em)
