@@ -192,3 +192,24 @@ components:
       - MODIFY_HUMAN_DISPOSITION
       - ISSUE_CERTIFICATION_CONCLUSION
     human_approval_required: false
+
+  # P05-B staged identity only. Disabled until the separately approved runtime exists.
+  # Deliberately absent from permission_matrix.yaml: default DENY applies.
+  - component_id: agentic.clause05_workflow
+    component_type: SEQUENTIAL_SUPERVISOR
+    version: "0.1.0"
+    enabled: false
+    execution_mode: DETERMINISTIC_ONLY
+    implementation: agentic_assessment.clause05.workflow.Clause05Workflow
+    allowed_actions:
+      - EXECUTE_CLAUSE_05_ASSESSMENT
+    prohibited_actions:
+      - CALL_EXTERNAL_MODEL
+      - MODIFY_PROTECTED_PATH
+      - ALTER_SOURCE_EVIDENCE
+      - APPROVE_HUMAN_DECISION
+      - AUTOMATE_HUMAN_APPROVAL
+      - PERFORM_HUMAN_EVIDENCE_ACCEPTANCE
+      - ISSUE_CERTIFICATION_CONCLUSION
+      - RECALCULATE_CLAUSE_04_SCORE
+    human_approval_required: false
